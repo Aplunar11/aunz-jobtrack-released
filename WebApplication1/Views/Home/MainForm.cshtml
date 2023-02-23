@@ -1,0 +1,651 @@
+﻿@model IEnumerable<JobTrack.Models.Manuscript.ManuscriptData>
+
+@{ ViewBag.Title = "Homepage";
+    Layout = "~/Views/Shared/_JobTrackLayout.cshtml"; }
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css" />*@
+
+<style type="text/css">
+    .divider-text {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+        .divider-text span {
+            padding: 7px;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .divider-text:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            top: 55%;
+            left: 0;
+            z-index: 1;
+        }
+
+    td.details-control {
+        background: url('../Image/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control {
+        background: url('../Image/details_close.png') no-repeat center center;
+    }
+
+
+    td.details-control1 {
+        background: url('../Image/details_info.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    th, td {
+        white-space: nowrap;
+    }
+
+    div.dataTables_wrapper {
+        width: 1000px;
+        margin: 0 auto;
+    }
+
+    div.inner {
+        max-width: 1000px;
+        overflow: hidden;
+    }
+
+    .dataTables_scroll {
+        overflow: auto;
+    }
+
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+</style>
+
+<div class="content-body">
+    @if (ViewBag.ErrorMessage != null && ViewBag.ErrorMessage != "")
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;">
+            @ViewBag.ErrorMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>}
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-9">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">My Jobs</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">0</h2>
+                            <p class="text-white mb-0"></p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-7">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Open Jobs</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">0</h2>
+                            <p class="text-white mb-0"></p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-3">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Late Jobs</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">0</h2>
+                            <p class="text-white mb-0"></p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-2">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Due Jobs</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">0</h2>
+                            <p class="text-white mb-0"></p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="properties2">
+                                    <div class="container-fluid px-0">
+                                        <div class="row">
+                                            <div class="col text-center align-items-center text-black-50">
+                                                <h3>My Jobs</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs mb-3" role="tablist" id="myTabs1">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#ProductJobs"><span><i class="fa fa-briefcase"></i>&nbsp;&nbsp;Jobs</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#ProductCoversheet"><span><i class="fa fa-paperclip"></i>&nbsp;&nbsp;Coversheet</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link disabled" data-toggle="tab" href="#ProductSTP"><span><i class="fa fa-print"></i>&nbsp;&nbsp;Send To Print</span></a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content tabcontent-border">
+                                    <div class="tab-pane fade show active" id="ProductJobs" role="tabpanel">
+                                        <div class="p-t-15">
+                                            <div class="">
+                                                <div class="card bg-light">
+                                                    <article class="card-body mx-auto">
+                                                        @*<div id="divMsgClient" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                                                                <span id="spanMsgClient">Message</span>
+                                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>*@
+                                                        @*<div class="d-flex flex-row align-items-center">
+                                                                <div class="p-2">
+                                                                    <button id="btnAddNew" class="btn btn-success btn-circle float-right"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Add New</button>
+                                                                </div>
+                                                                <div class="p-2">
+                                                                    <button id="btnEdit" class="btn btn-info btn-circle float-right"><i class="fa fa-pencil-square"></i>&nbsp;&nbsp;Edit Job</button>
+                                                                </div>
+                                                                <div class="p-2">
+                                                                    <button id="btnEdit2" class="btn btn-secondary btn-circle float-right"><i class="fa fa-pencil-square"></i>&nbsp;&nbsp;Edit Manuscript</button>
+                                                                </div>
+                                                            </div>*@
+                                                        <div class="">
+                                                            <table class="display nowrap" id="tblData" style="width: 100%;">
+                                                                <thead class="table-header-footer">
+                                                                    <tr>
+                                                                        <th>View</th>
+                                                                        <th>Job ID</th>
+                                                                        <th>Job Number</th>
+                                                                        <th>Tier</th>
+                                                                        <th>Product</th>
+                                                                        <th>Service Number</th>
+                                                                        <th>Target Press Date</th>
+                                                                        <th>Actual Press Date</th>
+                                                                        <th>Copyediting</th>
+                                                                        <th>Coding</th>
+                                                                        <th>Online</th>
+                                                                        <th>STP</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tfoot class="table-header-footer">
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th>Job ID</th>
+                                                                        <th>Job Number</th>
+                                                                        <th>Tier</th>
+                                                                        <th>Product</th>
+                                                                        <th>Service Number</th>
+                                                                        <th>Target Press Date</th>
+                                                                        <th>Actual Press Date</th>
+                                                                        <th>Copyediting</th>
+                                                                        <th>Coding</th>
+                                                                        <th>Online</th>
+                                                                        <th>STP</th>
+                                                                    </tr>
+                                                                </tfoot>
+                                                            </table>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProductCoversheet" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <div class="card bg-light">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProductSTP" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <div class="card bg-light">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #/ container -->
+</div>
+
+<!-- Edit Modal -->
+<div id="modalWrapper">
+    @* Inject form here *@
+</div>
+@section scripts
+{
+
+    <script type="text/javascript">
+        //TBD
+        moment.updateLocale(moment.locale(), { invalidDate: "TBD" });
+        // Setup - add a text input to each footer cell
+        $('#tblData tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        $(document).ready(function () {
+            var tableData = $('#tblData').DataTable({
+                "scrollX": true,
+                "ajax": {
+                    "url": "@Url.Action("GetJobTrackData", "Home")",
+                    /*"url": "/Home/GetJobTrackData",*/
+                    "dataSrc": "",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": [6],
+                    "render": function (data) {
+                        return moment(data).format('YYYY/MM/DD');
+                    }
+                },
+                {
+                    "targets": [7],
+                    "render": function (data) {
+                        return moment(data).format('YYYY/MM/DD');
+                    }
+                },
+                {
+                    "targets": [1],
+                    "visible": false,
+                    "searchable": false
+                }],
+                columns: [
+                    {
+                        "className": 'details-control',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ''
+                    },
+                    { "data": "JobID" },
+                    { "data": "JobNumber" },
+                    { "data": "ManuscriptTier" },
+                    { "data": "BPSProductID" },
+                    { "data": "ServiceNumber" },
+                    { "data": "TargetPressDate" },
+                    { "data": "ActualPressDate" },
+                    { "data": "CopyEditStatus" },
+                    { "data": "CodingStatus" },
+                    { "data": "OnlineStatus" },
+                    { "data": "STPStatus" }
+                ],
+                order: [[2, 'asc']],
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                initComplete: function () {
+                    // Apply the search
+                    //init = false;
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                },
+                createdRow: function (row, data, index) {
+                    if (data.extn === '') {
+                        var td = $(row).find("td:first");
+                        td.removeClass('details-control');
+                    }
+                },
+                rowCallback: function (row, data, index) {
+                    //console.log('rowCallback');
+                }
+            });
+            //Add event listener for opening and closing first level childdetails
+            $('#tblData tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = tableData.row(tr);
+                var rowData = row.data();
+
+                //get index to use for child table ID
+                var index = row.index();
+                console.log(index);
+                var data = tableData.row(this).data(); //undefined
+                console.log(data);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child(
+                        '<div class="inner"><table class="child_table display nowrap" id = "child_details' + index + '" cellpadding="5" cellspacing="0" border="0" style="padding-left:50px; width:100%;">' +
+                        '<thead><tr><th></th><th>ManuscriptID</th><th>Job Number</th><th>Tier</th>' +
+                        '<th>Product</th><th>Service Number</th><th>Manuscript or Leg Title</th><th>Status</th>' +
+                        '<th>Target Press Date</th><th>Actual Press Date</th><th>Latup Attribution</th><th>Date Received From Author</th>' +
+                        '<th>Update Type</th><th>Job Specific Instruction</th><th>Task Type</th><th>PE Guide Card</th>' +
+                        '<th class="toggle-all"><i id="select_all" name="select_invoice"></i></th><th>PE Task Number</th><th>Revised Online Due Date</th><th>Copyedit Due Date</th>' +
+                        '<th>Copyedit Start Date</th><th>Copyedit Done Date</th><th>Copyedit Status</th><th>Coding Due Date</th>' +
+                        '<th>Coding Done Date</th><th>Coding Status</th><th>Online Due Date</th><th>Online Done Date</th>' +
+                        '<th>Online Status</th><th>STP Status</th><th>Estimated Pages</th><th>Actual TAT</th>' +
+                        '<th>Online Timeliness</th><th>Reason If Late</th><th>PE Coversheet Number</th><th>Date Created</th>' +
+                        '</tr></thead>' +
+                        '<tfoot><tr><th></th><th>ManuscriptID</th><th>Job Number</th><th>Tier</th>' +
+                        '<th>Product</th><th>Service Number</th><th>Manuscript or Leg Title</th><th>Status</th>' +
+                        '<th>Target Press Date</th><th>Actual Press Date</th><th>Latup Attribution</th><th>Date Received From Author</th>' +
+                        '<th>Update Type</th><th>Job Specific Instruction</th><th>Task Type</th><th>PE Guide Card</th>' +
+                        '<th class="toggle-all"></th><th>PE Task Number</th><th>Revised Online Due Date</th><th>Copyedit Due Date</th>' +
+                        '<th>Copyedit Start Date</th><th>Copyedit Done Date</th><th>Copyedit Status</th><th>Coding Due Date</th>' +
+                        '<th>Coding Done Date</th><th>Coding Status</th><th>Online Due Date</th><th>Online Done Date</th>' +
+                        '<th>Online Status</th><th>STP Status</th><th>Estimated Pages</th><th>Actual TAT</th>' +
+                        '<th>Online Timeliness</th><th>Reason If Late</th><th>PE Coversheet Number</th><th>Date Created</th>' +
+                        '</tr></tfoot>' +
+                        '</table ></div > ').show();
+
+                    $('#child_details' + index + ' tfoot th').each(function () {
+                        var title = $(this).text();
+                        $(this).html('<input type="text" placeholder="' + title + '" />');
+                    });
+
+                    var childTable = $('#child_details' + index).DataTable({
+                        //"scrollX": true, 
+                        //removed responsive
+                        "ajax": {
+                            "url": "@Url.Action("Manuscript", "Manuscript")",
+                            /*"url": "/Manuscript/Manuscript",*/
+                            "dataSrc": "",
+                            "type": "GET",
+                            "datatype": "json",
+                            "data": function (d) {
+                                d.bpsproductid = data['BPSProductID'];
+                                d.servicenumber = data['ServiceNumber'];
+                            }
+                        },
+                        "columnDefs": [{
+                            "targets": [8],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        {
+                            "targets": [9],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        //pecheckbox
+                        {
+                            "targets": [16],
+                            orderable: false,
+                            className: 'select-checkbox'
+                        },
+                        //pestartnumber
+                        {
+                            "targets": [17],
+                            //"render": function (data) {
+                            //return '<a href="http://www.nature.com/submissions/'+data+'">'+data+'</a>';
+                            "render": function (data, type, full, meta) {
+                                var aFormat = moment(data).format('YYYY/MM/DD');
+                                return '<a href="https://localhost:44354/LE/Mainform' + aFormat + '">[CREATE TASK LINK]</a>';
+                            }
+                        },
+                        {
+                            "targets": [18],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        {
+                            "targets": [19],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        //copyeditstartdate
+                        {
+                            "targets": [20],
+                            //"render": function (data) {
+                            //return '<a href="http://www.nature.com/submissions/'+data+'">'+data+'</a>';
+                            "render": function (data, type, full, meta) {
+                                var aFormat = moment(data).format('YYYY/MM/DD');
+                                return '<a href="https://localhost:44354/LE/Mainform' + aFormat + '">[START LINK]</a>';
+                            }
+                        },
+                        {
+                            "targets": [21],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        {
+                            "targets": [23],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        {
+                            "targets": [24],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        {
+                            "targets": [26],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        {
+                            "targets": [27],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        {
+                            "targets": [35],
+                            "render": function (data) {
+                                return moment(data).format('YYYY/MM/DD');
+                            }
+                        },
+                        {
+                            "targets": [1],
+                            "visible": false,
+                            "searchable": false
+                        }],
+                        columns: [
+                            {
+                                "className": 'details-control1',
+                                "orderable": false,
+                                "data": null,
+                                "defaultContent": ''
+                            },
+                            { "data": "ManuscriptID" },
+                            { "data": "JobNumber" },
+                            { "data": "ManuscriptTier" },
+                            { "data": "BPSProductID" },
+                            { "data": "ServiceNumber" },
+                            { "data": "ManuscriptLegTitle" },
+                            { "data": "ManuscriptStatus" },
+                            { "data": "TargetPressDate" },
+                            { "data": "ActualPressDate" },
+                            { "data": "LatupAttribution" },
+                            { "data": "DateReceivedFromAuthor" },
+                            { "data": "UpdateType" },
+                            { "data": "JobSpecificInstruction" },
+                            { "data": "TaskType" },
+                            { "data": "PEGuideCard" },
+                            { "data": "PECheckbox" },
+                            { "data": "PETaskNumber" },
+                            { "data": "RevisedOnlineDueDate" },
+                            { "data": "CopyEditDueDate" },
+                            { "data": "CopyEditStartDate" },
+                            { "data": "CopyEditDoneDate" },
+                            { "data": "CopyEditStatus" },
+                            { "data": "CodingDueDate" },
+                            { "data": "CodingDoneDate" },
+                            { "data": "CodingStatus" },
+                            { "data": "OnlineDueDate" },
+                            { "data": "OnlineDoneDate" },
+                            { "data": "OnlineStatus" },
+                            { "data": "STPStatus" },
+                            { "data": "EstimatedPages" },
+                            { "data": "ActualTurnAroundTime" },
+                            { "data": "OnlineTimeliness" },
+                            { "data": "ReasonIfLate" },
+                            { "data": "PECoversheetNumber" },
+                            { "data": "DateCreated" },
+                        ],
+                        dom: 'Bfrtip',
+                        buttons: [
+                            'copyHtml5',
+                            'excelHtml5',
+                            'csvHtml5',
+                            'pdfHtml5'
+                        ],
+                        initComplete: function (settings, json) {
+                            // Apply the search
+                            //init = false;
+                            //scrollx initiator
+                            $('#child_details' + index).wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                            this.api().columns().every(function () {
+                                var that = this;
+
+                                $('input', this.footer()).on('keyup change clear', function () {
+                                    if (that.search() !== this.value) {
+                                        that
+                                            .search(this.value)
+                                            .draw();
+                                    }
+                                });
+                            });
+                        },
+                        destroy: true
+                    }).on('select.dt deselect.dt', function (evtObj) {
+                        var all = childTable.rows().nodes().length;
+                        var sel = childTable.rows(".selected").nodes().length;
+
+                        console.log(all, sel);
+
+                        if (all === sel) {
+
+                            $(".toggle-all").closest("tr").addClass("selected");
+                        }
+                        else {
+
+                            $(".toggle-all").closest("tr").removeClass("selected");
+                        }
+
+                    });
+                    tr.addClass('shown');
+                }
+
+                $('#child_details' + index).on('click', '.toggle-all', function () {
+                    $(this).closest("tr").toggleClass("selected");
+                    if ($(this).closest("tr").hasClass("selected")) {
+                        childTable.rows().select();
+                    }
+                    else {
+                        childTable.rows().deselect();
+                    }
+
+                });
+                $('.child_table tbody').off().on('click', 'td.details-control1', function () {
+                    var c_tr = $(this).closest('tr');
+                    var c_row = childTable.row(c_tr);
+                    var rowData = c_row.data();
+                    var dataNew = childTable.row(this).data();
+
+                    $.ajax({
+                        "url": "@Url.Action("EditPEManuscript", "Manuscript")",
+                        /*url: "/Manuscript/EditPEManuscript",*/
+                        "contentType": "application/json; charset=utf-8",
+                        data: {
+                            manuscriptid: dataNew['ManuscriptID'],
+                            bpsproductid: dataNew['BPSProductID'],
+                            servicenumber: dataNew['ServiceNumber']
+                        },
+                        success: function (data) {
+                            $('#modalWrapper').html(data);
+                            $('#EditPEManuscriptModal').modal('show');
+
+                        }
+                    });
+                });
+            });
+            //************Show New User Modal**************
+            $("#btnAddNew").click(function () {
+                //var datacount = $("#lblCount").text();
+                $.ajax({
+                    "url": "@Url.Action("AddNewJob", "Job")",
+                   /*url: "/Job/AddNewJob",*/
+                    contentType: "application/json; charset=utf-8",
+                    data: "",
+                    success: function (data) {
+
+                        $('#modalWrapper').html(data);
+
+                        $('#AddNewJobModal').modal('show');
+                    }
+                });
+            });
+            //************Show New User Modal**************
+            $("#btnEdit").click(function () {
+                //var datacount = $("#lblCount").text();
+                $.ajax({
+                    "url": "@Url.Action("EditJob", "Job")",
+                    /*url: "/Job/EditJob",*/
+                    contentType: "application/json; charset=utf-8",
+                    data: "",
+                    success: function (data) {
+
+                        $('#modalWrapper').html(data);
+
+                        $('#EditJobModal').modal('show');
+                    }
+                });
+            });
+        });
+                                                //***************End*******************8
+
+    </script>
+}

@@ -1,0 +1,422 @@
+﻿@model JobTrack.Models.Coversheet.CoversheetData
+
+<style type="text/css">
+    .bootstrap-select > .dropdown-toggle {
+        height: 40px;
+    }
+    .checkbox-wrapper {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+    }
+</style>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="AddNewCoversheetModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#009688;color:white">
+                <h5 class="modal-title" id="confirmModalLabel">Add New Coversheet</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("AddNewCoversheet", "Coversheet", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body">
+                    <div id="divMsgClientEdit" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                        <span id="spanMsgClientEdit">Message</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+
+                        <div class="row">
+                            <div class="col-6">
+                                @Html.HiddenFor(model => model.ManuscriptID, new { @class = "" })
+                                @Html.HiddenFor(model => model.CoversheetTier, new { @class = "" })
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CoversheetNumber, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.CoversheetNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CoversheetNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BPSProductID, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.BPSProductID, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.BPSProductID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ServiceNumber, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ServiceNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ServiceNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TaskNumber, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.TaskNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.TaskNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Editor, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.Editor, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Editor, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ChargeCode, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ChargeCode, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ChargeCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TargetPressDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.TargetPressDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.TargetPressDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TaskType, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.TaskType, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.TaskType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.GuideCard, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.GuideCard, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.GuideCard, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.FurtherInstructions, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.FurtherInstructions, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FurtherInstructions, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    @if (TempData["UpdateTypes"] != null)
+                                    {
+                                        @Html.LabelFor(model => model.UpdateType, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                        <div class="col-sm-12">
+                                            @Html.DropDownListFor(model => model.UpdateType, TempData["UpdateTypes"] as SelectList, new { @class = "selects show-tick form-control" })
+                                            @Html.ValidationMessageFor(model => model.UpdateType, "", new { @class = "text-danger" })
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.GeneralData, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.GeneralData, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.GeneralData, "", new { @class = "text-danger" })
+                                    </div>
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12 checkbox-wrapper border">
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check1" name="severity[]" value="1" checked>
+                                            <label class="form-check-label" for="check1">Commentary</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check2" name="severity[]" value="2" checked>
+                                            <label class="form-check-label" for="check2">Leg Ammendments</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check3" name="severity[]" value="3" checked>
+                                            <label class="form-check-label" for="check3">New Leg</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check4" name="severity[]" value="4" checked>
+                                            <label class="form-check-label" for="check4">Predicaments/Prac Notes</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check5" name="severity[]" value="5" checked>
+                                            <label class="form-check-label" for="check5">Leg Ref Check</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check6" name="severity[]" value="6" checked>
+                                            <label class="form-check-label" for="check6">TOC</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check7" name="severity[]" value="7" checked>
+                                            <label class="form-check-label" for="check7">TOS</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check8" name="severity[]" value="8" checked>
+                                            <label class="form-check-label" for="check8">Reprints</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check9" name="severity[]" value="9" checked>
+                                            <label class="form-check-label" for="check9">Fascicle Insertion</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check10" name="severity[]" value="10" checked>
+                                            <label class="form-check-label" for="check10">Graphic-Link</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check11" name="severity[]" value="11" checked>
+                                            <label class="form-check-label" for="check11">Graphic-Embed</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check12" name="severity[]" value="12" checked>
+                                            <label class="form-check-label" for="check12">Handtooling</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check13" name="severity[]" value="13" checked>
+                                            <label class="form-check-label" for="check13">Non-Content</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check14" name="severity[]" value="14" checked>
+                                            <label class="form-check-label" for="check14">Sample Pages</label>
+                                        </div>
+                                        <div class="checkbox-inline">
+                                            <input class="form-check-input" type="checkbox" id="check15" name="severity[]" value="15" checked>
+                                            <label class="form-check-label" for="check15">Complex Task</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SpecialInstruction, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.SpecialInstruction, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SpecialInstruction, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CodingDueDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.CodingDueDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.CodingDueDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.XMLEditing, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.CheckBoxFor(model => model.XMLEditing, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                        @Html.ValidationMessageFor(model => model.XMLEditing, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OnlineDueDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.OnlineDueDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.OnlineDueDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OnlineStatus, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.CheckBoxFor(model => model.OnlineStatus, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                        @Html.ValidationMessageFor(model => model.OnlineStatus, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CorrectionDueDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.CorrectionDueDate, new { htmlAttributes = new { @class = "form-control datepicker", autocomplete = "off" } })
+                                        @Html.ValidationMessageFor(model => model.CorrectionDueDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CorrectionData, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.CorrectionData, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CorrectionData, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control", @Value = Model.DateCreated.ToString("yyyy-MM-dd") } })
+                                        @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btnSave" type="button" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //
+    $('.datepicker').datepicker({
+        todayHighlight: true,
+        format: 'yyyy-mm-dd',
+        clearBtn: true,
+        autoclose: true
+    });
+    $(document).ready(function () {
+        $('.selects').selectpicker(
+            {
+                width: '100%',
+                title: '"-- Select --"',
+                size: 10,
+                liveSearch: true
+            });
+            $("#UpdateType").on("change", function () {
+                var datecreated = $("#DateCreated");
+                var url = '@Url.Action("GetTaskType", "Coversheet")' + "?selectedItem=" + encodeURIComponent($(this).val());
+                $("#TaskType").load(url, function (data) {
+                    $('#TaskType').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCoding", "Coversheet")' + "?selectedItem=" + encodeURIComponent($(this).val()) + "&datecreated=" + datecreated.val();
+                $("#CodingDueDate").load(url, function (data) {
+                    $('#CodingDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATOnline", "Coversheet")' + "?selectedItem=" + encodeURIComponent($(this).val()) + "&datecreated=" + datecreated.val();
+                $("#OnlineDueDate").load(url, function (data) {
+                    $('#OnlineDueDate').val(data.replace(/['"]+/g, ''));
+                })
+            });
+
+        //$("#TargetPressDate").datepicker({ format: 'yyyy-mm-dd' });
+        //$('#TargetPressDate').datepicker({
+        //    format: 'yyyy-mm-dd',
+        //    orientation: "top",
+        //    autoclose: true
+        //});
+        $("#divMsgClientEdit").hide();
+        //Update User Data
+        $("#btnSave").click(function (e) {
+            //Disable save button
+            EnableSave(false);
+            var $form = $('#myForm');
+            //Validate form data
+            $.validator.unobtrusive.parse($form);
+            if ($form.valid()) {
+                var obj =
+                {
+                    "ManuscriptID": $("#ManuscriptID").val(),
+                    "CoversheetTier": $("#CoversheetTier").val(),
+                    "CoversheetNumber": $("#CoversheetNumber").val(),
+                    "BPSProductID": $("#BPSProductID").val(),
+                    "ServiceNumber": $("#ServiceNumber").val(),
+                    "TaskNumber": $("#TaskNumber").val(),
+                    "Editor": $("#Editor").val(),
+                    "ChargeCode": $("#ChargeCode").val(),
+                    "TargetPressDate": $("#TargetPressDate").val(),
+                    "TaskType": $("#TaskType").val(),
+                    "GuideCard": $("#GuideCard").val(),
+                    "FurtherInstructions": $("#FurtherInstructions").val(),
+                    "UpdateType": $("#UpdateType").val(),
+                    "GeneralData": $("#GeneralData").val(),
+                    "SpecialInstruction": $("#SpecialInstruction").val(),
+                    "CodingDueDate": $("#CodingDueDate").val(),
+
+                    "XMLEditing": $("#XMLEditing").is(':checked'),
+                    "OnlineDueDate": $("#OnlineDueDate").val(),
+                    "OnlineStatus": $("#OnlineStatus").is(':checked'),
+                    "CorrectionDueDate": $("#CorrectionDueDate").val(),
+                    "CorrectionData": $("#CorrectionData").val(),
+
+                };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: $form.attr("action"),
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            $("#divMsgClientEdit").addClass("alert-success");
+                            $("#spanMsgClientEdit").text("Coversheet added successfully");
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                        else {
+                            $("#divMsgClientEdit").addClass("alert-warning");
+                            $("#spanMsgClientEdit").text(response.ErrorMessage);
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    },
+                    error: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+
+                });
+
+            }
+            else {
+                EnableSave(true);
+                return false;
+            }
+        });
+        //when close modal then reload window to refresh data
+        $(".modal-close").click(function () {
+            $('#AddNewManuscriptModal').modal('hide');
+            window.location.reload();
+        });
+    });
+
+    function EnableSave(param) {
+        if (param == true) {
+            $("#btnSave").html("Save");
+            $("#btnSave").removeClass("disabled");
+        }
+        else {
+            $("#btnSave").html("Saving...");
+            $("#btnSave").addClass('disabled');
+        }
+    }
+</script>

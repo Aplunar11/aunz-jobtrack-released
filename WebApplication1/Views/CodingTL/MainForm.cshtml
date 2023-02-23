@@ -1,0 +1,691 @@
+﻿@model IEnumerable<JobTrack.Models.Manuscript.ManuscriptData>
+
+@{ ViewBag.Title = "Homepage";
+    Layout = "~/Views/Shared/_JobTrackLayout_CodingTL.cshtml"; }
+
+<style type="text/css">
+    /*table icons*/
+    td.details-control, td.details-control2 {
+        background: url('../Image/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control, tr.shown td.details-control2 {
+        background: url('../Image/details_close.png') no-repeat center center;
+    }
+
+
+    td.details-control1, td.details-control3 {
+        background: url('../Image/details_info.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    div.outer {
+        width: 90%;
+        margin: 0 auto;
+        overflow: hidden;
+        padding-bottom: 20px;
+    }
+
+    /*    div.inner {
+        max-width: 900px;
+        overflow: hidden;
+    }*/
+    div.inner {
+        max-width: 1050px;
+        justify-content: left;
+        /*max-width: 30%;*/
+        overflow: hidden;
+    }
+    /*custom search button on footer*/
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    /*font-awesome export button*/
+    .custom-btn {
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    /*center datatables content*/
+    th.dt-center, td.dt-center {
+        text-align: center;
+    }
+    /*remove searchbar*/
+    .dataTables_filter {
+        display: none;
+    }
+
+    /*tab style*/
+    section {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    :root {
+        --m5-tabs-bg: #e1e1e1;
+        --m5-border: #aaa;
+        --m5-tab-text: #888;
+        --m5-tab-bg: #e1e1e1;
+        --m5-tab-hover-text: #009688;
+        --m5-tab-hover-bg: #e1e1e1;
+        --m5-tab-hover-bg-card: #F8F9FA;
+    }
+
+    #MainTable .nav-tabs {
+        position: relative;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: flex;
+        margin: 0 auto;
+        padding: 0;
+        max-width: 1500px;
+        list-style: none;
+        -ms-box-orient: horizontal;
+        -ms-box-pack: center;
+        -webkit-flex-flow: row wrap;
+        -moz-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        -ms-justify-content: center;
+        justify-content: center;
+        border: 0;
+    }
+
+    #MainTable .nav .nav-item {
+        position: relative;
+        z-index: 1;
+        display: block;
+        margin: 0;
+        text-align: center;
+        -webkit-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+
+    #MainTable .nav .nav-link {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 2.5;
+        border: 1px solid var(--m5-border);
+        border-radius: 4;
+        padding: 0.65em 0 0.5em;
+        background: var(--m5-tab-bg);
+        color: var(--m5-tab-text);
+        line-height: 1;
+        -webkit-transition: color 0.2s;
+        transition: color 0.2s;
+        outline: unset;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        font-size: 0.8em;
+    }
+
+        #MainTable .nav .nav-link:hover {
+            background-color: var(--m5-tab-hover-bg);
+            color: var(--m5-tab-hover-text);
+        }
+
+        #MainTable .nav .nav-link.active,
+        #MainTable .nav .nav-link.active:hover {
+            background: var(--m5-tab-hover-bg-card);
+            border-top-color: var(--m5-tab-hover-text);
+            border-bottom: none;
+            box-shadow: inset 0 3px 0 var(--m5-tab-hover-text);
+            color: var(--m5-tab-hover-text);
+        }
+
+    #MainTable .nav i {
+        display: block;
+        margin: 0;
+        font-size: 2.4em;
+        line-height: 1;
+        speak: none;
+        -webkit-backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    /*elipsis*/
+    table.dataTable td:nth-child(n) {
+        max-width: 100px;
+    }
+
+    table.dataTable td {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
+
+
+<div class="content-body">
+    @if (ViewBag.ErrorMessage != null && ViewBag.ErrorMessage != "")
+    {
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;">
+    @ViewBag.ErrorMessage
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-9">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">My Jobs</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">0</h2>
+                            <p class="text-white mb-0"></p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-shopping-cart"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-7">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Open Jobs</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">0</h2>
+                            <p class="text-white mb-0"></p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-money"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-3">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Late Jobs</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">0</h2>
+                            <p class="text-white mb-0"></p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-users"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card gradient-2">
+                    <div class="card-body">
+                        <h3 class="card-title text-white">Due Jobs</h3>
+                        <div class="d-inline-block">
+                            <h2 class="text-white">0</h2>
+                            <p class="text-white mb-0"></p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-heart"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="properties2">
+                                    <div class="container-fluid px-0">
+                                        <div class="row">
+                                            <div class="col text-center align-items-center text-black-50">
+                                                <h3>My Jobs</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <section id="MainTable">
+                                    <!-- Nav tabs -->
+                                    <div class="tabs-container">
+                                        <ul class="nav nav-tabs container" role="tablist" id="myTabs1">
+                                            <li class="nav-item">
+                                                <a class="nav-link disabled" data-toggle="tab" href="#ProductJobs"><span><i class="fa fa-briefcase"></i>&nbsp;&nbsp;Manuscript</span></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#ProductCoversheet"><span><i class="fa fa-paperclip"></i>&nbsp;&nbsp;Task | Coding</span></a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link disabled" data-toggle="tab" href="#ProductSTP"><span><i class="fa fa-print"></i>&nbsp;&nbsp;Send To Print</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content tabcontent-border">
+                                        <div class="tab-pane fade show" id="ProductJobs" role="tabpanel">
+                                            <div class="card bg-light">
+                                                @*<div class="d-flex p-3">
+                                                        <div class="p-2">
+                                                            <button id="btnAddNew" class="btn btn-success btn-circle float-right"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Add New</button>
+                                                        </div>
+                                                    </div>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade show active" id="ProductCoversheet" role="tabpanel">
+                                        <div class="card bg-light">
+
+                                            @*<div class="d-flex p-3">
+                                                    <div class="p-2">
+                                                        <button id="btnAddNew1" class="btn btn-success btn-circle float-right"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Add New</button>
+                                                    </div>
+                                                </div>*@
+                                            <div class="outer">
+                                                <table class="display nowrap" id="tblData1" style="width: 100%;">
+                                                    <thead class="table-header-footer">
+                                                        <tr>
+                                                            <th>View</th>
+                                                            <th>Coversheet ID</th>
+                                                            <th>Tier</th>
+                                                            <th>Product</th>
+                                                            <th>Service Number</th>
+                                                            <th>Latest Task Number</th>
+                                                            <th>Coding Status</th>
+                                                            <th>PDF QA Status</th>
+                                                            <th>Online Status</th>
+                                                            <th>Date Created</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot class="table-header-footer">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>Coversheet ID</th>
+                                                            <th>Tier</th>
+                                                            <th>Product</th>
+                                                            <th>Service Number</th>
+                                                            <th>Latest Task Number</th>
+                                                            <th>Coding Status</th>
+                                                            <th>PDF QA Status</th>
+                                                            <th>Online Status</th>
+                                                            <th>Date Created</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="ProductSTP" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <div class="card bg-light">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #/ container -->
+</div>
+
+<!-- Edit Modal -->
+<div id="modalWrapper">
+    @* Inject form here *@
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+        //TBD
+        moment.updateLocale(moment.locale(), { invalidDate: "TBD" });
+        // Setup - add a text input to each footer cell
+        $('#tblData1 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        $(document).ready(function () {
+            //
+            $("#btnAddNew1").click(function () {
+                $.ajax({
+                    "url": "@Url.Action("AddNewCoversheet", "Coversheet")",
+                    contentType: "application/json; charset=utf-8",
+                    data: "",
+                    success: function (data) {
+
+                        $('#modalWrapper').html(data);
+
+                        $('#AddNewCoversheetModal').modal('show');
+                    }
+                });
+            });
+            //
+            var tableData1 = $('#tblData1').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("GetJobCoversheetData", "JobCoversheet")",
+                    "dataSrc": "",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columnDefs": [
+                    //center all data
+                    { "className": "dt-center", "targets": "_all" },
+                    {
+                        "targets": [9],
+                        "render": function (data) {
+                            return moment(data).format('D/MMM/YY');
+                        }
+                    },
+                    {
+                        "targets": [1],
+                        "visible": false,
+                        "searchable": false
+                    }],
+                columns: [
+                    {
+                        "className": 'details-control2',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ''
+                    },
+                    { "data": "JobCoversheetID" },
+                    { "data": "CoversheetTier" },
+                    { "data": "BPSProductID" },
+                    { "data": "ServiceNumber" },
+                    { "data": "LatestTaskNumber" },
+                    { "data": "CodingStatus" },
+                    { "data": "PDFQAStatus" },
+                    { "data": "OnlineStatus" },
+                    { "data": "DateCreated" }
+                ],
+                order: [[9, 'desc']],
+                dom: 'Bfrtip',
+                buttons: {
+                    //reset class and change the rendered tag
+                    //from <button> to <i>
+                    dom: {
+                        button: {
+                            tag: 'i',
+                            className: ''
+                        }
+                    },
+                    //since we now have completely unstyled icons add
+                    //some space between them trough a .custom-btn class
+                    buttons: [
+                        {
+                            titleAttr: 'Copy',
+                            extend: 'copyHtml5',
+                            className: 'custom-btn fa fa-clipboard',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as Excel',
+                            extend: 'excelHtml5',
+                            className: 'custom-btn fa fa-file-excel-o',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as CSV',
+                            extend: 'csvHtml5',
+                            className: 'custom-btn fa fa-file-text-o',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as PDF',
+                            extend: 'pdfHtml5',
+                            className: 'custom-btn fa fa-file-pdf-o',
+                            text: ''
+                        }
+
+                    ]
+                },
+                initComplete: function () {
+                    // Apply the search
+                    //scrollx initiator
+                    $('#tblData1').wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                    //init = false;
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                },
+                createdRow: function (row, data, index) {
+                    if (data.extn === '') {
+                        var td = $(row).find("td:first");
+                        td.removeClass('details-control');
+                    }
+                },
+                rowCallback: function (row, data, index) {
+                    //console.log('rowCallback');
+                }
+            });
+            $('#tblData1 tbody').on('click', 'td.details-control2', function () {
+                var tr = $(this).closest('tr');
+                var row = tableData1.row(tr);
+                var rowData = row.data();
+                var data = tableData1.row(this).data();
+                //get index to use for child table ID
+                var index = row.index();
+                //console.log(index);
+                //console.log(data);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child(
+                        '<div class="inner">' +
+                        '<table class= "child_table1 display nowrap" id = "child_details1' + index + '" cellpadding = "5" cellspacing = "0" border = "0" style = "width:100%;" > ' +
+                        '<thead><tr><th></th><th>CoversheetID</th><th>Coversheet Number</th><th>Tier</th><th>Product</th>' +
+                        '<th>Service Number</th><th>Guide Card(s)</th><th>Location Of Manuscript</th><th>Further Instructions</th>' +
+                        '<th>Current Task</th><th>Status</th><th>Target Press Date</th><th>Actual Press Date</th>' +
+                        '<th>Coding Due Date</th><th>Coding Start</th><th>Coding Done</th>' +
+                        '<th>Online Due Date</th><th>Online Start</th><th>Online Done</th>' +
+                        '<th>Online Timeliness</th><th>Remarks</th><th>Job Owner</th>' +
+                        '</tr></thead>' +
+                        '<tfoot><tr><th></th><th>CoversheetID</th><th>Coversheet Number</th><th>Tier</th><th>Product</th>' +
+                        '<th>Service Number</th><th>Guide Card(s)</th><th>Location Of Manuscript</th><th>Further Instructions</th>' +
+                        '<th>Current Task</th><th>Status</th><th>Target Press Date</th><th>Actual Press Date</th>' +
+                        '<th>Coding Due Date</th><th>Coding Start</th><th>Coding Done</th>' +
+                        '<th>Online Due Date</th><th>Online Start</th><th>Online Done</th>' +
+                        '<th>Online Timeliness</th><th>Remarks</th><th>Job Owner</th>' +
+                        '</tr></tfoot>' +
+                        '</table ></div > ').show();
+                    $('#child_details1' + index + ' tfoot th').each(function () {
+                        var title = $(this).text();
+                        $(this).html('<input type="text" placeholder="' + title + '" />');
+                    });
+                    var childTable1 = $('#child_details1' + index).DataTable({
+                        "ajax": {
+                            "url": "@Url.Action("GetCoversheetData", "Coversheet")",
+                            "dataSrc": "",
+                            "type": "GET",
+                            "datatype": "json",
+                            "data": function (d) {
+                                d.bpsproductid = data['BPSProductID'];
+                                d.servicenumber = data['ServiceNumber'];
+                            }
+                        },
+                        "columnDefs": [
+                            //center all data
+                            { "className": "dt-center", "targets": "_all" },
+                            {
+                                "targets": [11],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            },
+                            {
+                                "targets": [12],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            },
+                            {
+                                "targets": [13],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            },
+                            {
+                                "targets": [14],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            },
+                            {
+                                "targets": [15],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            },
+                            {
+                                "targets": [16],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            },
+                            {
+                                "targets": [17],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            },
+                            {
+                                "targets": [18],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            },
+                            {
+                                "targets": [19],
+                                "render": function (data) {
+                                    return moment(data).format('D/MMM/YY');
+                                }
+                            }],
+                        columns: [
+                            {
+                                "className": 'details-control3',
+                                "orderable": false,
+                                "data": null,
+                                "defaultContent": ''
+                            },
+                            { "data": "CoversheetID" },
+                            { "data": "CoversheetNumber" },
+                            { "data": "CoversheetTier" },
+                            { "data": "BPSProductID" },
+                            { "data": "ServiceNumber" },
+                            { "data": "GuideCard" },
+                            { "data": "LocationOfManuscript" },
+                            { "data": "FurtherInstruction" },
+                            { "data": "CurrentTask" },
+                            { "data": "TaskStatus" },
+                            { "data": "TargetPressDate" },
+                            { "data": "ActualPressDate" },
+                            { "data": "CodingDueDate" },
+                            { "data": "CodingStartDate" },
+                            { "data": "CodingDoneDate" },
+                            //{ "data": "SubsequentPass" },
+                            { "data": "OnlineDueDate" },
+                            { "data": "OnlineStartDate" },
+                            { "data": "OnlineDoneDate" },
+                            { "data": "OnlineTimeliness" },
+                            { "data": "ReasonIfLate" },
+                            { "data": "JobOwner" }
+                        ],
+                        order: [[2, 'asc']],
+                        dom: 'Bfrtip',
+                        buttons: {
+                            //reset class and change the rendered tag
+                            //from <button> to <i>
+                            dom: {
+                                button: {
+                                    tag: 'i',
+                                    className: ''
+                                }
+                            },
+                            //since we now have completely unstyled icons add
+                            //some space between them trough a .custom-btn class
+                            buttons: [
+                                {
+                                    titleAttr: 'Copy',
+                                    extend: 'copyHtml5',
+                                    className: 'custom-btn fa fa-clipboard',
+                                    text: ''
+                                },
+                                {
+                                    titleAttr: 'Download as Excel',
+                                    extend: 'excelHtml5',
+                                    className: 'custom-btn fa fa-file-excel-o',
+                                    text: ''
+                                },
+                                {
+                                    titleAttr: 'Download as CSV',
+                                    extend: 'csvHtml5',
+                                    className: 'custom-btn fa fa-file-text-o',
+                                    text: ''
+                                },
+                                {
+                                    titleAttr: 'Download as PDF',
+                                    extend: 'pdfHtml5',
+                                    className: 'custom-btn fa fa-file-pdf-o',
+                                    text: ''
+                                }
+
+                            ]
+                        },
+                        initComplete: function (settings, json) {
+                            // Apply the search
+                            //init = false;
+                            //scrollx initiator
+                            $('#child_details1' + index).wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                            this.api().columns().every(function () {
+                                var that = this;
+
+                                $('input', this.footer()).on('keyup change clear', function () {
+                                    if (that.search() !== this.value) {
+                                        that
+                                            .search(this.value)
+                                            .draw();
+                                    }
+                                });
+                            });
+                        },
+                        destroy: true
+                    });
+                    tr.addClass('shown');
+                }
+                $('.child_table1 tbody').off().on('click', 'td.details-control3', function () {
+                    var c_tr = $(this).closest('tr');
+                    var c_row = childTable1.row(c_tr);
+                    var rowData = c_row.data();
+                    //var tableData2 = $('#child_details' + index);
+                    var dataNew = childTable1.row(this).data();
+                    $.ajax({
+                        "url": "@Url.Action("EditCoversheet", "Coversheet")",
+                        /*url: "/Manuscript/EditPEManuscript",*/
+                        "contentType": "application/json; charset=utf-8",
+                        data: {
+                            coversheetid: dataNew['CoversheetID'],
+                            bpsproductid: dataNew['BPSProductID'],
+                            servicenumber: dataNew['ServiceNumber']
+                        },
+                        success: function (data) {
+                            $('#modalWrapper').html(data);
+                            $('#EditCoversheetModal').modal('show');
+
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+}

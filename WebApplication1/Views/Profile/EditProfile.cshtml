@@ -1,0 +1,273 @@
+﻿@model IEnumerable<JobTrack.Models.Profile.ProfileData>
+
+@{ ViewBag.Title = "Homepage";
+    Layout = "~/Views/Shared/_JobTrackLayout_Profile.cshtml"; }
+
+<style type="text/css">
+    /*table icons*/
+    td.details-control, td.details-control2 {
+        background: url('../Image/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control, tr.shown td.details-control2 {
+        background: url('../Image/details_close.png') no-repeat center center;
+    }
+
+    td.details-control1, td.details-control3 {
+        background: url('../Image/details_info.png') no-repeat center center;
+        cursor: pointer;
+    }
+    /*custom search button on footer*/
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    /*font-awesome export button*/
+    .custom-btn {
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    /*center datatables content*/
+    th.dt-center, td.dt-center {
+        text-align: center;
+    }
+    /*remove searchbar*/
+    .dataTables_filter {
+        display: none;
+    }
+
+    /*tab style*/
+    :root {
+        --m5-tabs-bg: #e1e1e1;
+        --m5-border: #aaa;
+        --m5-tab-text: #888;
+        --m5-tab-bg: #e1e1e1;
+        --m5-tab-hover-text: #009688;
+        --m5-tab-hover-bg: #e1e1e1;
+        --m5-tab-hover-bg-card: #F8F9FA;
+    }
+
+    #MainTable .nav-tabs {
+        position: relative;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: flex;
+        margin: 0 auto;
+        padding: 0;
+        max-width: 2000px;
+        list-style: none;
+        -ms-box-orient: horizontal;
+        -ms-box-pack: center;
+        -webkit-flex-flow: row wrap;
+        -moz-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        -ms-justify-content: center;
+        justify-content: center;
+        border: 0;
+    }
+
+    #MainTable .nav .nav-item {
+        position: relative;
+        z-index: 0;
+        display: block;
+        margin: 0;
+        text-align: center;
+        -webkit-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+
+    #MainTable .nav .nav-link {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 2.5;
+        border: 1px solid var(--m5-border);
+        border-radius: 4;
+        padding: 0.65em 0 0.5em;
+        background: var(--m5-tab-bg);
+        color: var(--m5-tab-text);
+        line-height: 1;
+        -webkit-transition: color 0.2s;
+        transition: color 0.2s;
+        outline: unset;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        font-size: 0.8em;
+    }
+
+        #MainTable .nav .nav-link:hover {
+            background-color: var(--m5-tab-hover-bg);
+            color: var(--m5-tab-hover-text);
+        }
+
+        #MainTable .nav .nav-link.active,
+        #MainTable .nav .nav-link.active:hover {
+            background: var(--m5-tab-hover-bg-card);
+            border-top-color: var(--m5-tab-hover-text);
+            border-bottom: none;
+            box-shadow: inset 0 3px 0 var(--m5-tab-hover-text);
+            color: var(--m5-tab-hover-text);
+        }
+
+    #MainTable .nav i {
+        display: block;
+        margin: 0;
+        font-size: 2.4em;
+        line-height: 1;
+        speak: none;
+        -webkit-backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    /*elipsis*/
+    table.dataTable td:nth-child(n) {
+        max-width: 100px;
+    }
+
+    table.dataTable td {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
+
+
+<div class="content-body">
+    @if (ViewBag.ErrorMessage != null && ViewBag.ErrorMessage != "")
+    {
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;">
+    @ViewBag.ErrorMessage
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-xl-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="media align-items-center mb-4">
+                            <img class="mr-3" src="../Image/default-avatar.jpg" width="80" height="80" alt="">
+                            <div class="media-body">
+                                <h3 class="mb-0">@Session["UserName"]</h3>
+                                <p class="text-muted mb-0">@Session["UserAccess"]</p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-5">
+                            <div class="col-12 text-center">
+                                <button class="btn btn-danger px-5">Change Password</button>
+                            </div>
+                        </div>
+
+                        <h4>Info</h4>
+                        <ul class="card-profile__info">
+                            @*<li class="mb-1"><strong class="text-dark mr-4">Name</strong> @Html.DisplayFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })</li>
+                            <li><strong class="text-dark mr-4">Email</strong> @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })</li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-xl-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                <h5>QUERIES</h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="outer">
+                                    <table class="display nowrap" id="TABLE_1" style="width: 100%;">
+                                        <thead class="table-header-footer">
+                                            <tr>
+                                                <th>Query Status</th>
+                                                <th>Query ID</th>
+                                                <th>Query Number</th>
+                                                <th>Query Type</th>
+                                                <th>Topic Title</th>
+                                                <th>Date Posted</th>
+                                                <th>Posted By</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot class="table-header-footer">
+                                            <tr>
+                                                <th>Query Status</th>
+                                                <th>Query ID</th>
+                                                <th>Query Number</th>
+                                                <th>Query Type</th>
+                                                <th>Topic Title</th>
+                                                <th>Date Posted</th>
+                                                <th>Posted By</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="modalWrapper">
+    @* Inject form here *@
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+        //query table
+        $("table[id^='TABLE'] tfoot th").each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        //Enable datatable on table
+        var dataTableUser = $("table[id^='TABLE']").DataTable(
+            {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            }
+        );
+        });
+    </script>
+}

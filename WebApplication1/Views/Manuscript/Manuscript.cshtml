@@ -1,0 +1,443 @@
+﻿@model IEnumerable<JobTrack.Models.Manuscript.ManuscriptData>
+
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css" />*@
+
+<style type="text/css">
+    .divider-text {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+        .divider-text span {
+            padding: 7px;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .divider-text:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            top: 55%;
+            left: 0;
+            z-index: 1;
+        }
+
+    th, td {
+        white-space: nowrap;
+    }
+
+    .divs {
+        overflow-x: scroll;
+    }
+</style>
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ViewManuscriptModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#009688;color:white">
+                <h5 class="modal-title" id="confirmModalLabel">Manuscript Data</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <div class="card bg-light divs">
+                        <article class="card-body mx-auto">
+                            <div id="divMsgClient" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                                <span id="spanMsgClient">Message</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="p-2">
+                                    <button id="btnAddNew" class="btn btn-success btn-circle float-right"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Add New</button>
+                                </div>
+                                <div class="p-2">
+                                    @Html.Label("Total Count : ")
+                                    @Html.Label(Model.Count().ToString(), new { id = "lblCount" })
+                                </div>
+
+                            </div>
+                            <table class="table table-sm table-bordered table-hover" id="tblData1" style="text-align:center; margin: 0 auto;">
+                                <thead class="table-header-footer">
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ManuscriptID)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.JobNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ManuscriptTier)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.BPSProductID)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ServiceNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ManuscriptLegTitle)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ManuscriptStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TargetPressDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ActualPressDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.LatupAttribution)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DateReceivedFromAuthor)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.UpdateType)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.JobSpecificInstruction)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TaskType)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PEGuideCard)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PECheckbox)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PETaskNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.RevisedOnlineDueDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CopyEditDueDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CopyEditStartDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CopyEditDoneDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CopyEditStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CodingDueDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CodingDoneDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CodingStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OnlineDueDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OnlineDoneDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OnlineStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.STPStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EstimatedPages)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ActualTurnAroundTime)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OnlineTimeliness)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ReasonIfLate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PECoversheetNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DateCreated)
+                                        </th>
+                                    </tr>
+                                <thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ManuscriptID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.JobNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ManuscriptTier)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.BPSProductID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ServiceNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ManuscriptLegTitle)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ManuscriptStatus)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TargetPressDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActualPressDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.LatupAttribution)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DateReceivedFromAuthor)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.UpdateType)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.JobSpecificInstruction)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.TaskType)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PEGuideCard)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PECheckbox)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PETaskNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RevisedOnlineDueDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CopyEditDueDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CopyEditStartDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CopyEditDoneDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CopyEditStatus)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CodingDueDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CodingDoneDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.CodingStatus)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.OnlineDueDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.OnlineDoneDate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.OnlineStatus)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.STPStatus)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EstimatedPages)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ActualTurnAroundTime)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.OnlineTimeliness)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ReasonIfLate)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.PECoversheetNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.DateCreated)
+                                            </td>
+                                        </tr>
+                                    }
+                                <tbody>
+                                <tfoot class="table-header-footer">
+                                    <tr>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ManuscriptID)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.JobNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ManuscriptTier)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.BPSProductID)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ServiceNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ManuscriptLegTitle)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ManuscriptStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TargetPressDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ActualPressDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.LatupAttribution)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DateReceivedFromAuthor)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.UpdateType)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.JobSpecificInstruction)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.TaskType)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PEGuideCard)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PECheckbox)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PETaskNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.RevisedOnlineDueDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CopyEditDueDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CopyEditStartDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CopyEditDoneDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CopyEditStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CodingDueDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CodingDoneDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.CodingStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OnlineDueDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OnlineDoneDate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OnlineStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.STPStatus)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.EstimatedPages)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ActualTurnAroundTime)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.OnlineTimeliness)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.ReasonIfLate)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.PECoversheetNumber)
+                                        </th>
+                                        <th>
+                                            @Html.DisplayNameFor(model => model.DateCreated)
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+<!-- DatatablesJS -->
+@*<link href="/Content/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+<script src="../temp/plugins/tables/js/jquery.dataTables.min.js"></script>
+<script src="../temp/plugins/tables/js/datatable/dataTables.bootstrap4.min.js"></script>
+<script src="../temp/plugins/tables/js/datatable-init/datatable-basic.min.js"></script>
+
+<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //Enable datatable on table
+        var dataTableUser = $('#tblData1').DataTable(
+            {
+                destroy: true
+            }
+        );
+    });
+
+</script>
+

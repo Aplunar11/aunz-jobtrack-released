@@ -1,0 +1,369 @@
+﻿@model JobTrack.Models.Manuscript.ManuscriptData
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="AddNewManuscriptModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="min-width:50%" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#009688;color:white">
+                <h5 class="modal-title" id="confirmModalLabel">Add New Manuscript</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("AddNewManuscript", "Manuscript", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body">
+                    <div id="divMsgClientEdit" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                        <span id="spanMsgClientEdit">Message</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ManuscriptTier, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ManuscriptTier, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                                        @Html.ValidationMessageFor(model => model.ManuscriptTier, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    @if (TempData["BPSProductID"] != null)
+                                    {
+                                        @Html.LabelFor(model => model.BPSProductID, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                        <div class="col-sm-12">
+                                            @Html.DropDownListFor(model => model.BPSProductID, TempData["BPSProductID"] as SelectList, "-- Select --", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.BPSProductID, "", new { @class = "text-danger" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="form-group">
+
+                                    @Html.LabelFor(model => model.ServiceNumber, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.DropDownListFor(model => model.ServiceNumber, new List<SelectListItem>
+                                         { new SelectListItem{Text="", Value=""}}, "", new { @class = "form-control", @disabled = "true" })
+
+                                        @Html.ValidationMessageFor(model => model.ServiceNumber, "", new { @class = "text-danger" })
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ManuscriptLegTitle, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ManuscriptLegTitle, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ManuscriptLegTitle, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TargetPressDate, htmlAttributes: new { @class = "control-label col-sm-12 dates" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.TargetPressDate, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                                        @Html.ValidationMessageFor(model => model.TargetPressDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LatupAttribution, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.LatupAttribution, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LatupAttribution, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DateReceivedFromAuthor, htmlAttributes: new { @class = "control-label col-sm-12 dates" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.DateReceivedFromAuthor, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DateReceivedFromAuthor, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    @if (TempData["UpdateType"] != null)
+                                    {
+                                        @Html.LabelFor(model => model.UpdateType, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                        <div class="col-sm-12">
+                                            @Html.DropDownListFor(model => model.UpdateType, TempData["UpdateType"] as SelectList, "-- Select --", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.UpdateType, "", new { @class = "text-danger" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.JobSpecificInstruction, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.TextAreaFor(model => model.JobSpecificInstruction, new { rows = "5", cols = "45", @class = "form-control", @style = "resize:none;" })
+                                        @Html.ValidationMessageFor(model => model.JobSpecificInstruction, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TaskType, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.TaskType, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                                        @Html.ValidationMessageFor(model => model.TaskType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CopyEditDueDate, htmlAttributes: new { @class = "control-label col-sm-12 dates" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.CopyEditDueDate, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                                        @Html.ValidationMessageFor(model => model.CopyEditDueDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CodingDueDate, htmlAttributes: new { @class = "control-label col-sm-12 dates" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.CodingDueDate, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                                        @Html.ValidationMessageFor(model => model.CodingDueDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.OnlineDueDate, htmlAttributes: new { @class = "control-label col-sm-12 dates" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.OnlineDueDate, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+                                        @Html.ValidationMessageFor(model => model.OnlineDueDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btnSave" type="button" class="btn btn-success">Post</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //
+    $(document).ready(function () {
+            $("#UpdateType").on("change", function () {
+
+                var url = '@Url.Action("GetTaskType", "Manuscript")' + "?selectedItem=" + $(this).val();
+                $("#TaskType").load(url, function (data) {
+                    $('#TaskType').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCopyEdit", "Manuscript")' + "?selectedItem=" + $(this).val();
+                $("#CopyEditDueDate").load(url, function (data) {
+                    $('#CopyEditDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCoding", "Manuscript")' + "?selectedItem=" + $(this).val();
+                $("#CodingDueDate").load(url, function (data) {
+                    $('#CodingDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATOnline", "Manuscript")' + "?selectedItem=" + $(this).val();
+                $("#OnlineDueDate").load(url, function (data) {
+                    $('#OnlineDueDate').val(data.replace(/['"]+/g, ''));
+                })
+            });
+
+
+        $('#TargetPressDate').datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: "top",
+            autoclose: true
+        });
+        $('#ActualPressDate').datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: "top",
+            autoclose: true
+        });
+        $('#DateReceivedFromAuthor').datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: "top",
+            autoclose: true
+        });
+        $('#CopyEditDueDate').datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: "top",
+            autoclose: true
+        });
+        $('#CodingDueDate').datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: "top",
+            autoclose: true
+        });
+        $('#OnlineDueDate').datepicker({
+            format: 'yyyy-mm-dd',
+            orientation: "top",
+            autoclose: true
+        });
+        $("#divMsgClientEdit").hide();
+        //Update User Data
+        $("#btnSave").click(function (e) {
+            //Disable save button
+            EnableSave(false);
+            var $form = $('#myForm');
+            //Validate form data
+            $.validator.unobtrusive.parse($form);
+            if ($form.valid()) {
+                var obj =
+                {
+                    "ManuscriptTier": $("#ManuscriptTier").val(),
+                    "BPSProductID": $("#BPSProductID").val(),
+                    "ServiceNumber": $("#ServiceNumber").val(),
+                    "ManuscriptLegTitle": $("#ManuscriptLegTitle").val(),
+                    "TargetPressDate": $("#TargetPressDate").val(),
+                    "ActualPressDate": $("#ActualPressDate").val(),
+                    "LatupAttribution": $("#LatupAttribution").val(),
+                    "DateReceivedFromAuthor": $("#DateReceivedFromAuthor").val(),
+                    "UpdateType": $("#UpdateType").val(),
+                    "JobSpecificInstruction": $("#JobSpecificInstruction").val(),
+                    "TaskType": $("#TaskType").val(),
+                    "CopyEditDueDate": $("#CopyEditDueDate").val(),
+                    "CodingDueDate": $("#CodingDueDate").val(),
+                    "OnlineDueDate": $("#OnlineDueDate").val(),
+
+                };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: $form.attr("action"),
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            $("#divMsgClientEdit").addClass("alert-success");
+                            $("#spanMsgClientEdit").text("Job data posted successfully");
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                        else {
+                            $("#divMsgClientEdit").addClass("alert-warning");
+                            $("#spanMsgClientEdit").text(response.ErrorMessage);
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    },
+                    error: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+
+                });
+
+            }
+            else {
+                EnableSave(true);
+                return false;
+            }
+        });
+        //when close modal then reload window to refresh data
+        $(".modal-close").click(function () {
+            $('#AddNewManuscriptModal').modal('hide');
+            window.location.reload();
+        });
+    });
+            $("#BPSProductID").change(function () {
+                $("#ServiceNumber").empty();
+
+            $.ajax({
+                url: "@Url.Action("GetAllPubschedServiceNumber", "Manuscript")",
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({ bpsproductid: $("#BPSProductID").val() }),
+                success: function (response) {
+                    var result = '';
+                    if (response != "") {
+                        $("#ServiceNumber").prop('disabled', false);
+                        result += '<option hidden disabled selected>-- Select --</option>'
+                        for (var i = 0, iL = response.length; i < iL; i++) {
+                            result += '<option value="' + response[i].PubschedServiceNumber.toString() + '">' + response[i].PubschedServiceNumber + '</option>'
+                        }
+                        $('#ServiceNumber').html(result);
+                        //$('#ManuscriptTier').val(response);
+                        //$('#TargetPressDate').html(response.TargetPressDate.val());
+                    }
+                    else {
+                        $("#ServiceNumber").prop('disabled', true);
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+            });
+    $("#ServiceNumber").change(function () {
+        //e.preventDefault();
+            $.ajax({
+                url: "@Url.Action("GetAllPubschedServiceNumber", "Manuscript")",
+                type: 'POST',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({ bpsproductid: $("#BPSProductID").val(), servicenumber: $("#ServiceNumber").val() }),
+                success: function (data) {
+                    if (data != "") {
+                        var result = '';
+                        var result1 = '';
+                        for (var i = 0, iL = data.length; i < iL; i++) {
+                            result += '' + data[i].PubschedTier.toString() + '';
+                            result1 += '' + data[i].PubschedTargetPressDate.toString() + ''
+                        }
+                        //var responseObj = JSON.parse(JSON.stringify(data));
+                        console.log(data);
+                        //document.getElementById('ManuscriptTier').value = responseObj.data[0];
+                        //alert(responseObj);
+                        //document.getElementById("PubschedTier").innerHTML = data[0];
+                        //alert(data[0].PubschedTier);
+                        ////$('#ManuscriptTier').val(data[0]);
+                        $('#ManuscriptTier').val(result);
+                        var date = result1.substr(6);
+                        var currentTime = new Date(parseInt(date));
+                        var month = ("0" + (currentTime.getMonth() + 1)).slice(-2)
+                        var day = currentTime.getDate();
+                        var year = currentTime.getFullYear();
+                        var date = year + "-" + month + "-" + day;
+                        $('#TargetPressDate').val(date);
+                        //$('#ManuscriptTier').html('');
+                        //for (i = 1; i <= data.length; i++) {
+                        //    $('#ManuscriptTier').append('<option value="+data[i]+">');
+                        //}
+                    }
+                    else {
+                        $('#ManuscriptTier').val('');
+                        $('#TargetPressDate').val('');
+                    }
+                },
+                error: function (ex) {
+                    alert('Failed to retrieve states.' + ex);
+                }
+            });
+            return false;
+        });
+    function EnableSave(param) {
+        if (param == true) {
+            $("#btnSave").html("Post");
+            $("#btnSave").removeClass("disabled");
+        }
+        else {
+            $("#btnSave").html("Posting...");
+            $("#btnSave").addClass('disabled');
+        }
+    }</script>

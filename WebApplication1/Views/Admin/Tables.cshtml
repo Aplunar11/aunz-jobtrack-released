@@ -1,0 +1,509 @@
+﻿
+@{
+    ViewBag.Title = "Tables";
+    Layout = "~/Views/Shared/_JobTrackLayout.cshtml";
+}
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css" />*@
+
+<style type="text/css">
+    .invalid input:required:invalid {
+        background: #BE4C54;
+    }
+
+    .invalid input:required:valid {
+        background: #17D654;
+    }
+
+    .divider-text {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+        .divider-text span {
+            padding: 7px;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .divider-text:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            top: 55%;
+            left: 0;
+            z-index: 1;
+        }
+
+    div.dataTables_wrapper {
+        width: 1400px;
+        margin: 0 auto;
+    }
+</style>
+
+@*<div class="content-body">
+
+        <div class="container-fluid mt-3">
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div id="properties1" data-0="top:20%; width: 100%;" data-150="display:block;" data-500="top:100%;">
+                                        <div class="container-fluid px-0">
+                                            <div class="row">
+                                                <div class="col text-center align-items-center text-white">
+                                                    <h3>Update Type</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="example" class="display" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Update Type</th>
+                                                    <th>Task Type</th>
+                                                    <th>Copy Edit</th>
+                                                    <th>Process</th>
+                                                    <th>Online</th>
+                                                    <th>PDF QA</th>
+                                                    <th>Benchmark Days</th>
+                                                    <th>IsEdit</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Manus-Light</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>4</td>
+                                                    <td>3</td>
+                                                    <td>2</td>
+                                                    <td>11</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox" checked="checked"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Manus-Medium</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>8</td>
+                                                    <td>5</td>
+                                                    <td>2</td>
+                                                    <td>17</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox" checked="checked"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Manus-Heavy</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>13</td>
+                                                    <td>10</td>
+                                                    <td>2</td>
+                                                    <td>27</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox" checked="checked"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Key Leg</td>
+                                                    <td>LEGISLATION</td>
+                                                    <td>0</td>
+                                                    <td>8</td>
+                                                    <td>2</td>
+                                                    <td>12</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Sec Leg</td>
+                                                    <td>LEGISLATION</td>
+                                                    <td>0</td>
+                                                    <td>18</td>
+                                                    <td>2</td>
+                                                    <td>22</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Prac Mat</td>
+                                                    <td>PRAC MAT</td>
+                                                    <td>0</td>
+                                                    <td>18</td>
+                                                    <td>2</td>
+                                                    <td>22</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ed Mns-Lgt</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>0</td>
+                                                    <td>3</td>
+                                                    <td>2</td>
+                                                    <td>7</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ed Mns-Med</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>0</td>
+                                                    <td>5</td>
+                                                    <td>2</td>
+                                                    <td>9</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ed Mns-Hvy</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>0</td>
+                                                    <td>10</td>
+                                                    <td>2</td>
+                                                    <td>14</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Index</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>0</td>
+                                                    <td>3</td>
+                                                    <td>2</td>
+                                                    <td>7</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TOC</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>0</td>
+                                                    <td>5</td>
+                                                    <td>2</td>
+                                                    <td>7</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>TOS</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>0</td>
+                                                    <td>5</td>
+                                                    <td>2</td>
+                                                    <td>7</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Other</td>
+                                                    <td>COMMENTARY</td>
+                                                    <td>0</td>
+                                                    <td>5</td>
+                                                    <td>2</td>
+                                                    <td>9</td>
+                                                    <td></td>
+                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <div class="modal fade" id="myModal" role="dialog">
+                                            <div class="modal-dialog">
+                                                Modal content
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title">User Details</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="username"><p>Name: </p><span></span></div>
+                                                        <div class="position"><p>Position: </p><span></span></div>
+                                                        <div class="office"><p>Office: </p><span></span></div>
+                                                        <div class="age"><p>Age: </p><span></span></div>
+                                                        <div class="date"><p>Start date: </p><span></span></div>
+                                                        <div class="salary"><p>Salary: </p><span></span></div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<div class="content-body">
+
+    <div class="container-fluid mt-3">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="properties1" data-0="top:20%; width: 100%;" data-150="display:block;" data-500="top:100%;">
+                                    <div class="container-fluid px-0">
+                                        <div class="row">
+                                            <div class="col text-center align-items-center text-black-50">
+                                                <h3>Master Tables</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nav tabs -->
+
+                                <ul class="nav nav-tabs mb-3" role="tablist" id="mytabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#BPSProduct"><span><i class="ti-home"></i> BPS Product</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#UpdateType"><span><i class="ti-user"></i> Update Type</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#UserAccess"><span><i class="ti-email"></i> User Access</span></a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content tabcontent-border">
+                                    <div class="tab-pane fade show active" id="BPSProduct" role="tabpanel">
+                                        <div class="p-t-15">
+                                            <div class="table-responsive">
+                                                <div class="card bg-light">
+                                                    <article class="card-body mx-auto">
+                                                        <a href="#" class="btn btn-primary" onclick="AddNewProduct(0)"><i class='fa fa-plus-square'></i>Add New</a> <br /><br />
+                                                        <table id="example" class="display" style="width:100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Update Type</th>
+                                                                    <th>Task Type</th>
+                                                                    <th>Copy Edit</th>
+                                                                    <th>Process</th>
+                                                                    <th>Online</th>
+                                                                    <th>PDF QA</th>
+                                                                    <th>Benchmark Days</th>
+                                                                    <th>IsEdit</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>Manus-Light</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>4</td>
+                                                                    <td>3</td>
+                                                                    <td>2</td>
+                                                                    <td>11</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox" checked="checked"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Manus-Medium</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>8</td>
+                                                                    <td>5</td>
+                                                                    <td>2</td>
+                                                                    <td>17</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox" checked="checked"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Manus-Heavy</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>13</td>
+                                                                    <td>10</td>
+                                                                    <td>2</td>
+                                                                    <td>27</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox" checked="checked"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Key Leg</td>
+                                                                    <td>LEGISLATION</td>
+                                                                    <td>0</td>
+                                                                    <td>8</td>
+                                                                    <td>2</td>
+                                                                    <td>12</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Sec Leg</td>
+                                                                    <td>LEGISLATION</td>
+                                                                    <td>0</td>
+                                                                    <td>18</td>
+                                                                    <td>2</td>
+                                                                    <td>22</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Prac Mat</td>
+                                                                    <td>PRAC MAT</td>
+                                                                    <td>0</td>
+                                                                    <td>18</td>
+                                                                    <td>2</td>
+                                                                    <td>22</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Ed Mns-Lgt</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>0</td>
+                                                                    <td>3</td>
+                                                                    <td>2</td>
+                                                                    <td>7</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Ed Mns-Med</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>0</td>
+                                                                    <td>5</td>
+                                                                    <td>2</td>
+                                                                    <td>9</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Ed Mns-Hvy</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>0</td>
+                                                                    <td>10</td>
+                                                                    <td>2</td>
+                                                                    <td>14</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Index</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>0</td>
+                                                                    <td>3</td>
+                                                                    <td>2</td>
+                                                                    <td>7</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TOC</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>0</td>
+                                                                    <td>5</td>
+                                                                    <td>2</td>
+                                                                    <td>7</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>TOS</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>0</td>
+                                                                    <td>5</td>
+                                                                    <td>2</td>
+                                                                    <td>7</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Other</td>
+                                                                    <td>COMMENTARY</td>
+                                                                    <td>0</td>
+                                                                    <td>5</td>
+                                                                    <td>2</td>
+                                                                    <td>9</td>
+                                                                    <td></td>
+                                                                    <td><input disabled="disabled" class="check-box" type="checkbox"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="UpdateType" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <div class="card bg-light">
+                                                <h4>on the works</h4>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="tab-pane fade" id="UserAccess" role="tabpanel">
+                                        <div class="table-responsive">
+                                            <div class="card bg-light">
+                                                <h4>on the works</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #/ container -->
+</div>
+
+@section Scripts
+{
+    <style>
+        .btn-purple {
+            color: #fff;
+            background-color: #6f42c1;
+            border-color: #643ab0;
+        }
+
+        .modal-body div {
+            float: left;
+            width: 100%
+        }
+
+            .modal-body div p {
+                float: left;
+                width: 20%;
+                font-weight: 600;
+            }
+
+            .modal-body div span {
+                float: left;
+                width: 80%
+            }
+    </style>
+    <script>
+        jQuery(document).ready(function ($) {
+            $('#example').DataTable({
+                searching: false,
+                responsive: true,
+                scrollX: true,
+                "autoWidth": true,
+            });
+            var table = $('#example').DataTable();
+            $('#example tbody').on('click', 'tr', function () {
+                //console.log(table.row(this).data());
+                $(".modal-body div span").text("");
+                $(".username span").text(table.row(this).data()[0]);
+                $(".position span").text(table.row(this).data()[1]);
+                $(".office span").text(table.row(this).data()[2]);
+                $(".age span").text(table.row(this).data()[3]);
+                $(".date span").text(table.row(this).data()[4]);
+                $(".salary span").text(table.row(this).data()[5]);
+                $("#myModal").modal("show");
+            });
+        });
+    </script>
+}

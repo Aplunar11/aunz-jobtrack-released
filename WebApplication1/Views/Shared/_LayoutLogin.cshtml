@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1" />
+
+    <script type="text/javascript">
+        function disableBackButton() {
+            window.history.forward();
+        }
+        setTimeout("disableBackButton()", 0);
+
+        window.onunload = function () {
+            null
+        };</script>
+
+    <title>@ViewBag.Title - AUNZ JobTrack</title>
+    <link href="~/Content/Login.css" rel="stylesheet" />
+    <link href="~/Content/Login/Login.css" rel="stylesheet" />
+    <link href="~/Content/Login/LoginPanel.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/vendorCSS")
+
+</head>
+
+
+<body>
+    <div class="cover">
+        <div class="header">
+            <div class="nav">
+                <div class="logo">
+                    <img src="~/Content/Login/Straive_Logo.png" alt="Straive Logo - Unstructured Data Solutions, Edtech, Publishing Services" />
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="loginPanel">
+
+                @Scripts.Render("~/Scripts/vendorJS")
+
+                @RenderBody()
+            </div>
+        </div>
+        <div class="footer">
+            <strong>Copyright &copy; 2022 Straive</strong>
+            All rights reserved.
+        </div>
+    </div>
+</body>
+</html>

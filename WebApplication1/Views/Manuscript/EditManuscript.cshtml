@@ -1,0 +1,1041 @@
+﻿@model JobTrack.Models.Manuscript.ManuscriptData
+<style type="text/css">
+    .bootstrap-select > .dropdown-toggle {
+        height: 40px;
+    }
+
+    a.nav-item {
+        text-decoration: none;
+    }
+
+    .nav-item {
+        color: #090;
+        opacity: 0.6;
+        position: relative;
+        -webkit-transition: opacity 0.2s ease-in-out 0s;
+        -moz-transition: opacity 0.2s ease-in-out 0s;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+        .nav-item:hover {
+            color: #090;
+            opacity: 1;
+        }
+
+        .nav-item:before {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            z-index: 10;
+            background-color: #aca;
+            -webkit-transform: scaleX(0);
+            -moz-transform: scaleX(0);
+            transform: scaleX(0);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -moz-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+        }
+
+        .nav-item:hover:before {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+    .nav-item1 {
+        color: #e80909;
+        opacity: 0.6;
+        position: relative;
+        -webkit-transition: opacity 0.2s ease-in-out 0s;
+        -moz-transition: opacity 0.2s ease-in-out 0s;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+        .nav-item1:hover {
+            color: #e80909;
+            opacity: 1;
+        }
+
+        .nav-item1:before {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            z-index: 10;
+            background-color: #ccaaaa;
+            -webkit-transform: scaleX(0);
+            -moz-transform: scaleX(0);
+            transform: scaleX(0);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -moz-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+        }
+
+        .nav-item1:hover:before {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+    .popover {
+        min-width: 800px;
+        max-height: 400px;
+    }
+
+    table.floatThead-table {
+        border-top: none;
+        border-bottom: none;
+        background-color: #fff;
+    }
+
+    .input {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 1px solid black;
+    }
+    /* modal backdrop fix */
+    .modal:nth-of-type(even) {
+        z-index: 1052 !important;
+    }
+
+    .modal-backdrop.show:nth-of-type(even) {
+        z-index: 1051 !important;
+    }
+
+    a.disabled {
+        color: gray;
+        opacity: 0.6;
+        cursor: default;
+    }
+
+        a.disabled:hover {
+            color: gray;
+            opacity: 1;
+            cursor: default;
+        }
+</style>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="EditManuscriptModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="min-width:70%" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FF6E32; color: white">
+                <h5 class="modal-title" id="confirmModalLabel">Edit Manuscript</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("EditManuscript", "Manuscript", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body" style="background-color: #F3F3F9;">
+                    <div id="divMsgClientEdit" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                        <span id="spanMsgClientEdit">Message</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+
+                        <div class="container-fluid">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>MANUSCRIPT DETAILS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="basic-form">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-4 border-right-1">
+                                                    @Html.HiddenFor(model => model.ManuscriptID, new { @class = "" })
+
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.JobNumber, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.JobNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.JobNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.ManuscriptTier, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.ManuscriptTier, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.ManuscriptTier, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.BPSProductID, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.BPSProductID, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.BPSProductID, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.ServiceNumber, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.ServiceNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.ServiceNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.TargetPressDate, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.TargetPressDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.TargetPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.ActualPressDate, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.ActualPressDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.ActualPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+
+                                                        @Html.LabelFor(model => model.ManuscriptLegTitle, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                        @Html.TextAreaFor(model => model.ManuscriptLegTitle, new { @readonly = "readonly", rows = "3", cols = "45", @class = "form-control input", @style = "resize:none;" })
+                                                        @Html.ValidationMessageFor(model => model.ManuscriptLegTitle, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        @Html.HiddenFor(model => model.ManuscriptStatus, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.ManuscriptStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.ManuscriptStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 border-right-1">
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.LabelFor(model => model.LatupAttribution, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                        @Html.TextAreaFor(model => model.LatupAttribution, new { rows = "3", cols = "45", @class = "form-control input", @style = "resize:none;" })
+                                                        @Html.ValidationMessageFor(model => model.LatupAttribution, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.DateReceivedFromAuthor, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.DateReceivedFromAuthor, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.DateReceivedFromAuthor, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.DateCreated, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @if (TempData["UpdateTypes"] != null)
+                                                        {
+                                                            <div class="row">
+                                                                <div class="col-6 border-right-1">
+                                                                    @Html.LabelFor(model => model.UpdateType, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    @Html.DropDownListFor(model => model.UpdateType, TempData["UpdateTypes"] as SelectList, new { @class = "selects show-tick form-control" })
+                                                                    @Html.ValidationMessageFor(model => model.UpdateType, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.TaskType, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.TaskType, new { htmlAttributes = new { @class = "form-control input", @disabled = "true" } })
+                                                                @Html.ValidationMessageFor(model => model.TaskType, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.LabelFor(model => model.PEGuideCard, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                        @Html.TextAreaFor(model => model.PEGuideCard, new { rows = "3", cols = "45", @class = "form-control input", @style = "resize:none;" })
+                                                        @Html.ValidationMessageFor(model => model.PEGuideCard, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.RevisedOnlineDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.RevisedOnlineDueDate, new { htmlAttributes = new { @class = "form-control datepicker input", autocomplete = "off" } })
+                                                                @Html.ValidationMessageFor(model => model.RevisedOnlineDueDate, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+
+                                                        @Html.LabelFor(model => model.JobSpecificInstruction, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                        @Html.TextAreaFor(model => model.JobSpecificInstruction, new { @readonly = "readonly", rows = "5", cols = "45", @class = "form-control input", @style = "resize:none;" })
+                                                        @Html.ValidationMessageFor(model => model.JobSpecificInstruction, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.EstimatedPages, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.EstimatedPages, new { htmlAttributes = new { @class = "form-control input", autocomplete = "off" } })
+                                                                @Html.ValidationMessageFor(model => model.EstimatedPages, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.ActualTurnAroundTime, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.ActualTurnAroundTime, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.ActualTurnAroundTime, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.OnlineTimeliness, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.OnlineTimeliness, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.OnlineTimeliness, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.LabelFor(model => model.ReasonIfLate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                        @Html.TextAreaFor(model => model.ReasonIfLate, new { rows = "3", cols = "45", @class = "form-control input", @style = "resize:none;" })
+                                                        @Html.ValidationMessageFor(model => model.ReasonIfLate, "", new { @class = "text-danger" })
+                                                    </div>
+                                                    @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Straive(PE)")
+                                                    {
+                                                        <div class="form-group border-bottom-1 mb-0">
+                                                            @Html.HiddenFor(model => model.PECoversheetNumber, new { @class = "" })
+                                                            <div class="row">
+                                                                <div class="col-6 border-right-1">
+                                                                    @Html.LabelFor(model => model.PECoversheetNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    @Html.DisplayFor(model => model.PECoversheetNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Straive(PE)")
+                                                    {
+                                                        <div class="form-group mb-0">
+                                                            @Html.HiddenFor(model => model.STPStatus, new { @class = "" })
+                                                            <div class="row">
+                                                                <div class="col-6 border-right-1">
+                                                                    @Html.LabelFor(model => model.STPStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    @Html.DisplayFor(model => model.STPStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>STATUS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="basic-form">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-4 border-right-1">
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @*<a href="#" id="tglr" class="popover-toggle" title="Call To Action Log">Call To Action Log</a>*@
+                                                                @Html.LabelFor(model => model.CopyEditDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.CopyEditDueDate, new { htmlAttributes = new { @class = "form-control input", @disabled = "true" } })
+                                                                @Html.ValidationMessageFor(model => model.CopyEditDueDate, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Client(LE)")
+                                                    {
+                                                        <div class="form-group border-bottom-1 mb-0">
+                                                            <div class="row">
+                                                                <div class="col-6 border-right-1">
+                                                                    @Html.LabelFor(model => model.CopyEditStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    @Html.HiddenFor(model => model.CopyEditStartDate, new { @class = "" })
+                                                                    @Html.DisplayFor(model => model.CopyEditStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group border-bottom-1 mb-0">
+                                                            <div class="row">
+                                                                <div class="col-6 border-right-1">
+                                                                    @Html.LabelFor(model => model.CopyEditDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    @Html.HiddenFor(model => model.CopyEditDoneDate, new { @class = "" })
+                                                                    @Html.DisplayFor(model => model.CopyEditDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Straive(PE)")
+                                                    {
+                                                        if (Model.CopyEditStatus == "Not Applicable")
+                                                        {
+                                                            <div class="form-group border-bottom-1 mb-0">
+                                                                <div class="row">
+                                                                    <div class="col-6 border-right-1">
+                                                                        @Html.LabelFor(model => model.CopyEditStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        @if (Model.CopyEditStartDate == null)
+                                                                        {
+                                                                            @Html.ActionLink("[START]", null, null, Model.CopyEditStartDate, new { @class = "disabled", @Href = "#", @id = "CopyEditStartDate11" })
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @Html.HiddenFor(model => model.CopyEditStartDate, new { @class = "" })
+                                                                            @Html.DisplayFor(model => model.CopyEditStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group border-bottom-1 mb-0">
+                                                                <div class="row">
+                                                                    <div class="col-6 border-right-1">
+                                                                        @Html.LabelFor(model => model.CopyEditDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        @if (Model.CopyEditStartDate == null)
+                                                                        {
+                                                                            if (Model.CopyEditDoneDate == null)
+                                                                            {
+                                                                                @Html.ActionLink("[DONE]", null, null, Model.CopyEditDoneDate, new { @class = "disabled", @Href = "#", @id = "CopyEditDoneDate11" })
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @Html.HiddenFor(model => model.CopyEditDoneDate, new { @class = "" })
+                                                                                @Html.DisplayFor(model => model.CopyEditDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="form-group border-bottom-1 mb-0">
+                                                                <div class="row">
+                                                                    <div class="col-6 border-right-1">
+                                                                        @Html.LabelFor(model => model.CopyEditStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        @if (Model.CopyEditStartDate == null)
+                                                                        {
+                                                                            @Html.ActionLink("[START]", null, null, Model.CopyEditStartDate, new { @class = "nav-item", @Href = "#", @id = "CopyEditStartDate" })
+
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @Html.HiddenFor(model => model.CopyEditStartDate, new { @class = "" })
+                                                                            @Html.DisplayFor(model => model.CopyEditStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                                        }
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group border-bottom-1 mb-0">
+                                                                <div class="row">
+                                                                    <div class="col-6 border-right-1">
+                                                                        @Html.LabelFor(model => model.CopyEditDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+
+                                                                    </div>
+                                                                    <div class="col-6">
+                                                                        @if (Model.CopyEditStartDate == null)
+                                                                        {
+                                                                            if (Model.CopyEditDoneDate == null)
+                                                                            {
+                                                                                @Html.ActionLink("[DONE]", null, null, Model.CopyEditDoneDate, new { @class = "disabled", @Href = "#", @id = "CopyEditDoneDate11" })
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @Html.HiddenFor(model => model.CopyEditDoneDate, new { @class = "" })
+                                                                                @Html.DisplayFor(model => model.CopyEditDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            if (Model.CopyEditDoneDate == null)
+                                                                            {
+                                                                                @Html.ActionLink("[DONE]", null, null, Model.CopyEditDoneDate, new { @class = "nav-item1", @Href = "#", @id = "CopyEditDoneDate" })
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                @Html.HiddenFor(model => model.CopyEditDoneDate, new { @class = "" })
+                                                                                @Html.DisplayFor(model => model.CopyEditDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                                            }
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+
+                                                    }
+                                                    <div class="form-group mb-0">
+                                                        @Html.HiddenFor(model => model.CopyEditStatus, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.CopyEditStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.CopyEditStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4 border-right-1">
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.CodingDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.CodingDueDate, new { htmlAttributes = new { @class = "form-control input", @disabled = "true" } })
+                                                                @Html.ValidationMessageFor(model => model.CodingDueDate, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.CodingStartDate, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.CodingStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.CodingStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.CodingDoneDate, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.CodingDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.CodingDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        @Html.HiddenFor(model => model.CodingStatus, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.CodingStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.CodingStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-4">
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.OnlineDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.OnlineDueDate, new { htmlAttributes = new { @class = "form-control input", @disabled = "true" } })
+                                                                @Html.ValidationMessageFor(model => model.OnlineDueDate, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.OnlineStartDate, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.OnlineStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.OnlineStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.OnlineDoneDate, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.OnlineDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.OnlineDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        @Html.HiddenFor(model => model.OnlineStatus, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.OnlineStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.OnlineStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>QUERIES</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="outer">
+                                                <table class="display nowrap" id="TABLE_1" style="width: 100%;">
+                                                    <thead class="table-header-footer">
+                                                        <tr>
+                                                            <th>Query Status</th>
+                                                            <th>Query ID</th>
+                                                            <th>Query Number</th>
+                                                            <th>Query Type</th>
+                                                            <th>Topic Title</th>
+                                                            <th>Date Posted</th>
+                                                            <th>Posted By</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot class="table-header-footer">
+                                                        <tr>
+                                                            <th>Query Status</th>
+                                                            <th>Query ID</th>
+                                                            <th>Query Number</th>
+                                                            <th>Query Type</th>
+                                                            <th>Topic Title</th>
+                                                            <th>Date Posted</th>
+                                                            <th>Posted By</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="background-color: #FFF0EA;">
+                    <button id="btnStart" type="button" class="btn btn-secondary" hidden="hidden">Start</button>
+                    <button id="btnDone" type="button" class="btn btn-secondary" hidden="hidden">Done</button>
+                    <button id="btnSave" type="button" class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //
+    $('.datepicker').datepicker({
+        todayHighlight: true,
+        format: 'd-M-yy',
+        clearBtn: true,
+        autoclose: true
+    }).on("changeDate", function (e) {
+        EnableSave(true);
+    });
+    $(document).ready(function () {
+        //
+        EnableSave(false);
+        $('select').change(function () {
+            // enable button
+            EnableSave(true);
+        });
+        $("input").keyup(function () { // something typed in a textbox
+            EnableSave(true);
+        });
+        $(document).on('input propertychange', "textarea", function () {
+            EnableSave(true);
+        });
+        //
+            $('.selects').selectpicker(
+            {
+                width: '100%',
+                title: '"-- Select --"',
+                size: 10,
+                liveSearch: true
+            });
+            $("#UpdateType").on("change", function () {
+                var datecreated = $("#DateCreated");
+                var url = '@Url.Action("GetTaskType", "Manuscript")' + "?selectedItem=" + encodeURIComponent($(this).val());
+                $("#TaskType").load(url, function (data) {
+                    $('#TaskType').val(data.replace(/['"]+/g, ''));
+                })
+                var url = '@Url.Action("GetTATCopyEdit", "Manuscript")' + "?selectedItem=" + encodeURIComponent($(this).val()) + "&datecreated=" + datecreated.val();
+                $("#CopyEditDueDate").load(url, function (data) {
+                    $('#CopyEditDueDate').val(data.replace(/['"]+/g, ''));
+                })
+                var url = '@Url.Action("GetTATCoding", "Manuscript")' + "?selectedItem=" + encodeURIComponent($(this).val()) + "&datecreated=" + datecreated.val();
+                $("#CodingDueDate").load(url, function (data) {
+                    $('#CodingDueDate').val(data.replace(/['"]+/g, ''));
+                })
+                var url = '@Url.Action("GetTATOnline", "Manuscript")' + "?selectedItem=" + encodeURIComponent($(this).val()) + "&datecreated=" + datecreated.val();
+                $("#OnlineDueDate").load(url, function (data) {
+                    $('#OnlineDueDate').val(data.replace(/['"]+/g, ''));
+                })
+            });
+
+        $("#divMsgClientEdit").hide();
+        //Update User Data
+        $("#btnSave").click(function (e) {
+            //Disable save button
+            EnableSave(false);
+            var $form = $('#myForm');
+            //Validate form data
+            $.validator.unobtrusive.parse($form);
+            if ($form.valid()) {
+                var obj =
+                {
+                    "ManuscriptID": $("#ManuscriptID").val(),
+                    "BPSProductID": $("#BPSProductID").val(),
+                    "ServiceNumber": $("#ServiceNumber").val(),
+
+                    "LatupAttribution": $("#LatupAttribution").val(),
+                    "UpdateType": $("#UpdateType").val(),
+                    "TaskType": $("#TaskType").val(),
+                    "CopyEditDueDate": $("#CopyEditDueDate").val(),
+                    "CodingDueDate": $("#CodingDueDate").val(),
+                    "OnlineDueDate": $("#OnlineDueDate").val(),
+
+                    "PEGuideCard": $("#PEGuideCard").val(),
+                    "RevisedOnlineDueDate": $("#RevisedOnlineDueDate").val(),
+                    "EstimatedPages": $("#EstimatedPages").val(),
+                    "ReasonIfLate": $("#ReasonIfLate").val()
+                };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: $form.attr("action"),
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            $("#divMsgClientEdit").addClass("alert-success");
+                            $("#spanMsgClientEdit").text("Manuscript updated successfully");
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                        else {
+                            $("#divMsgClientEdit").addClass("alert-warning");
+                            $("#spanMsgClientEdit").text(response.ErrorMessage);
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    },
+                    error: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+
+                });
+
+            }
+            else {
+                EnableSave(true);
+                return false;
+            }
+        });
+        //when close modal then reload window to refresh data
+        $(".modal-close").click(function () {
+            $('#EditManuscriptModal').modal('hide');
+            window.location.reload();
+        });
+        //query table
+        $("table[id^='TABLE'] tfoot th").each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        //Enable datatable on table
+        var dataTableUser = $("table[id^='TABLE']").DataTable(
+            {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            }
+        );
+    });
+    //startdate
+    $(document).on("click", "#CopyEditStartDate", function () {
+        const newFormat = "D-MMM-YY hh:mm a"
+        var d = moment(new Date()).format(newFormat);
+        $(this).text(d);
+        $("#btnStart").click();
+    });
+    //
+    $("#btnStart").click(function (e) {
+        $("#CopyEditStartDate").removeClass('nav-item');
+        $("#CopyEditStartDate").addClass('disabled');
+        //Disable save button
+        EnableSave(false);
+            var obj =
+            {
+                "ManuscriptID": $("#ManuscriptID").val(),
+                "BPSProductID": $("#BPSProductID").val(),
+                "ServiceNumber": $("#ServiceNumber").val(),
+                "CopyEditStartDate": $("#CopyEditStartDate").text()
+
+            };
+            var myJSON = JSON.stringify(obj);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateStartDate", "Manuscript")",
+                data: myJSON,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Response == "Y") {
+                        $("#divMsgClientEdit").addClass("alert-success");
+                        $("#spanMsgClientEdit").text("Start Date updated successfully");
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                    else {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.ErrorMessage);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                },
+                failure: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                },
+                error: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                }
+            });
+    });
+    //donedate
+    $(document).on("click", "#CopyEditDoneDate", function () {
+        const newFormat = "D-MMM-YY hh:mm a"
+        var d = moment(new Date()).format(newFormat);
+        $(this).text(d);
+        $("#btnDone").click();
+    });
+    //
+    $("#btnDone").click(function (e) {
+        $("#CopyEditDoneDate").removeClass('nav-item1');
+        $("#CopyEditDoneDate").addClass('disabled');
+        //Disable save button
+        EnableSave(false);
+            var obj =
+            {
+                "ManuscriptID": $("#ManuscriptID").val(),
+                "BPSProductID": $("#BPSProductID").val(),
+                "ServiceNumber": $("#ServiceNumber").val(),
+                "CopyEditStartDate": $("#CopyEditStartDate").val(),
+                "CopyEditDoneDate": $("#CopyEditDoneDate").text()
+
+            };
+            var myJSON = JSON.stringify(obj);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateDoneDate", "Manuscript")",
+                data: myJSON,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Response == "Y") {
+                        $("#divMsgClientEdit").addClass("alert-success");
+                        $("#spanMsgClientEdit").text("Done Date updated successfully");
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                    else {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.ErrorMessage);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                },
+                failure: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                },
+                error: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                }
+
+            });
+
+    });
+    $("#myTable1").dataTable({
+        pageLength: 10,
+        dom: "lptip",
+        autoWidth: true
+    });
+    //$("table").floatThead();
+    $("div.modal").on("shown", function () {
+        //$("table").dataTable();
+        console.log("hello!");
+        $("table").floatThead({
+            scrollContainer: function () { return $("div.modal-body"); },
+            useAbsolutePositioning: false
+        });
+    });
+    $("#tglr").click(function () {
+        $("div.modal").modal('show');
+    });
+    $(document).on('hidden.bs.modal', '.modal', function () {
+        $('.modal:visible').length && $(document.body).addClass('modal-open');
+    });
+    //
+    function EnableSave(param) {
+        if (param == true) {
+            $("#btnSave").removeClass("disabled");
+            $("#btnSave").removeAttr("disabled");
+            //$("#btnSave").html("Update");
+
+        }
+        else {
+            //$("#btnSave").html("Updating...");
+            $("#btnSave").addClass("disabled");
+            $("#btnSave").attr('disabled', 'disabled');
+        }
+    }
+    function EnableCopyEditDoneDate(param) {
+        var btnCopyEditDoneDate = $("#CopyEditDoneDate");
+        if (param == true) {
+            btnCopyEditDoneDate.removeClass('disabled');
+        }
+        else {
+            btnCopyEditDoneDate.addClass('disabled');
+        }
+        if (btnCopyEditDoneDate.hasClass('disabled')) return false;
+    }
+</script>

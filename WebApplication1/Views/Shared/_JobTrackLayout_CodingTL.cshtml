@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>@ViewBag.Title - AUNZ JobTrack</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../Image/lnlogo.png">
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/vendorCSS")
+    @*<script src="../temp/plugins/common/common.min.js"></script>*@
+    @Scripts.Render("~/Scripts/vendorJS")
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @Styles.Render("~/Content/datatables")
+    @*<link href="../temp/plugins/tables/css/datatable/dataTables.bootstrap4.min.css" rel="stylesheet">*@
+    <link href="../temp/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="~/CodingTL/AllJob">
+                    <b class="logo-abbr"><img src="../Image/lnlogo.png" alt=""> </b>
+                    <span class="logo-compact"><img src="../Image/jobtrackaunz.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="../Image/jobtrackaunz.png" alt="">
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        @Html.Action("TopMenu", "CodingTL")
+        @Html.Action("SideMenu", "CodingTL")
+        @RenderBody()
+
+        <!--**********************************
+            Footer
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>&copy; Straive 2022</p>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Scripts
+    ***********************************-->
+
+    <script src="../temp/js/custom.min.js"></script>
+    <script src="../temp/js/settings.js"></script>
+    <script src="../temp/js/gleek.js"></script>
+    <script src="../temp/js/styleSwitcher.js"></script>
+    @Scripts.Render("~/bundles/datatables")
+    <script src="../temp/js/dashboard/dashboard-1.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

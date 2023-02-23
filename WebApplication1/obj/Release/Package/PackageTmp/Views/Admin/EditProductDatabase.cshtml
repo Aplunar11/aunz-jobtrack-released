@@ -1,0 +1,411 @@
+﻿@model JobTrack.Models.Admin.ProductDatabaseData
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="editModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#009688;color:white">
+                <h5 class="modal-title" id="confirmModalLabel">Edit Product</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("EditProductDatabase", "Admin", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body">
+                    <div id="divMsgClientEdit" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                        <span id="spanMsgClientEdit">Message</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                        <div class="row">
+                            <div class="col-4">
+
+                                @Html.HiddenFor(model => model.PubSchedID)
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.isSPI, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.isSPI, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.isSPI, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BudgetPressMonth, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.BudgetPressMonth, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.BudgetPressMonth, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PubSchedTier, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.PubSchedTier, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PubSchedTier, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PubSchedTeam, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.PubSchedTeam, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PubSchedTeam, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BPSProductID, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.BPSProductID, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.BPSProductID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LegalEditor, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.LegalEditor, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LegalEditor, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ChargeType, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ChargeType, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ChargeType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ProductChargeCode, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ProductChargeCode, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ProductChargeCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BPSProductIDMaster, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.BPSProductIDMaster, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.BPSProductIDMaster, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BPSSublist, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.BPSSublist, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.BPSSublist, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ServiceUpdate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ServiceUpdate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ServiceUpdate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LastManuscriptHandover, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.LastManuscriptHandover, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LastManuscriptHandover, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BudgetPressDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.BudgetPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.BudgetPressDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RevisedPressDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.RevisedPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.RevisedPressDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ReasonForRevisedPressDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ReasonForRevisedPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ReasonForRevisedPressDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ServiceNumber, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ServiceNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ServiceNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ForecastPages, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ForecastPages, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ForecastPages, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActualPages, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ActualPages, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActualPages, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DataFromLE, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.DataFromLE, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DataFromLE, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DataFromLEG, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.DataFromLEG, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DataFromLEG, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DataFromCoding, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.DataFromCoding, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.DataFromCoding, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.isReceived, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.isReceived, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.isReceived, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.isCompleted, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.isCompleted, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.isCompleted, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AheadOnTime, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.AheadOnTime, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.AheadOnTime, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.WithRevisedPressDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.WithRevisedPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.WithRevisedPressDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ActualPressDate, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ActualPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ActualPressDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.ServiceAndBPSProductID, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.ServiceAndBPSProductID, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ServiceAndBPSProductID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PubSchedRemarks, htmlAttributes: new { @class = "control-label col-sm-12" })
+                                    <div class="col-sm-12">
+                                        @Html.EditorFor(model => model.PubSchedRemarks, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.PubSchedRemarks, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSave" type="button" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //
+    $(document).ready(function () {
+            @*$("#UpdateType").on("change", function () {
+
+                var url = '@Url.Action("GetTaskType", "Home")' + "?selectedItem=" + $(this).val();
+                $("#TaskType").load(url, function (data) {
+                    $('#TaskType').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCopyEdit", "Home")' + "?selectedItem=" + $(this).val();
+                $("#CopyEditDueDate").load(url, function (data) {
+                    $('#CopyEditDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCoding", "Home")' + "?selectedItem=" + $(this).val();
+                $("#CodingDueDate").load(url, function (data) {
+                    $('#CodingDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATOnline", "Home")' + "?selectedItem=" + $(this).val();
+                $("#OnlineDueDate").load(url, function (data) {
+                    $('#OnlineDueDate').val(data.replace(/['"]+/g, ''));
+                })
+            });*@
+
+        //$("#TargetPressDate").datepicker({ format: 'yyyy-mm-dd' });
+
+        //$("#DateReceivedFromAuthor").datepicker({ format: 'yyyy-mm-dd' });
+        //$("#CopyEditDueDate").datepicker({ format: 'yyyy-mm-dd' });
+        //$("#CodingDueDate").datepicker({ format: 'yyyy-mm-dd' });
+        //$("#OnlineDueDate").datepicker({ format: 'yyyy-mm-dd' });
+        //$('#TargetPressDate').datepicker({
+        //    format: 'yyyy-mm-dd',
+        //    orientation: "top",
+        //    autoclose: true
+        //});
+        $("#divMsgClientEdit").hide();
+        //Update manuscript Data
+        $("#btnSave").click(function (e) {
+            //Disable save button
+            EnableSave(false);
+            var $form = $('#myForm');
+            //Validate form data
+            $.validator.unobtrusive.parse($form);
+            if ($form.valid()) {
+                var obj =
+                {
+                    "isSPI": $("#isSPI").val(),
+                    "BudgetPressMonth": $("#BudgetPressMonth").val(),
+                    "PubSchedTier": $("#PubSchedTier").val(),
+                    "PubSchedTeam": $("#PubSchedTeam").val(),
+                    "BPSProductID": $("#BPSProductID").val(),
+                    "LegalEditor": $("#LegalEditor").val(),
+                    "ChargeType": $("#ChargeType").val(),
+                    "ProductChargeCode": $("#ProductChargeCode").val(),
+                    "BPSProductIDMaster": $("#BPSProductIDMaster").val(),
+                    "BPSSublist": $("#BPSSublist").val(),
+                    "ServiceUpdate": $("#ServiceUpdate").val(),
+                    "LastManuscriptHandover": $("#LastManuscriptHandover").val(),
+                    "BudgetPressDate": $("#BudgetPressDate").val(),
+                    "RevisedPressDate": $("#RevisedPressDate").val(),
+                    "ReasonForRevisedPressDate": $("#ReasonForRevisedPressDate").val(),
+                    "ServiceNumber": $("#ServiceNumber").val(),
+                    "ForecastPages": $("#ForecastPages").val(),
+                    "ActualPages": $("#ActualPages").val(),
+                    "DataFromLE": $("#DataFromLE").val(),
+                    "DataFromLEG": $("#DataFromLEG").val(),
+                    "DataFromCoding": $("#DataFromCoding").val(),
+                    "isReceived": $("#isReceived").val(),
+                    "isCompleted": $("#isCompleted").val(),
+                    "AheadOnTime": $("#AheadOnTime").val(),
+                    "WithRevisedPressDate": $("#WithRevisedPressDate").val(),
+                    "ActualPressDate": $("#ActualPressDate").val(),
+                    "ServiceAndBPSProductID": $("#ServiceAndBPSProductID").val(),
+                    "PubSchedRemarks": $("#PubSchedRemarks").val(),
+                };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: $form.attr("action"),
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            $("#divMsgClientEdit").addClass("alert-success");
+                            $("#spanMsgClientEdit").text("Manuscript updated successfully");
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                        else {
+                            $("#divMsgClientEdit").addClass("alert-warning");
+                            $("#spanMsgClientEdit").text(response.ErrorMessage);
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    },
+                    error: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+
+                });
+
+            }
+            else {
+                EnableSave(true);
+                return false;
+            }
+        });
+        //when close modal then reload window to refresh data
+        $(".modal-close").click(function () {
+            $('#editModal').modal('hide');
+            window.location.reload();
+        });
+    });
+
+    function EnableSave(param) {
+        if (param == true) {
+            $("#btnSave").html("Save");
+            $("#btnSave").removeClass("disabled");
+        }
+        else {
+            $("#btnSave").html("Saving...");
+            $("#btnSave").addClass('disabled');
+        }
+    }</script>

@@ -1,0 +1,261 @@
+﻿@model JobTrack.Models.CallToAction.CallToActionData
+
+<style type="text/css">
+    /*table icons*/
+    td.details-control, td.details-control2 {
+        background: url('../Image/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control, tr.shown td.details-control2 {
+        background: url('../Image/details_close.png') no-repeat center center;
+    }
+
+
+    td.details-control1, td.details-control3 {
+        background: url('../Image/details_info.png') no-repeat center center;
+        cursor: pointer;
+    }
+    /*custom search button on footer*/
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    /*font-awesome export button*/
+    .custom-btn {
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    /*center datatables content*/
+    th.dt-center, td.dt-center {
+        text-align: center;
+    }
+    /*remove searchbar*/
+    .dataTables_filter {
+        display: none;
+    }
+
+    /*tab style*/
+    :root {
+        --m5-tabs-bg: #e1e1e1;
+        --m5-border: #aaa;
+        --m5-tab-text: #888;
+        --m5-tab-bg: #e1e1e1;
+        --m5-tab-hover-text: #009688;
+        --m5-tab-hover-bg: #e1e1e1;
+        --m5-tab-hover-bg-card: #F8F9FA;
+    }
+
+    #MainTable .nav-tabs {
+        position: relative;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: flex;
+        margin: 0 auto;
+        padding: 0;
+        max-width: 2000px;
+        list-style: none;
+        -ms-box-orient: horizontal;
+        -ms-box-pack: center;
+        -webkit-flex-flow: row wrap;
+        -moz-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        -ms-justify-content: center;
+        justify-content: center;
+        border: 0;
+    }
+
+    #MainTable .nav .nav-item {
+        position: relative;
+        z-index: 1;
+        display: block;
+        margin: 0;
+        text-align: center;
+        -webkit-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+
+    #MainTable .nav .nav-link {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 2.5;
+        border: 1px solid var(--m5-border);
+        border-radius: 4;
+        padding: 0.65em 0 0.5em;
+        background: var(--m5-tab-bg);
+        color: var(--m5-tab-text);
+        line-height: 1;
+        -webkit-transition: color 0.2s;
+        transition: color 0.2s;
+        outline: unset;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        font-size: 0.8em;
+    }
+
+        #MainTable .nav .nav-link:hover {
+            background-color: var(--m5-tab-hover-bg);
+            color: var(--m5-tab-hover-text);
+        }
+
+        #MainTable .nav .nav-link.active,
+        #MainTable .nav .nav-link.active:hover {
+            background: var(--m5-tab-hover-bg-card);
+            border-top-color: var(--m5-tab-hover-text);
+            border-bottom: none;
+            box-shadow: inset 0 3px 0 var(--m5-tab-hover-text);
+            color: var(--m5-tab-hover-text);
+        }
+
+    #MainTable .nav i {
+        display: block;
+        margin: 0;
+        font-size: 2.4em;
+        line-height: 1;
+        speak: none;
+        -webkit-backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    table.dataTable td:nth-child(n) {
+        max-width: 100px;
+    }
+
+    table.dataTable td {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .popover {
+        min-width: 800px;
+        max-height: 400px;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="container-fluid mb-3">
+            <table class="display nowrap" id="tbldata" style="width: 100%;">
+                <thead class="table-header-footer">
+                    <tr>
+                        <th>CallToActionID</th>
+                        <th>Call To Action</th>
+                        <th>Status</th>
+                        <th>Date Created</th>
+                        <th>Username</th>
+                    </tr>
+                </thead>
+                <tfoot class="table-header-footer">
+                    <tr>
+                        <th>CallToActionID</th>
+                        <th>Call To Action</th>
+                        <th>Status</th>
+                        <th>Date Created</th>
+                        <th>Username</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#tblData tfoot th').each(function () {
+        var title = $(this).text();
+        $(this).html('<input type="text" placeholder="' + title + '" />');
+    });
+            $(document).ready(function () {
+            var tableData = $('#tblData').DataTable({
+                @*"ajax": {
+                    "url": "@Url.Action("GetCallToActionData", "Manuscript")",
+                    "dataSrc": "",
+                    "type": "GET",
+                    "datatype": "json",
+                    "data": function (d) {
+                        d.manuscriptid = $("#ManuscriptID").val();
+                        d.bpsproductid = $("#BPSProductID").val();
+                        d.servicenumber = $("#ServiceNumber").val();
+                    }
+                },*@
+                "columnDefs": [
+                    //center all data
+                    { "className": "dt-center", "targets": "_all" },
+                ],
+                columns: [
+                    { "data": "CallToActionID" },
+                    { "data": "CallToActionType" },
+                    { "data": "CallToActionStatus" },
+                    { "data": "DateCreated" },
+                    { "data": "UserName" }
+                ],
+                order: [[4, 'desc']],
+                dom: 'Bfrtip',
+                buttons: {
+                    //reset class and change the rendered tag
+                    //from <button> to <i>
+                    dom: {
+                        button: {
+                            tag: 'i',
+                            className: ''
+                        }
+                    },
+                    //since we now have completely unstyled icons add
+                    //some space between them trough a .custom-btn class
+                    buttons: [
+                        {
+                            titleAttr: 'Copy',
+                            extend: 'copyHtml5',
+                            className: 'custom-btn fa fa-clipboard',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as Excel',
+                            extend: 'excelHtml5',
+                            className: 'custom-btn fa fa-file-excel-o',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as CSV',
+                            extend: 'csvHtml5',
+                            className: 'custom-btn fa fa-file-text-o',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as PDF',
+                            extend: 'pdfHtml5',
+                            className: 'custom-btn fa fa-file-pdf-o',
+                            text: ''
+                        }
+
+                    ]
+                },
+                initComplete: function () {
+                    // Apply the search
+                    //scrollx initiator
+                    $('#tblData').wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                    //init = false;
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            });
+        });
+</script>

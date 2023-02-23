@@ -1,0 +1,521 @@
+﻿@model IEnumerable<JobTrack.Models.Admin.ProductDatabaseData>
+
+@{ ViewBag.Title = "Product Database";
+    Layout = "~/Views/Shared/_JobTrackLayout.cshtml"; }
+
+
+<style type="text/css">
+    /*table icons*/
+    td.details-control, td.details-control2 {
+        background: url('../Image/details_open.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    tr.shown td.details-control, tr.shown td.details-control2 {
+        background: url('../Image/details_close.png') no-repeat center center;
+    }
+
+
+    td.details-control1, td.details-control3 {
+        background: url('../Image/details_info.png') no-repeat center center;
+        cursor: pointer;
+    }
+
+    div.outer {
+        width: 90%;
+        margin: 0 auto;
+        overflow: hidden;
+        padding-bottom: 20px;
+    }
+
+    /*    div.inner {
+        max-width: 900px;
+        overflow: hidden;
+    }*/
+    div.inner {
+        max-width: 1050px;
+        justify-content: left;
+        /*max-width: 30%;*/
+        overflow: hidden;
+    }
+    /*custom search button on footer*/
+    tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    /*font-awesome export button*/
+    .custom-btn {
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    /*center datatables content*/
+    th.dt-center, td.dt-center {
+        text-align: center;
+    }
+    /*remove searchbar*/
+    .dataTables_filter {
+        display: none;
+    }
+
+    /*tab style*/
+    section {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    :root {
+        --m5-tabs-bg: #e1e1e1;
+        --m5-border: #aaa;
+        --m5-tab-text: #888;
+        --m5-tab-bg: #e1e1e1;
+        --m5-tab-hover-text: #009688;
+        --m5-tab-hover-bg: #e1e1e1;
+        --m5-tab-hover-bg-card: #F8F9FA;
+    }
+
+    #MainTable .nav-tabs {
+        position: relative;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flex;
+        display: flex;
+        margin: 0 auto;
+        padding: 0;
+        max-width: 2000px;
+        list-style: none;
+        -ms-box-orient: horizontal;
+        -ms-box-pack: center;
+        -webkit-flex-flow: row wrap;
+        -moz-flex-flow: row wrap;
+        -ms-flex-flow: row wrap;
+        flex-flow: row wrap;
+        -webkit-justify-content: center;
+        -moz-justify-content: center;
+        -ms-justify-content: center;
+        justify-content: center;
+        border: 0;
+    }
+
+    #MainTable .nav .nav-item {
+        position: relative;
+        z-index: 1;
+        display: block;
+        margin: 0;
+        text-align: center;
+        -webkit-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+    }
+
+    #MainTable .nav .nav-link {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 2.5;
+        border: 1px solid var(--m5-border);
+        border-radius: 4;
+        padding: 0.65em 0 0.5em;
+        background: var(--m5-tab-bg);
+        color: var(--m5-tab-text);
+        line-height: 1;
+        -webkit-transition: color 0.2s;
+        transition: color 0.2s;
+        outline: unset;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 700;
+        font-size: 0.8em;
+    }
+
+        #MainTable .nav .nav-link:hover {
+            background-color: var(--m5-tab-hover-bg);
+            color: var(--m5-tab-hover-text);
+        }
+
+        #MainTable .nav .nav-link.active,
+        #MainTable .nav .nav-link.active:hover {
+            background: var(--m5-tab-hover-bg-card);
+            border-top-color: var(--m5-tab-hover-text);
+            border-bottom: none;
+            box-shadow: inset 0 3px 0 var(--m5-tab-hover-text);
+            color: var(--m5-tab-hover-text);
+        }
+
+    #MainTable .nav i {
+        display: block;
+        margin: 0;
+        font-size: 2.4em;
+        line-height: 1;
+        speak: none;
+        -webkit-backface-visibility: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    /*elipsis*/
+    table.dataTable td:nth-child(n) {
+        max-width: 100px;
+    }
+
+    table.dataTable td {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
+
+<div class="content-body">
+    @if (ViewBag.ErrorMessage != null && ViewBag.ErrorMessage != "")
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;">
+            @ViewBag.ErrorMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>}
+    <div class="container-fluid mt-3">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="properties2">
+                                    <div class="container-fluid px-0">
+                                        <div class="row">
+                                            <div class="col text-center align-items-center text-black-50">
+                                                <h3>Product Database</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <section id="MainTable">
+                                    <!-- Nav tabs -->
+                                    <div class="tabs-container">
+                                        <ul class="nav nav-tabs container" role="tablist" id="myTabs1">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" data-toggle="tab" href="#ProductJobs"><span><i class="fa fa-briefcase"></i>&nbsp;&nbsp;Product Data</span></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- Tab panes -->
+                                    <div class="tab-content tabcontent-border">
+                                        <div class="tab-pane fade show active" id="ProductJobs" role="tabpanel">
+                                            <div class="card bg-light">
+                                                <div class="d-flex p-3">
+                                                    <div class="p-2">
+                                                        <button id="btnAddNew" class="btn btn-success btn-circle float-right"><i class="fa fa-plus-square"></i>&nbsp;&nbsp;Add New</button>
+                                                    </div>
+                                                </div>
+                                                <div class="outer">
+                                                    <table class="display nowrap" id="tblData" style="width: 100%;">
+                                                        <thead class="table-header-footer">
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>PubSchedID</th>
+                                                                <th>SPI?</th>
+                                                                <th>Order Number</th>
+                                                                <th>Budget Press Month</th>
+                                                                <th>Tier</th>
+                                                                <th>Team</th>
+                                                                <th>Product</th>
+                                                                <th>Legal Editor</th>
+                                                                <th>Charge Type</th>
+                                                                <th>Charge Code</th>
+                                                                <th>Product ID Master</th>
+                                                                <th>Sublist</th>
+                                                                <th>Service Update</th>
+                                                                <th>Budget Press Date</th>
+                                                                <th>Revised Press Date</th>
+                                                                <th>Reason</th>
+                                                                <th>Service Number</th>
+                                                                <th>Forecast Pages</th>
+                                                                <th>Actual Pages</th>
+                                                                <th>Data From LE</th>
+                                                                <th>Data From LEG</th>
+                                                                <th>Data From Coding</th>
+                                                                <th>Received?</th>
+                                                                <th>Completed?</th>
+                                                                <th>With Revised Press Date</th>
+                                                                <th>Actual Press Date</th>
+                                                                <th>Service And Product</th>
+                                                                <th>Remarks</th>
+                                                                <th>Year Added</th>
+                                                                <th>Date Created</th>
+                                                                <th>Date Updated</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tfoot class="table-header-footer">
+                                                            <tr>
+                                                                <th></th>
+                                                                <th>PubSchedID</th>
+                                                                <th>SPI?</th>
+                                                                <th>Order Number</th>
+                                                                <th>Budget Press Month</th>
+                                                                <th>Tier</th>
+                                                                <th>Team</th>
+                                                                <th>Product</th>
+                                                                <th>Legal Editor</th>
+                                                                <th>Charge Type</th>
+                                                                <th>Charge Code</th>
+                                                                <th>Product ID Master</th>
+                                                                <th>Sublist</th>
+                                                                <th>Service Update</th>
+                                                                <th>Budget Press Date</th>
+                                                                <th>Revised Press Date</th>
+                                                                <th>Reason</th>
+                                                                <th>Service Number</th>
+                                                                <th>Forecast Pages</th>
+                                                                <th>Actual Pages</th>
+                                                                <th>Data From LE</th>
+                                                                <th>Data From LEG</th>
+                                                                <th>Data From Coding</th>
+                                                                <th>Received?</th>
+                                                                <th>Completed?</th>
+                                                                <th>With Revised Press Date</th>
+                                                                <th>Actual Press Date</th>
+                                                                <th>Service And Product</th>
+                                                                <th>Remarks</th>
+                                                                <th>Year Added</th>
+                                                                <th>Date Created</th>
+                                                                <th>Date Updated</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- #/ container -->
+</div>
+
+<!-- Edit Modal -->
+<div id="modalWrapper">
+    @* Inject form here *@
+</div>
+@section scripts
+{
+
+    <script type="text/javascript">
+        //TBD
+        moment.updateLocale(moment.locale(), { invalidDate: "TBD" });
+        // Setup - add a text input to each footer cell
+        $('#tblData tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        $(document).ready(function () {
+            var tableData = $('#tblData').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("GetProductDatabase", "Admin")",
+                    "dataSrc": "",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columnDefs": [
+                    //center all data
+                    { "className": "dt-center", "targets": "_all" },
+                    {
+                    "targets": [14],
+                    "render": function (data) {
+                        return moment(data).format('D/MMM/YY');
+                    }
+                    },
+                    {
+                        "targets": [15],
+                        "render": function (data) {
+                            return moment(data).format('D/MMM/YY');
+                        }
+                    },
+                    {
+                        "targets": [20],
+                        "render": function (data) {
+                            return moment(data).format('D/MMM/YY');
+                        }
+                    },
+                    {
+                        "targets": [21],
+                        "render": function (data) {
+                            return moment(data).format('D/MMM/YY');
+                        }
+                    },
+                    {
+                        "targets": [22],
+                        "render": function (data) {
+                            return moment(data).format('D/MMM/YY');
+                        }
+                    },
+                    {
+                        "targets": [26],
+                        "render": function (data) {
+                            return moment(data).format('D/MMM/YY');
+                        }
+                    },
+                    {
+                        "targets": [30],
+                        "render": function (data) {
+                            return moment(data).format('D/MMM/YY');
+                        }
+                    },
+                    {
+                        "targets": [31],
+                        "render": function (data) {
+                            return moment(data).format('D/MMM/YY');
+                        }
+                    },
+                    {
+                        "targets": [1],
+                        "visible": false,
+                        "searchable": false
+                    }
+                ],
+                columns: [
+                    {
+                        "className": 'details-control1',
+                        "orderable": false,
+                        "data": null,
+                        "defaultContent": ''
+                    },
+                    { "data": "PubSchedID" },
+                    { "data": "isSPI" },
+                    { "data": "OrderNumber" },
+                    { "data": "BudgetPressMonth" },
+                    { "data": "PubSchedTier" },
+                    { "data": "PubSchedTeam" },
+                    { "data": "BPSProductID" },
+                    { "data": "LegalEditor" },
+                    { "data": "ChargeType" },
+                    { "data": "ProductChargeCode" },
+                    { "data": "BPSProductIDMaster" },
+                    { "data": "BPSSublist" },
+                    { "data": "ServiceUpdate" },
+                    { "data": "BudgetPressDate" },
+                    { "data": "RevisedPressDate" },
+                    { "data": "ReasonForRevisedPressDate" },
+                    { "data": "ServiceNumber" },
+                    { "data": "ForecastPages" },
+                    { "data": "ActualPages" },
+                    { "data": "DataFromLE" },
+                    { "data": "DataFromLEG" },
+                    { "data": "DataFromCoding" },
+                    { "data": "isReceived" },
+                    { "data": "isCompleted" },
+                    { "data": "WithRevisedPressDate" },
+                    { "data": "ActualPressDate" },
+                    { "data": "ServiceAndBPSProductID" },
+                    { "data": "PubSchedRemarks" },
+                    { "data": "YearAdded" },
+                    { "data": "DateCreated" },
+                    { "data": "DateUpdated" }
+                ],
+                order: [[1, 'asc']],
+                dom: 'Bfrtip',
+                buttons: {
+                    //reset class and change the rendered tag
+                    //from <button> to <i>
+                    dom: {
+                        button: {
+                            tag: 'i',
+                            className: ''
+                        }
+                    },
+                    //since we now have completely unstyled icons add
+                    //some space between them trough a .custom-btn class
+                    buttons: [
+                        {
+                            titleAttr: 'Copy',
+                            extend: 'copyHtml5',
+                            className: 'custom-btn fa fa-clipboard',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as Excel',
+                            extend: 'excelHtml5',
+                            className: 'custom-btn fa fa-file-excel-o',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as CSV',
+                            extend: 'csvHtml5',
+                            className: 'custom-btn fa fa-file-text-o',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as PDF',
+                            extend: 'pdfHtml5',
+                            className: 'custom-btn fa fa-file-pdf-o',
+                            text: ''
+                        }
+
+                    ]
+                },
+                initComplete: function () {
+                    // Apply the search
+                    //scrollx initiator
+                    $('#tblData').wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                    //init = false;
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            });
+            //Add event listener for opening and closing first level childdetails
+            $('#tblData tbody').on('click', 'td.details-control1', function () {
+                var tr = $(this).closest('tr');
+                var row = tableData.row(tr);
+                var rowData = row.data();
+                var dataNew = tableData.row(this).data();
+
+                    $.ajax({
+                        "url": "@Url.Action("EditEmployeeData", "Admin")",
+                        "contentType": "application/json; charset=utf-8",
+                        data: {
+                            employeeid: dataNew['EmployeeID'],
+                            username: dataNew['UserName']
+                        },
+                        success: function (data) {
+                            $('#modalWrapper').html(data);
+                            $('#EditEmployeeDataModal').modal('show');
+
+                        }
+                    });
+            });
+            //************Show New User Modal**************
+            @*$("#btnAddNew").click(function () {
+                //var datacount = $("#lblCount").text();
+                $.ajax({
+                    "url": "@Url.Action("AddNewEmployee", "Admin")",
+                    contentType: "application/json; charset=utf-8",
+                    data: "",
+                    success: function (data) {
+
+                        $('#modalWrapper').html(data);
+
+                        $('#AddNewEmployeeModal').modal('show');
+                    }
+                });
+            });*@
+
+        });
+    </script>
+}

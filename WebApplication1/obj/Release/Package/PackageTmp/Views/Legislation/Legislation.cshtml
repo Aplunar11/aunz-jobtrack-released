@@ -1,0 +1,745 @@
+﻿@model IEnumerable<JobTrack.Models.Legislation.LegislationData>
+
+@{
+    ViewBag.Title = "Legislation";
+    Layout = "~/Views/Shared/_JobTrackLayout.cshtml"; }
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css" />*@
+
+<style type="text/css">
+    .divider-text {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+        .divider-text span {
+            padding: 7px;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .divider-text:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            top: 55%;
+            left: 0;
+            z-index: 1;
+        }
+
+    div.dataTables_wrapper {
+        width: 1400px;
+        margin: 0 auto;
+    }
+
+    .divs {
+        overflow-x: scroll;
+    }
+</style>
+<div class="content-body">
+    @if (ViewBag.ErrorMessage != null && ViewBag.ErrorMessage != "")
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top:10px;">
+            @ViewBag.ErrorMessage
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>}
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div id="properties2">
+                                    <div class="container-fluid px-0">
+                                        <div class="row">
+                                            <div class="col text-center align-items-center text-black-50">
+                                                <h3>Product Database</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Nav tabs -->
+                                <ul class="nav nav-tabs mb-3" role="tablist" id="myTabs1">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#ProductManuscript"><span><i class="ti-home"></i> View All</span></a>
+                                    </li>
+                                </ul>
+                                <!-- Tab panes -->
+                                <div class="tab-content tabcontent-border">
+                                    <div class="tab-pane fade show active" id="ProductManuscript" role="tabpanel">
+                                        <div class="p-t-15">
+                                            <div class="table-responsive">
+                                                <div class="card bg-light divs">
+                                                    <article class="card-body mx-auto">
+                                                        <div id="divMsgClient" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                                                            <span id="spanMsgClient">Message</span>
+                                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                @Html.Label("Total Count : ")
+                                                                @Html.Label(Model.Count().ToString(), new { id = "lblCount" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <button id="btnAddNew" class="btn  btn-success btn-circle float-right"><i class="fa fa-plus"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <table class="table table-sm table-bordered table-hover" id="tblData">
+                                                            <thead class="table-header-footer">
+                                                                <tr>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LegislationID)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LLE2E)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.DateEntered)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Editor)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.QAEditor)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.PrincipalLegislation)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.AmendingLegislation)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.CommencementDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LegislationComment)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.AssentDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.AffectedProvisions)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.UpdateType)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Tier)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Publication)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ServiceNumber)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.GuideCard)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Jurisdiction)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.TotalOutput)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ActualEDTOutput)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Latup)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.CNTsAlpha)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.GraphicsWord)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.GraphicsPDF)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.GraphicsOTP)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ActualOnlineOutput)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.JobIDs)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.EDTTargetCompletionDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.EDTActualDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.QCDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.DateInitiatedOnline)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.OnlineCheckingDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.RevisedOnlineDueDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.OnlineActualDueDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.BenchmarkMet)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ProposedDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ActualQAOnlineDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LegislationStatus)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Stage)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.StatusCategory)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.OnTrackOffTrack)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ReasonForDelay)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.StartDateOnHold)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.PostbackToStableDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.TargetPressDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.SSLRServices)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.JiraTickets)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LegislationRemarks)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.isBilled)
+                                                                    </th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach (var item in Model)
+                                                                {
+                                                                    <tr>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.LegislationID)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.LLE2E)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.DateEntered)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Editor)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.QAEditor)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.PrincipalLegislation)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.AmendingLegislation)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.CommencementDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.LegislationComment)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.AssentDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.AffectedProvisions)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.UpdateType)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Tier)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Publication)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.ServiceNumber)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.GuideCard)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Jurisdiction)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.TotalOutput)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.ActualEDTOutput)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Latup)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.CNTsAlpha)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.GraphicsWord)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.GraphicsPDF)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.GraphicsOTP)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.ActualOnlineOutput)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.JobIDs)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.EDTTargetCompletionDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.EDTActualDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.QCDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.DateInitiatedOnline)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.OnlineCheckingDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.RevisedOnlineDueDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.OnlineActualDueDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.BenchmarkMet)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.ProposedDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.ActualQAOnlineDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.LegislationStatus)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.Stage)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.StatusCategory)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.OnTrackOffTrack)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.ReasonForDelay)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.StartDateOnHold)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.PostbackToStableDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.TargetPressDate)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.SSLRServices)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.JiraTickets)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.LegislationRemarks)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.isBilled)
+                                                                        </td>
+                                                                        <td>
+                                                                            <a href='@Url.Action("EditLegislation","Legislation", new { LegislationID = item.LegislationID })' class="linkEdit btn  btn-warning btn-circle">
+                                                                                <i class="fa fa-edit"></i>
+                                                                            </a>
+
+                                                                        </td>
+                                                                    </tr>
+                                                                }
+                                                            </tbody>
+                                                            <tfoot class="table-header-footer">
+                                                                <tr>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LegislationID)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LLE2E)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.DateEntered)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Editor)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.QAEditor)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.PrincipalLegislation)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.AmendingLegislation)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.CommencementDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LegislationComment)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.AssentDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.AffectedProvisions)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.UpdateType)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Tier)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Publication)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ServiceNumber)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.GuideCard)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Jurisdiction)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.TotalOutput)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ActualEDTOutput)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Latup)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.CNTsAlpha)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.GraphicsWord)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.GraphicsPDF)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.GraphicsOTP)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ActualOnlineOutput)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.JobIDs)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.EDTTargetCompletionDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.EDTActualDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.QCDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.DateInitiatedOnline)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.OnlineCheckingDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.RevisedOnlineDueDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.OnlineActualDueDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.BenchmarkMet)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ProposedDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ActualQAOnlineDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LegislationStatus)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.Stage)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.StatusCategory)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.OnTrackOffTrack)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.ReasonForDelay)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.StartDateOnHold)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.PostbackToStableDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.TargetPressDate)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.SSLRServices)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.JiraTickets)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.LegislationRemarks)
+                                                                    </th>
+                                                                    <th>
+                                                                        @Html.DisplayNameFor(model => model.isBilled)
+                                                                    </th>
+                                                                   
+                                                                    <th></th>
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#009688;color:white">
+                <h5 class="modal-title" id="confirmModalLabel">Confirm</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Do you want to delete?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">No</button>
+                <button id="btnDelete" type="submit" class="btn btn-danger btn-sm">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Modal -->
+<div id="modalWrapper">
+    @* Inject form here *@
+</div>
+
+@section scripts
+{
+    @*<link href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.js"></script>
+
+    <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>*@
+
+<script type="text/javascript">
+        $(document).ready(function () {
+            // Setup - add a text input to each footer cell
+            $('#tblData tfoot th').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+            });
+            //Enable datatable on table
+            var dataTableUser = $('#tblData').DataTable(
+                {
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copyHtml5',
+                        'excelHtml5',
+                        'csvHtml5',
+                        'pdfHtml5'
+                    ],
+                    initComplete: function () {
+                        // Apply the search
+                        this.api().columns().every(function () {
+                            var that = this;
+
+                            $('input', this.footer()).on('keyup change clear', function () {
+                                if (that.search() !== this.value) {
+                                    that
+                                        .search(this.value)
+                                        .draw();
+                                }
+                            });
+                        });
+                    }
+                }
+            );
+
+            $("#spanPageHeader").html("User Master");
+            $("#divMsgClient").hide();
+
+            //this value will be send to controller for user operation
+            var SelectedId;
+            var SelectedRow;
+            //************** Start Grid Delete Link to show delete confirmation popup*****************
+            $('#tblData').on('click', '.linkDel', function (e) {
+           // $(".linkDel").click(function (e) {
+                $('#confirmModal').modal('show');
+                SelectedId = $(this).data("del-id");
+                SelectedRow = $(this).parents("tr:first");
+            });
+            //***********End************************
+            //************************Start Delete Button From Delete Confirmation Modal*********************
+            $("#btnDelete").click(function () {
+                $('#confirmModal').modal('hide');
+                var obj = { "Id": SelectedId };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteUser")',
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            SelectedRow.fadeOut('fast', function () {
+                                //SelectedRow.remove();
+                                dataTableUser.row(SelectedRow).remove().draw();
+                            });
+                            $("#divMsgClient").addClass("alert-success");
+                            $("#spanMsgClient").text("User deleted successfully");
+                            $("#divMsgClient").show();
+                            //Calculate total
+                            var lblCount = parseInt($("#lblCount").text());
+                            lblCount = lblCount - 1;
+                            $("#lblCount").text(lblCount);
+
+                        }
+                        else {
+                            $("#divMsgClient").addClass("alert-warning");
+                            $("#spanMsgClient").text(response.ErrorMessage);
+                            $("#divMsgClient").show();
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClient").addClass("alert-warning");
+                        $("#spanMsgClient").text(response.responseText);
+                        $("#divMsgClient").show();
+                    },
+                    error: function (response) {
+                        $("#divMsgClient").addClass("alert-warning");
+                        $("#spanMsgClient").text(response.responseText);
+                        $("#divMsgClient").show();
+                    }
+                });
+            });
+
+            //************End**************************
+            //*************Show Edit popup call partial view*************
+            //++++++++++++Below code would not work with datatable for second  page because this event attah only on visible row
+            //$(".linkEdit").click(function (e) {
+            //    e.preventDefault();
+            //    var editHref = $(this).attr("href");
+            //    $.ajax({
+            //        url: editHref,
+            //        success: function (data) {
+            //            $('#modalWrapper').html(data);
+            //            $('#editModal').modal('show');
+            //        }
+            //    });
+            //});
+
+            $('#tblData').on('click', '.linkEdit', function (e) {
+                e.preventDefault();
+                var editHref = $(this).attr("href");
+                $.ajax({
+                    url: editHref,
+                    success: function (data) {
+                        $('#modalWrapper').html(data);
+                        $('#editModal').modal('show');
+                    }
+                });
+            });
+
+            //************Show New User Modal**************
+            $("#btnAddNew").click(function () {
+                $.ajax({
+                    url: "@Url.Action("AddNewLegislation", "Legislation")",
+                    /*url: "/Legislation/AddNewLegislation",*/
+                    success: function (data) {
+                        $('#modalWrapper').html(data);
+                        $('#addNewLegislationModal').modal('show');
+                    }
+                });
+            });
+        });
+        //***************End*******************8
+
+</script>
+}

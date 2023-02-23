@@ -1,0 +1,71 @@
+﻿@model JobTrack.Models.Employee.EmployeeLogin
+@{
+    ViewBag.Title = "Employee Login";
+}
+
+@using (Html.BeginForm("EmployeeLogin", "Employee", FormMethod.Post, new { role = "form" }))
+{
+    <div class="form-group">
+        <div class="input-group input-group-lg mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-user text-danger"></i></div>
+                @Html.TextBoxFor(model => model.ID, new { @class = "form-control", placeholder = "Username", name = "eid", type = "text" })
+
+            </div>
+
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group input-group-lg mb-2">
+            <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-lock text-danger"></i></div>
+                @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password", name = "password", type = "password" })
+
+            </div>
+        </div>
+    </div>
+    @*<div class="form-group">
+            <div class="custom-control custom-checkbox custom-checkbox-red">
+                @Html.CheckBoxFor(model => model.RememberMe, new { @class = "custom-control-input custom-control-input-red", id = "customCheck" })
+                <input type="checkbox" class="custom-control-input custom-control-input-red" id="customCheck">
+                <label class="custom-control-label" for="customCheck">Remember Me</label>
+            </div>
+
+        </div>*@
+    @*<div class="form-group">
+
+            <div class="col-md-12 col-xs-12">
+                <div id="captcha" class="captcha">
+                    @Html.Label("Captcha")
+                    @Html.Captcha("Refresh", "Enter the text you see above", 5, "<span class='text-danger'>Enter Captcha</span>", true)
+                </div>
+            </div>
+        </div>*@
+    <div class="form-group">
+        <div class="text-center">
+            <input type="submit" value="Login" class="btn btn-success">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+                $(function () {
+                    var a = '@TempData["Message"]';
+                    var b = '@TempData["Toastr"]';
+                    if ((a != '') && (b != '') && (b == "warning")) {
+                        toastr.warning("", a)
+                    }
+                    else if ((a != '') && (b != '') && (b == "info")) {
+                        toastr.info("", a)
+                    }
+                    else if ((a != '') && (b != '') && (b == "success")) {
+                        toastr.success("", a)
+                    }
+                    else if ((a != '') && (b != '') && (b == "error")) {
+                        toastr.error("", a)
+                    }
+                })
+
+    </script>
+
+}
+

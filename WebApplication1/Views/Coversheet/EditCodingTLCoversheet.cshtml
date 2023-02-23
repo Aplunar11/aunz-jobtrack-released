@@ -1,0 +1,1108 @@
+﻿@model JobTrack.Models.Coversheet.EditCoversheetViewModelBase
+
+<style type="text/css">
+    a.nav-item {
+        text-decoration: none;
+    }
+
+    .nav-item {
+        color: #090;
+        opacity: 0.6;
+        position: relative;
+        -webkit-transition: opacity 0.2s ease-in-out 0s;
+        -moz-transition: opacity 0.2s ease-in-out 0s;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+        .nav-item:hover {
+            color: #090;
+            opacity: 1;
+        }
+
+        .nav-item:before {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            z-index: 10;
+            background-color: #aca;
+            -webkit-transform: scaleX(0);
+            -moz-transform: scaleX(0);
+            transform: scaleX(0);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -moz-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+        }
+
+        .nav-item:hover:before {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+    .nav-item1 {
+        color: #e80909;
+        opacity: 0.6;
+        position: relative;
+        -webkit-transition: opacity 0.2s ease-in-out 0s;
+        -moz-transition: opacity 0.2s ease-in-out 0s;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+        .nav-item1:hover {
+            color: #e80909;
+            opacity: 1;
+        }
+
+        .nav-item1:before {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            z-index: 10;
+            background-color: #ccaaaa;
+            -webkit-transform: scaleX(0);
+            -moz-transform: scaleX(0);
+            transform: scaleX(0);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -moz-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+        }
+
+        .nav-item1:hover:before {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+    .bootstrap-select > .dropdown-toggle {
+        height: 40px;
+    }
+
+    .popover {
+        max-width: 1200px;
+        max-height: 400px;
+    }
+
+    .mandatory:after {
+        content: ' *';
+        color: Red;
+    }
+
+    .input {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 1px solid black;
+    }
+</style>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="EditCodingTLCoversheetModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="min-width:50%" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#009688;color:white">
+                <h5 class="modal-title" id="confirmModalLabel">Coding Workbench</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("EditCodingTLCoversheet", "Coversheet", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body">
+                    <div id="divMsgClientEdit" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                        <span id="spanMsgClientEdit">Message</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+                        <div class="container-fluid">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>COVERSHEET DETAILS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 border-right-1">
+                                            @Html.HiddenFor(model => model.model1.CoversheetID, new { @class = "" })
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.CoversheetNumber, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.CoversheetNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.CoversheetNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.ServiceNumber, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.ServiceNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.ServiceNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.TaskNumber, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.TaskNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.TaskNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.BPSProductID, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.BPSProductID, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.BPSProductID, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.Editor, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.Editor, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.Editor, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.ChargeCode, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.ChargeCode, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.ChargeCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.LabelFor(model => model.model1.LocationOfManuscript, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                @Html.TextAreaFor(model => model.model1.LocationOfManuscript, new { @readonly = "readonly", rows = "3", cols = "45", @class = "form-control input", @style = "resize:none;", autocomplete = "off" })
+                                                @Html.ValidationMessageFor(model => model.model1.LocationOfManuscript, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group mb-0">
+                                                @Html.HiddenFor(model => model.model1.TaskType, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.TaskType, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.TaskType, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.LabelFor(model => model.model1.GuideCard, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                @Html.TextAreaFor(model => model.model1.GuideCard, new { @readonly = "readonly", rows = "3", cols = "45", @class = "form-control input", @style = "resize:none;", autocomplete = "off" })
+                                                @Html.ValidationMessageFor(model => model.model1.GuideCard, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.UpdateType, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.UpdateType, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.UpdateType, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-0">
+                                                <div class="row">
+                                                    <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                                        <h6>GENERAL</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom-1">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralLegRefCheck, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3 border-right-1">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralLegRefCheck, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralLegRefCheck, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralTOC, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralTOC, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralTOC, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom-1">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralTOS, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3 border-right-1">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralTOS, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralTOS, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralReprints, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralReprints, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralReprints, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom-1">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralFascicleInsertion, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3 border-right-1">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralFascicleInsertion, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralFascicleInsertion, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralGraphicLink, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralGraphicLink, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralGraphicLink, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom-1">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralGraphicEmbed, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3 border-right-1">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralGraphicEmbed, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralGraphicEmbed, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralHandtooling, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralHandtooling, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralHandtooling, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom-1">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralNonContent, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3 border-right-1">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralNonContent, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralNonContent, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralSamplePages, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralSamplePages, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralSamplePages, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom-1">
+                                                    <div class="col-6">
+                                                        <div class="row">
+                                                            <div class="col-9 border-right-1">
+                                                                @Html.LabelFor(model => model.model1.GeneralComplexTask, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-3 border-right-1">
+                                                                @Html.CheckBoxFor(model => model.model1.GeneralComplexTask, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                                @Html.ValidationMessageFor(model => model.model1.GeneralComplexTask, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-12 text-center border-bottom-1 mb-0 text-white">
+                                                        <h6>GENERAL</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-0">
+                                                @Html.HiddenFor(model => model.model1.TargetPressDate, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.TargetPressDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @Html.DisplayFor(model => model.model1.TargetPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.LabelFor(model => model.model1.FurtherInstruction, htmlAttributes: new { @class = "control-label mandatory text-nowrap text-uppercase font-weight-bold" })
+                                                @Html.TextAreaFor(model => model.model1.FurtherInstruction, new { @readonly = "readonly", rows = "7", cols = "45", @class = "form-control input", @style = "resize:none;", autocomplete = "off", required = "required", title = "Further Instructions Required" })
+                                                @Html.ValidationMessageFor(model => model.model1.FurtherInstruction, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>TASK DETAILS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.AcceptedDate, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.AcceptedDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.DisplayFor(model => model.model1.AcceptedDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @if (TempData["CodingUser"] != null)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-3 border-right-1">
+                                                            @Html.LabelFor(model => model.model1.JobOwner, htmlAttributes: new { @class = "control-label mandatory text-nowrap text-uppercase font-weight-bold" })
+                                                        </div>
+                                                        <div class="col-5">
+                                                            @Html.DropDownListFor(model => model.model1.JobOwner, TempData["CodingUser"] as SelectList, new { @class = "form-control selects show-tick", required = "required", title = "Job Owner Required" })
+                                                            @Html.ValidationMessageFor(model => model.model1.JobOwner, "", new { @class = "text-danger" })
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <button id="btnAssign" type="button" class="btn btn-outline-primary"><i class="fa fa-send-o"></i>&nbsp;&nbsp;Assign</button>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.CurrentTask, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.CurrentTask, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.DisplayFor(model => model.model1.CurrentTask, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.TaskStatus, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.TaskStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.DisplayFor(model => model.model1.TaskStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.UpdateEmailCC, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.EditorFor(model => model.model1.UpdateEmailCC, new { htmlAttributes = new { @class = "form-control input", autocomplete = "off" } })
+                                                        @Html.ValidationMessageFor(model => model.model1.UpdateEmailCC, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.OnlineTimeliness, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.OnlineTimeliness, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.DisplayFor(model => model.model1.OnlineTimeliness, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.ReasonIfLate, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.ReasonIfLate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.DisplayFor(model => model.model1.ReasonIfLate, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-0">
+                                                @Html.HiddenFor(model => model.model1.DateCreated, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.DateCreated, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.DisplayFor(model => model.model1.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>XML EDITING</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.IsXMLEditing, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-2">
+                                                        @Html.CheckBoxFor(model => model.model1.IsXMLEditing, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                    </div>
+                                                    <div class="col-7">
+                                                        <a href="#" id="tglr" class="popover-toggle" title="Subsequent Pass Log">SUBSEQUENT PASS LOG</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.CodingDueDate, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.CodingDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.DisplayFor(model => model.model1.CodingDueDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.CodingStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding TL")
+                                                        {
+
+                                                            @Html.HiddenFor(model => model.model1.CodingStartDate, new { @class = "" })
+                                                            @Html.DisplayFor(model => model.model1.CodingStartDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        }
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding")
+                                                        {
+                                                            if (Model.model1.OnlineStartDate == null)
+                                                            {
+                                                                @Html.ActionLink("[START]", null, null, Model.model1.CodingStartDate, new { @class = "nav-item", @Href = "#", @id = "CopyEditStartDate" })
+
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.HiddenFor(model => model.model1.CodingStartDate, new { @class = "" })
+                                                                @Html.DisplayFor(model => model.model1.CodingStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.OnlineDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding TL")
+                                                        {
+
+                                                            @Html.HiddenFor(model => model.model1.CodingDoneDate, new { @class = "" })
+                                                            @Html.DisplayFor(model => model.model1.CodingDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        }
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding")
+                                                        {
+                                                            if (Model.model1.OnlineDoneDate == null)
+                                                            {
+                                                                @Html.ActionLink("[DONE]", null, null, Model.model1.CodingDoneDate, new { @class = "nav-item1", @Href = "#", @id = "CopyEditDoneDate" })
+
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.HiddenFor(model => model.model1.CodingDoneDate, new { @class = "" })
+                                                                @Html.DisplayFor(model => model.model1.CodingDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.SubTask, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.EditorFor(model => model.model1.SubTask, new { htmlAttributes = new { @class = "form-control input", autocomplete = "off" } })
+                                                        @Html.ValidationMessageFor(model => model.model1.SubTask, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.PDFQCStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.EditorFor(model => model.model1.PDFQCStatus, new { htmlAttributes = new { @class = "form-control input", autocomplete = "off" } })
+                                                        @Html.ValidationMessageFor(model => model.model1.PDFQCStatus, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.PDFQCStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding TL")
+                                                        {
+
+                                                            @Html.HiddenFor(model => model.model1.PDFQCStartDate, new { @class = "" })
+                                                            @Html.DisplayFor(model => model.model1.PDFQCStartDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        }
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding")
+                                                        {
+                                                            if (Model.model1.OnlineStartDate == null)
+                                                            {
+                                                                @Html.ActionLink("[START]", null, null, Model.model1.PDFQCStartDate, new { @class = "nav-item", @Href = "#", @id = "CopyEditStartDate" })
+
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.HiddenFor(model => model.model1.PDFQCStartDate, new { @class = "" })
+                                                                @Html.DisplayFor(model => model.model1.PDFQCStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.OnlineDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding TL")
+                                                        {
+
+                                                            @Html.HiddenFor(model => model.model1.PDFQCDoneDate, new { @class = "" })
+                                                            @Html.DisplayFor(model => model.model1.PDFQCDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        }
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding")
+                                                        {
+                                                            if (Model.model1.OnlineDoneDate == null)
+                                                            {
+                                                                @Html.ActionLink("[DONE]", null, null, Model.model1.PDFQCDoneDate, new { @class = "nav-item1", @Href = "#", @id = "CopyEditDoneDate" })
+
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.HiddenFor(model => model.model1.PDFQCDoneDate, new { @class = "" })
+                                                                @Html.DisplayFor(model => model.model1.PDFQCDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-0">
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model2.AttachmentName, htmlAttributes: new { @class = "control-label text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-5">
+                                                        @Html.TextBoxFor(model => model.model2.AttachmentName, new { @type = "file", @class = "form-control input" })
+                                                        @Html.ValidationMessageFor(model => model.model2.AttachmentName, "", new { @class = "text-danger" })
+                                                    </div><div class="col-4 d-flex">
+                                                        <div class="p-2">
+                                                            <button id="btnSend" type="button" class="btn btn-outline-primary"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;Send</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>ONLINE</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.IsOnline, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.CheckBoxFor(model => model.model1.IsOnline, new { htmlAttributes = new { @class = "form-control", @checked = "checked" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                @Html.HiddenFor(model => model.model1.OnlineDueDate, new { @class = "" })
+                                                <div class="row">
+                                                    <div class="col-3 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.OnlineDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-9">
+                                                        @Html.DisplayFor(model => model.model1.OnlineDueDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group border-bottom-1 mb-0">
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.OnlineStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                    </div>
+                                                    <div class="col-6">
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding TL")
+                                                        {
+
+                                                            @Html.HiddenFor(model => model.model1.OnlineStartDate, new { @class = "" })
+                                                            @Html.DisplayFor(model => model.model1.OnlineStartDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        }
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding")
+                                                        {
+                                                            if (Model.model1.OnlineStartDate == null)
+                                                            {
+                                                                @Html.ActionLink("[START]", null, null, Model.model1.OnlineStartDate, new { @class = "nav-item", @Href = "#", @id = "CopyEditStartDate" })
+
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.HiddenFor(model => model.model1.OnlineStartDate, new { @class = "" })
+                                                                @Html.DisplayFor(model => model.model1.OnlineStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mb-0">
+                                                <div class="row">
+                                                    <div class="col-6 border-right-1">
+                                                        @Html.LabelFor(model => model.model1.OnlineDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+
+                                                    </div>
+                                                    <div class="col-6">
+
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding TL")
+                                                        {
+
+                                                            @Html.HiddenFor(model => model.model1.OnlineDoneDate, new { @class = "" })
+                                                            @Html.DisplayFor(model => model.model1.OnlineDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+
+                                                        }
+                                                        @if (Session["UserAccess"] != null && (string)Session["UserAccess"] == "Coding")
+                                                        {
+                                                            if (Model.model1.OnlineDoneDate == null)
+                                                            {
+                                                                @Html.ActionLink("[DONE]", null, null, Model.model1.OnlineDoneDate, new { @class = "nav-item1", @Href = "#", @id = "CopyEditDoneDate" })
+
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.HiddenFor(model => model.model1.OnlineDoneDate, new { @class = "" })
+                                                                @Html.DisplayFor(model => model.model1.OnlineDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            }
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>QUERIES</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="outer">
+                                                    <table class="display nowrap" id="TABLE_3" style="width: 100%;">
+                                                        <thead class="table-header-footer">
+                                                            <tr>
+                                                                <th>Query Status</th>
+                                                                <th>Query ID</th>
+                                                                <th>Query Number</th>
+                                                                <th>Query Type</th>
+                                                                <th>Topic Title</th>
+                                                                <th>Date Posted</th>
+                                                                <th>Posted By</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tfoot class="table-header-footer">
+                                                            <tr>
+                                                                <th>Query Status</th>
+                                                                <th>Query ID</th>
+                                                                <th>Query Number</th>
+                                                                <th>Query Type</th>
+                                                                <th>Topic Title</th>
+                                                                <th>Date Posted</th>
+                                                                <th>Posted By</th>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="modal-footer">
+                    <button id="btnAssignClick" type="button" class="btn btn-secondary" hidden="hidden">Assign</button>
+                    <button id="btnSendClick" type="button" class="btn btn-secondary" hidden="hidden">Send</button>
+                    <button id="btnSave" type="button" class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                </div>
+            }
+            <div id="customdiv" style="display: none">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="outer">
+                            <table class="display nowrap" id="TABLE_3" style="width: 100%;">
+                                <thead class="table-header-footer">
+                                    <tr>
+                                        <th>Subsequent Pass Number</th>
+                                        <th>Due Date</th>
+                                        <th>Start Date</th>
+                                        <th>Completion Date</th>
+                                        <th>Email Template</th>
+                                        <th>Attachment</th>
+                                        <th>Date Created</th>
+                                    </tr>
+                                </thead>
+                                <tfoot class="table-header-footer">
+                                    <tr>
+                                        <th>Subsequent Pass Number</th>
+                                        <th>Due Date</th>
+                                        <th>Start Date</th>
+                                        <th>Completion Date</th>
+                                        <th>Email Template</th>
+                                        <th>Attachment</th>
+                                        <th>Date Created</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    //
+    $(document).ready(function () {
+        $('#@Html.IdFor(model => model.model1.JobOwner)').on("change", function () {
+            var url = '@Url.Action("GetJobOwnerEmail", "Coversheet")' + "?selectedItem=" + encodeURIComponent($(this).val());
+            $('#@Html.IdFor(model => model.model1.UpdateEmailCC)').load(url, function (data) {
+                $('#@Html.IdFor(model => model.model1.UpdateEmailCC)').val(data.replace(/['"]+/g, ''));
+            })
+        });
+        //
+        $('.selects').selectpicker(
+            {
+                width: '100%',
+                title: '-- Select --',
+                size: 10,
+                liveSearch: true
+            });
+        //
+
+        $("#divMsgClientEdit").hide();
+        //Update User Data
+        $("#btnSave").click(function (e) {
+            //Disable save button
+            EnableSave(false);
+            var $form = $('#myForm');
+            //Validate form data
+            $.validator.unobtrusive.parse($form);
+            if ($form.valid()) {
+                var obj =
+                {
+                    "JobNumber": $("#JobNumber").val(),
+                    "ManuscriptTier": $("#ManuscriptTier").val(),
+                    "BPSProductID": $("#BPSProductID").val(),
+                    "ServiceNumber": $("#ServiceNumber").val(),
+                    "ManuscriptLegTitle": $("#ManuscriptLegTitle").val(),
+                    "TargetPressDate": $("#TargetPressDate").val(),
+                    "LatupAttribution": $("#LatupAttribution").val(),
+                    "DateReceivedFromAuthor": $("#DateReceivedFromAuthor").val(),
+                    "UpdateType": $("#UpdateType").val(),
+                    "JobSpecificInstruction": $("#JobSpecificInstruction").val(),
+                    "TaskType": $("#TaskType").val(),
+                    "CopyEditDueDate": $("#CopyEditDueDate").val(),
+                    "CodingDueDate": $("#CodingDueDate").val(),
+                    "OnlineDueDate": $("#OnlineDueDate").val(),
+                    "STPStatus": $("#STPStatus").val(),
+
+                };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: $form.attr("action"),
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            $("#divMsgClientEdit").addClass("alert-success");
+                            $("#spanMsgClientEdit").text("Manuscript added successfully");
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                        else {
+                            $("#divMsgClientEdit").addClass("alert-warning");
+                            $("#spanMsgClientEdit").text(response.ErrorMessage);
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    },
+                    error: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+
+                });
+
+            }
+            else {
+                EnableSave(true);
+                return false;
+            }
+        });
+        //when close modal then reload window to refresh data
+        $(".modal-close").click(function () {
+            $('#AddNewManuscriptModal').modal('hide');
+            window.location.reload();
+        });
+
+        //query
+        // Setup - add a text input to each footer cell
+        $("table[id^='TABLE'] tfoot th").each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        //Enable datatable on table
+        var dataTableUser = $("table[id^='TABLE']").DataTable(
+            {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            }
+        );
+        //btnAssign
+        $(document).on("click", "#btnAssign", function () {
+            $("#btnAssignClick").click();
+        });
+        $("#btnAssignClick").click(function (e) {
+        //Disable save button
+            EnableSave(false);
+            var CoversheetData = {
+                CoversheetID: $('#@Html.IdFor(model => model.model1.CoversheetID)').val(),
+                CoversheetNumber: $('#@Html.IdFor(model => model.model1.CoversheetNumber)').val(),
+                BPSProductID: $('#@Html.IdFor(model => model.model1.BPSProductID)').val(),
+                ServiceNumber: $('#@Html.IdFor(model => model.model1.ServiceNumber)').val(),
+                JobOwner: $('#@Html.IdFor(model => model.model1.JobOwner)').val(),
+                UpdateEmailCC: $('#@Html.IdFor(model => model.model1.UpdateEmailCC)').val()
+            }
+            var SubsequentPassData = {
+
+            }
+            var mdata = {
+                "model1": CoversheetData,
+                "model2": SubsequentPassData
+            }
+            var myJSON = JSON.stringify(mdata);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("AssignTask", "Coversheet")",
+                data: myJSON,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Response == "Y") {
+                        $("#divMsgClientEdit").addClass("alert-success");
+                        $("#spanMsgClientEdit").text("Task Assigned successfully");
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                    else {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.ErrorMessage);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                },
+                failure: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                },
+                error: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                }
+
+            });
+        });
+    });
+
+    function EnableSave(param) {
+        if (param == true) {
+            $("#btnSave").html("Update");
+            $("#btnSave").removeClass("disabled");
+        }
+        else {
+            $("#btnSave").html("Updating...");
+            $("#btnSave").addClass('disabled');
+        }
+    }
+    //
+</script>

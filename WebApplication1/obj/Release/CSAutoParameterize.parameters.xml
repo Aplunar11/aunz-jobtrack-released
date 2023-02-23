@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="SQLConn-Web.config Connection String" description="SQLConn Connection String used in web.config by the application to access the database." defaultValue="Server=127.0.0.1;Database=jobtrackaunz;Port=3306;Uid=root;Pwd=root;SslMode=none;Convert Zero Datetime=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\e754035\\Documents\\Visual\ Studio\ 2019\\Projects\\UAT\\AUNZ-JobTrack\\WebApplication1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SQLConn']/@connectionString" />
+  </parameter>
+  <parameter name="SQLConn_User-Web.config Connection String" description="SQLConn_User Connection String used in web.config by the application to access the database." defaultValue="Server=127.0.0.1;Database=jobtrackaunz_userdata;Port=3306;Uid=root;Pwd=root;SslMode=none;Convert Zero Datetime=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\e754035\\Documents\\Visual\ Studio\ 2019\\Projects\\UAT\\AUNZ-JobTrack\\WebApplication1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='SQLConn_User']/@connectionString" />
+  </parameter>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Server=localhost;Database=dbjobtrackaunz;Port=3306;Uid=root;Pwd=;SslMode=none;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\e754035\\Documents\\Visual\ Studio\ 2019\\Projects\\UAT\\AUNZ-JobTrack\\WebApplication1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="dbConn-Web.config Connection String" description="dbConn Connection String used in web.config by the application to access the database." defaultValue="Server=GEOFF-PC;Database=JobTrackAUNZ;Trusted_Connection=True;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\e754035\\Documents\\Visual\ Studio\ 2019\\Projects\\UAT\\AUNZ-JobTrack\\WebApplication1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='dbConn']/@connectionString" />
+  </parameter>
+  <parameter name="LocalMySqlServer-Web.config Connection String" description="LocalMySqlServer Connection String used in web.config by the application to access the database." defaultValue="" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\e754035\\Documents\\Visual\ Studio\ 2019\\Projects\\UAT\\AUNZ-JobTrack\\WebApplication1\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='LocalMySqlServer']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,620 @@
+﻿@model JobTrack.Models.Employee.EmployeeData
+<style type="text/css">
+    a.nav-item {
+        text-decoration: none;
+    }
+
+    .nav-item {
+        color: #090;
+        opacity: 0.6;
+        position: relative;
+        -webkit-transition: opacity 0.2s ease-in-out 0s;
+        -moz-transition: opacity 0.2s ease-in-out 0s;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+        .nav-item:hover {
+            color: #090;
+            opacity: 1;
+        }
+
+        .nav-item:before {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            z-index: 10;
+            background-color: #aca;
+            -webkit-transform: scaleX(0);
+            -moz-transform: scaleX(0);
+            transform: scaleX(0);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -moz-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+        }
+
+        .nav-item:hover:before {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+
+    .nav-item1 {
+        color: #e80909;
+        opacity: 0.6;
+        position: relative;
+        -webkit-transition: opacity 0.2s ease-in-out 0s;
+        -moz-transition: opacity 0.2s ease-in-out 0s;
+        transition: opacity 0.2s ease-in-out 0s;
+    }
+
+        .nav-item1:hover {
+            color: #e80909;
+            opacity: 1;
+        }
+
+        .nav-item1:before {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            width: 100%;
+            height: 2px;
+            z-index: 10;
+            background-color: #ccaaaa;
+            -webkit-transform: scaleX(0);
+            -moz-transform: scaleX(0);
+            transform: scaleX(0);
+            -webkit-transition: all 0.2s ease-in-out 0s;
+            -moz-transition: all 0.2s ease-in-out 0s;
+            transition: all 0.2s ease-in-out 0s;
+        }
+
+        .nav-item1:hover:before {
+            -webkit-transform: scaleX(1);
+            -moz-transform: scaleX(1);
+            transform: scaleX(1);
+        }
+</style>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="EditEmployeeDataModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="min-width:70%" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FF6E32; color: white">
+                <h5 class="modal-title" id="confirmModalLabel">Edit Employee</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("EditEmployeeData", "Admin", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body" style="background-color: #F3F3F9;">
+                    <div id="divMsgClientEdit" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                        <span id="spanMsgClientEdit">Message</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+
+                        <div class="container-fluid">
+
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>EMPLOYEE DETAILS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="basic-form">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-6 border-right-1">
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.EmployeeID, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.EmployeeID, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.EmployeeID, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.UserAccessName, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.UserAccessName, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.UserAccessName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.Status, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.UserName, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.FirstName, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.LastName, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.FullName, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.FullName, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.FullName, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.DateCreated, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        @Html.HiddenFor(model => model.PasswordUpdate, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.PasswordUpdate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.PasswordUpdate, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.MobileNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.MobileNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.MobileNumber, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.IsManager, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.CheckBoxFor(model => model.IsManager, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.IsManager, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.IsEditorialContact, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.CheckBoxFor(model => model.IsEditorialContact, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.IsEditorialContact, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.IsEmailList, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.CheckBoxFor(model => model.IsEmailList, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.IsEmailList, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.IsMandatoryRecepient, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.CheckBoxFor(model => model.IsMandatoryRecepient, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.IsMandatoryRecepient, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.IsShowUser, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.CheckBoxFor(model => model.IsShowUser, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.IsShowUser, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mb-0">
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                                                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="background-color: #FFF0EA;">
+                    <button id="btnSave" type="button" class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //
+    $('.datepicker').datepicker({
+        todayHighlight: true,
+        format: 'yyyy-mm-dd',
+        clearBtn: true,
+        autoclose: true
+    });
+    $(document).ready(function () {
+        //alert($("#ManuscriptID").val());
+            $("#UpdateType").on("change", function () {
+
+                var url = '@Url.Action("GetTaskType", "Home")' + "?selectedItem=" + $(this).val();
+                $("#TaskType").load(url, function (data) {
+                    $('#TaskType').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCopyEdit", "Home")' + "?selectedItem=" + $(this).val();
+                $("#CopyEditDueDate").load(url, function (data) {
+                    $('#CopyEditDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCoding", "Home")' + "?selectedItem=" + $(this).val();
+                $("#CodingDueDate").load(url, function (data) {
+                    $('#CodingDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATOnline", "Home")' + "?selectedItem=" + $(this).val();
+                $("#OnlineDueDate").load(url, function (data) {
+                    $('#OnlineDueDate').val(data.replace(/['"]+/g, ''));
+                })
+            });
+
+        $("#divMsgClientEdit").hide();
+        //Update User Data
+        $("#btnSave").click(function (e) {
+            //Disable save button
+            EnableSave(false);
+            var $form = $('#myForm');
+            //Validate form data
+            $.validator.unobtrusive.parse($form);
+            if ($form.valid()) {
+                var obj =
+                {
+                    "ManuscriptID": $("#ManuscriptID").val(),
+                    "BPSProductID": $("#BPSProductID").val(),
+                    "ServiceNumber": $("#ServiceNumber").val(),
+                    "UpdateType": $("#UpdateType").val(),
+                    "GuideCard": $("#PEGuideCard").val(),
+                    "RevisedOnlineDueDate": $("#RevisedOnlineDueDate").val(),
+                    "CopyEditDueDate": $("#CopyEditDueDate").val(),
+                    "CopyEditStartDate": $("#CopyEditStartDate").val(),
+                    "CopyEditDoneDate": $("#CopyEditDoneDate").val(),
+                    "EstimatedPages": $("#EstimatedPages").val(),
+                    "ActualTurnAroundTime": $("#ActualTurnAroundTime").val(),
+                    "ReasonIfLate": $("#ReasonIfLate").val(),
+
+                };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: $form.attr("action"),
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            $("#divMsgClientEdit").addClass("alert-success");
+                            $("#spanMsgClientEdit").text("Manuscript updated successfully");
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                        else {
+                            $("#divMsgClientEdit").addClass("alert-warning");
+                            $("#spanMsgClientEdit").text(response.ErrorMessage);
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    },
+                    error: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+
+                });
+
+            }
+            else {
+                EnableSave(true);
+                return false;
+            }
+        });
+        //when close modal then reload window to refresh data
+        $(".modal-close").click(function () {
+            $('#EditPEManuscriptModal').modal('hide');
+            window.location.reload();
+        });
+
+        //query
+        // Setup - add a text input to each footer cell
+        $("table[id^='TABLE'] tfoot th").each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        //Enable datatable on table
+        var dataTableUser = $("table[id^='TABLE']").DataTable(
+            {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            }
+        );
+    });
+    function EnableSave(param) {
+        if (param == true) {
+            $("#btnSave").html("Update");
+            $("#btnSave").removeClass("disabled");
+        }
+        else {
+            $("#btnSave").html("Updating...");
+            $("#btnSave").addClass('disabled');
+        }
+    }
+    //startdate
+    $(document).on("click", "#CopyEditStartDate", function () {
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        var output = d.getFullYear() + '-' +
+            (month < 10 ? '0' : '') + month + '-' +
+            (day < 10 ? '0' : '') + day + " " + time;
+        $(this).text(output);
+        $("#btnStart").click();
+    });
+    //
+    $("#btnStart").click(function (e) {
+        //alert($('#CopyEditStartDate').text());
+        //
+        //Disable save button
+        EnableSave(false);
+        //var $form = $('#myForm');
+        //Validate form data
+        //$.validator.unobtrusive.parse($form);
+            var obj =
+            {
+                "ManuscriptID": $("#ManuscriptID").val(),
+                "BPSProductID": $("#BPSProductID").val(),
+                "ServiceNumber": $("#ServiceNumber").val(),
+                "CopyEditStartDate": $("#CopyEditStartDate").text()
+
+            };
+            var myJSON = JSON.stringify(obj);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateStartDate", "Manuscript")",
+                data: myJSON,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Response == "Y") {
+                        $("#divMsgClientEdit").addClass("alert-success");
+                        $("#spanMsgClientEdit").text("Start Date updated successfully");
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                    else {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.ErrorMessage);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                },
+                failure: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                },
+                error: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                }
+
+            });
+
+    });
+    //donedate
+    $(document).on("click", "#CopyEditDoneDate", function () {
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        var output = d.getFullYear() + '-' +
+            (month < 10 ? '0' : '') + month + '-' +
+            (day < 10 ? '0' : '') + day + " " + time;
+        $(this).text(output);
+        $("#btnDone").click();
+    });
+    //
+    $("#btnDone").click(function (e) {
+        //alert($('#CopyEditStartDate').text());
+        //
+        //Disable save button
+        EnableSave(false);
+        //var $form = $('#myForm');
+        //Validate form data
+        //$.validator.unobtrusive.parse($form);
+            var obj =
+            {
+                "ManuscriptID": $("#ManuscriptID").val(),
+                "BPSProductID": $("#BPSProductID").val(),
+                "ServiceNumber": $("#ServiceNumber").val(),
+                "CopyEditStartDate": $("#CopyEditStartDate").val(),
+                "CopyEditDoneDate": $("#CopyEditDoneDate").text()
+
+            };
+            var myJSON = JSON.stringify(obj);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("UpdateDoneDate", "Manuscript")",
+                data: myJSON,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.Response == "Y") {
+                        $("#divMsgClientEdit").addClass("alert-success");
+                        $("#spanMsgClientEdit").text("Done Date updated successfully");
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                    else {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.ErrorMessage);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+                },
+                failure: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                },
+                error: function (response) {
+                    $("#divMsgClientEdit").addClass("alert-warning");
+                    $("#spanMsgClientEdit").text(response.responseText);
+                    $("#divMsgClientEdit").show();
+
+                    EnableSave(true);
+                }
+
+            });
+
+    });
+</script>
+

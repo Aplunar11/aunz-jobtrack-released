@@ -1,0 +1,404 @@
+﻿@model JobTrack.Models.Employee.JobReassignmentDataCoding
+
+<style type="text/css">
+    .bootstrap-select > .dropdown-toggle {
+        height: 40px;
+    }
+
+    .mandatory:after {
+        content: ' *';
+        color: Red;
+    }
+
+    .input {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        border-bottom: 1px solid black;
+    }
+    /*elipsis*/
+    table.dataTable td:nth-child(n) {
+        max-width: 200px;
+    }
+
+    table.dataTable td {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+</style>
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="UpdateJobReassignmentModalCoding" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="min-width:50%" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #FF6E32; color: white">
+                <h5 class="modal-title" id="confirmModalLabel">Job Reassignment</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("UpdateJobReassignmentDataCoding", "JobReassignment", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body" style="background-color: #F3F3F9;">
+                    <div id="divMsgClientEdit" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                        <span id="spanMsgClientEdit">Message</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+                        <div class="container-fluid">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>JOB REASSIGNMENT DETAILS</h5>
+                                        </div>
+                                    </div>
+                                    <div class="basic-form">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    @Html.HiddenFor(model => model.CoversheetID, new { @class = "" })
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.CoversheetNumber, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.CoversheetNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.CoversheetNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.TaskNumber, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.TaskNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.TaskNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.BPSProductID, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.BPSProductID, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.BPSProductID, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.ServiceNumber, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.ServiceNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.ServiceNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @if (TempData["CurrentOwner"] != null)
+                                                        {
+                                                            <div class="row">
+                                                                <div class="col-6 border-right-1">
+                                                                    @Html.LabelFor(model => model.CurrentOwner, htmlAttributes: new { @class = "control-label mandatory text-nowrap text-uppercase font-weight-bold" })
+                                                                </div>
+                                                                <div class="col-6">
+                                                                    @Html.DropDownListFor(model => model.CurrentOwner, TempData["CurrentOwner"] as SelectList, new { @class = "form-control selects show-tick", required = "required", title = "User Acess Required" })
+                                                                    @Html.ValidationMessageFor(model => model.CurrentOwner, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div class="form-group border-bottom-1 mb-0">
+                                                        @Html.HiddenFor(model => model.DateUpdated, new { @class = "" })
+                                                        <div class="row">
+                                                            <div class="col-6 border-right-1">
+                                                                @Html.LabelFor(model => model.DateUpdated, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                                            </div>
+                                                            <div class="col-6">
+                                                                @Html.DisplayFor(model => model.DateUpdated, new { htmlAttributes = new { @class = "form-control" } })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-12 text-center border-bottom-1 mb-0">
+                                            <h5>TRANSACTION LOG</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="container-fluid mb-3">
+                                                <table class="display nowrap" id="tblData2" style="width: 100%;">
+                                                    <thead class="table-header-footer">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>TransactionLogID</th>
+                                                            <th>Coversheet ID</th>
+                                                            <th>Product</th>
+                                                            <th>Service Number</th>
+                                                            <th>Value Before</th>
+                                                            <th>Value After</th>
+                                                            <th>Date Updated</th>
+                                                            <th>Updated By</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tfoot class="table-header-footer">
+                                                        <tr>
+                                                            <th></th>
+                                                            <th>TransactionLogID</th>
+                                                            <th>Coversheet ID</th>
+                                                            <th>Product</th>
+                                                            <th>Service Number</th>
+                                                            <th>Value Before</th>
+                                                            <th>Value After</th>
+                                                            <th>Date Updated</th>
+                                                            <th>Updated By</th>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="background-color: #FFF0EA;">
+                    <button id="btnSave" type="button" class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        EnableSave(false);
+        $('select').change(function () {
+            // enable button
+            EnableSave(true);
+        });
+        $('.selects').selectpicker(
+            {
+                width: '100%',
+                title: '"-- Select --"',
+                size: 10,
+                liveSearch: true
+            });
+        $("#divMsgClientEdit").hide();
+        //Update User Data
+        $("#btnSave").click(function (e) {
+            //Disable save button
+            EnableSave(false);
+            var $form = $('#myForm');
+            //Validate form data
+            $.validator.unobtrusive.parse($form);
+            if ($form.valid()) {
+                var obj =
+                {
+                    "CoversheetID": $("#CoversheetID").val(),
+                    "BPSProductID": $("#BPSProductID").val(),
+                    "ServiceNumber": $("#ServiceNumber").val(),
+                    "CurrentOwner": $("#CurrentOwner").val()
+
+                };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: $form.attr("action"),
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            $("#divMsgClientEdit").addClass("alert-success");
+                            $("#spanMsgClientEdit").text("Reassignment data posted successfully");
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                        else {
+                            $("#divMsgClientEdit").addClass("alert-warning");
+                            $("#spanMsgClientEdit").text(response.ErrorMessage);
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    },
+                    error: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+
+                });
+
+            }
+            else {
+                EnableSave(true);
+                return false;
+            }
+        });
+        //when close modal then reload window to refresh data
+        $(".modal-close").click(function () {
+            $('#UpdateJobReassignmentModalPE').modal('hide');
+            window.location.reload();
+        });
+        //TBD
+        moment.updateLocale(moment.locale(), { invalidDate: "TBD" });
+        // Setup - add a text input to each footer cell
+        $('#tblData2 tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        var tableData2 = $('#tblData2').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("GetReassignmentDataCoding", "JobReassignment")",
+                "data": {
+                    bpsproductid: $("#BPSProductID").val(),
+                    servicenumber: $("#ServiceNumber").val(),
+                    coversheetid: $("#CoversheetID").val()
+                },
+                    "dataSrc": "",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columnDefs": [
+                    //center all data
+                { "className": "dt-center", "targets": "_all" }
+                    ,
+                    {
+                        "targets": [1],
+                        "visible": false,
+                        "searchable": false
+                }
+                    ,
+                    {
+                        "targets": [2],
+                        "visible": false,
+                        "searchable": false
+                    }],
+                columns: [
+                    { "data": "rowNumber" },
+                    { "data": "TransactionLogID" },
+                    { "data": "CoversheetID" },
+                    { "data": "BPSProductID" },
+                    { "data": "ServiceNumber" },
+                    { "data": "PreviousOwner" },
+                    { "data": "CurrentOwner" },
+                    {
+                        "data": "DateUpdated",
+                        "render": function (value) {
+                            if (value === null) return "";
+                            return moment(value).format('D/MMM/YY');
+                        }
+                    },
+                    { "data": "UpdatedBy" }
+                ],
+                //order: [[7, 'desc']],
+                dom: 'Bfrtip',
+                buttons: {
+                    //reset class and change the rendered tag
+                    //from <button> to <i>
+                    dom: {
+                        button: {
+                            tag: 'i',
+                            className: ''
+                        }
+                    },
+                    //since we now have completely unstyled icons add
+                    //some space between them trough a .custom-btn class
+                    buttons: [
+                        {
+                            titleAttr: 'Copy',
+                            extend: 'copyHtml5',
+                            className: 'custom-btn fa fa-clipboard',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as Excel',
+                            extend: 'excelHtml5',
+                            className: 'custom-btn fa fa-file-excel-o',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as CSV',
+                            extend: 'csvHtml5',
+                            className: 'custom-btn fa fa-file-text-o',
+                            text: ''
+                        },
+                        {
+                            titleAttr: 'Download as PDF',
+                            extend: 'pdfHtml5',
+                            className: 'custom-btn fa fa-file-pdf-o',
+                            text: ''
+                        }
+
+                    ]
+                },
+                initComplete: function () {
+                    // Apply the search
+                    //scrollx initiator
+                    $('#tblData2').wrap("<div style='overflow:auto; width:100%;position:relative;'></div>");
+                    //init = false;
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            });
+    });
+
+    //
+    function EnableSave(param) {
+        if (param == true) {
+            $("#btnSave").removeClass("disabled");
+            $("#btnSave").removeAttr("disabled");
+            //$("#btnSave").html("Update");
+
+        }
+        else {
+            //$("#btnSave").html("Updating...");
+            $("#btnSave").addClass("disabled");
+            $("#btnSave").attr('disabled', 'disabled');
+        }
+    }
+</script>

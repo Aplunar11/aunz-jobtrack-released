@@ -1,0 +1,404 @@
+﻿@model JobTrack.Models.Coversheet.CoversheetData
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="EditPECoversheetModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="min-width:70%" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#009688;color:white">
+                <h5 class="modal-title" id="confirmModalLabel">Edit Coversheet</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("EditPECoversheet", "Coversheet", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body">
+                    <div id="divMsgClientEdit" class="alert alert-dismissible fade show" role="alert" style="margin-top:10px;">
+                        <span id="spanMsgClientEdit">Message</span>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-4 border-right-1">
+                                @Html.HiddenFor(model => model.CoversheetID, new { @class = "" })
+                                @*@Html.HiddenFor(model => model.ManuscriptID, new { @class = "" })*@
+
+                                <div class="form-group border-bottom-1 mb-0">
+                                    <label class="control-label text-nowrap text-uppercase font-weight-bold">PROCEED TO ONLINE</label>
+                                    @Html.ActionLink("[CLICK TO CONFIRM]", null, null, new { @class = "", @Href = "#" })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    <label class="control-label text-nowrap text-uppercase font-weight-bold">SUBSEQUENT PASS</label>
+                                    @Html.ActionLink("[CLICK TO REDIRECT]", null, null, new { @class = "", @Href = "#" })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.CoversheetNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.CoversheetNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.BPSProductID, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.BPSProductID, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.ServiceNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.ServiceNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.TaskNumber, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.TaskNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.Editor, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.Editor, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.ChargeCode, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.ChargeCode, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.TargetPressDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.TargetPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.ActualPressDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.ActualPressDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.CurrentTask, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.CurrentTask, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.TaskStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.TaskStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.TaskType, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.TaskType, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.GuideCard, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.GuideCard, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group mb-0">
+                                    @Html.LabelFor(model => model.FurtherInstructions, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.FurtherInstructions, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="col-4 border-right-1">
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.UpdateType, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.UpdateType, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.GeneralData, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.GeneralData, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.SpecialInstruction, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.SpecialInstruction, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.AcceptedDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.AcceptedDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.JobOwner, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.JobOwner, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.UpdateEmailCC, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.UpdateEmailCC, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.XMLEditing, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.XMLEditing, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.CodingDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.CodingDueDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.CodingStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.CodingStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group mb-0">
+                                    @Html.LabelFor(model => model.CodingDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.CodingDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.SubsequentPass, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.SubsequentPass, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.SubTask, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.SubTask, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.PDFQCStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.PDFQCStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-left-1 border-right-1 mb-0">
+                                    @Html.LabelFor(model => model.PDFQCStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.PDFQCStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 border-left-1 border-right-1  mb-0">
+                                    @Html.LabelFor(model => model.PDFQCDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.PDFQCDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.OnlineDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.OnlineDueDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.OnlineStartDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.OnlineStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.OnlineDoneDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.OnlineDoneDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.OnlineStatus, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.OnlineStatus, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                @*<div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.Attachment, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.Attachment, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>*@
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.CorrectionDueDate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.CorrectionDueDate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.CorrectionData, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.CorrectionData, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.OnlineTimeliness, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.OnlineTimeliness, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group border-bottom-1 mb-0">
+                                    @Html.LabelFor(model => model.ReasonIfLate, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.ReasonIfLate, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                                <div class="form-group mb-0">
+                                    @Html.LabelFor(model => model.DateCreated, htmlAttributes: new { @class = "control-label text-nowrap text-uppercase font-weight-bold" })
+                                    @Html.DisplayFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-horizontal">
+                        <h5 class="align-items-center">QUERIES</h5>
+                        <div class="outer">
+                            <table class="display nowrap" id="tblDataQuery" style="width: 100%;">
+                                <thead class="table-header-footer">
+                                    <tr>
+                                        <th>Query Status</th>
+                                        <th>Query ID</th>
+                                        <th>Query Number</th>
+                                        <th>Query Type</th>
+                                        <th>Topic Title</th>
+                                        <th>Date Posted</th>
+                                        <th>Posted By</th>
+                                    </tr>
+                                </thead>
+                                <tfoot class="table-header-footer">
+                                    <tr>
+                                        <th>Query Status</th>
+                                        <th>Query ID</th>
+                                        <th>Query Number</th>
+                                        <th>Query Type</th>
+                                        <th>Topic Title</th>
+                                        <th>Date Posted</th>
+                                        <th>Posted By</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btnSave" type="button" class="btn btn-success">Update</button>
+                    <button type="button" class="btn btn-secondary modal-close">Cancel</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    //
+    $('.datepicker').datepicker({
+        todayHighlight: true,
+        format: 'yyyy-mm-dd',
+        clearBtn: true,
+        autoclose: true
+    });
+    $(document).ready(function () {
+        //alert($("#ManuscriptID").val());
+            $("#UpdateType").on("change", function () {
+
+                var url = '@Url.Action("GetTaskType", "Home")' + "?selectedItem=" + $(this).val();
+                $("#TaskType").load(url, function (data) {
+                    $('#TaskType').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCopyEdit", "Home")' + "?selectedItem=" + $(this).val();
+                $("#CopyEditDueDate").load(url, function (data) {
+                    $('#CopyEditDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATCoding", "Home")' + "?selectedItem=" + $(this).val();
+                $("#CodingDueDate").load(url, function (data) {
+                    $('#CodingDueDate').val(data.replace(/['"]+/g, ''));
+                })
+
+                var url = '@Url.Action("GetTATOnline", "Home")' + "?selectedItem=" + $(this).val();
+                $("#OnlineDueDate").load(url, function (data) {
+                    $('#OnlineDueDate').val(data.replace(/['"]+/g, ''));
+                })
+            });
+
+        $("#divMsgClientEdit").hide();
+        //Update User Data
+        $("#btnSave").click(function (e) {
+            //Disable save button
+            EnableSave(false);
+            var $form = $('#myForm');
+            //Validate form data
+            $.validator.unobtrusive.parse($form);
+            if ($form.valid()) {
+                var obj =
+                {
+                    "JobNumber": $("#JobNumber").val(),
+                    "ManuscriptTier": $("#ManuscriptTier").val(),
+                    "BPSProductID": $("#BPSProductID").val(),
+                    "ServiceNumber": $("#ServiceNumber").val(),
+                    "ManuscriptLegTitle": $("#ManuscriptLegTitle").val(),
+                    "TargetPressDate": $("#TargetPressDate").val(),
+                    "LatupAttribution": $("#LatupAttribution").val(),
+                    "DateReceivedFromAuthor": $("#DateReceivedFromAuthor").val(),
+                    "UpdateType": $("#UpdateType").val(),
+                    "JobSpecificInstruction": $("#JobSpecificInstruction").val(),
+                    "TaskType": $("#TaskType").val(),
+                    "CopyEditDueDate": $("#CopyEditDueDate").val(),
+                    "CodingDueDate": $("#CodingDueDate").val(),
+                    "OnlineDueDate": $("#OnlineDueDate").val(),
+                    "STPStatus": $("#STPStatus").val(),
+
+                };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: $form.attr("action"),
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            $("#divMsgClientEdit").addClass("alert-success");
+                            $("#spanMsgClientEdit").text("Manuscript added successfully");
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                        else {
+                            $("#divMsgClientEdit").addClass("alert-warning");
+                            $("#spanMsgClientEdit").text(response.ErrorMessage);
+                            $("#divMsgClientEdit").show();
+
+                            EnableSave(true);
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    },
+                    error: function (response) {
+                        $("#divMsgClientEdit").addClass("alert-warning");
+                        $("#spanMsgClientEdit").text(response.responseText);
+                        $("#divMsgClientEdit").show();
+
+                        EnableSave(true);
+                    }
+
+                });
+
+            }
+            else {
+                EnableSave(true);
+                return false;
+            }
+        });
+        //when close modal then reload window to refresh data
+        $(".modal-close").click(function () {
+            $('#AddNewManuscriptModal').modal('hide');
+            window.location.reload();
+        });
+
+        //query
+        // Setup - add a text input to each footer cell
+        $('#tblDataQuery tfoot th').each(function () {
+            var title = $(this).text();
+            $(this).html('<input type="text" placeholder="' + title + '" />');
+        });
+        //Enable datatable on table
+        var dataTableUser = $('#tblDataQuery').DataTable(
+            {
+                dom: 'Bfrtip',
+                buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ],
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.footer()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+                }
+            }
+        );
+    });
+
+    function EnableSave(param) {
+        if (param == true) {
+            $("#btnSave").html("Update");
+            $("#btnSave").removeClass("disabled");
+        }
+        else {
+            $("#btnSave").html("Updating...");
+            $("#btnSave").addClass('disabled');
+        }
+    }
+    //populate date on anchor tag click
+    $(document).on("click", "a", function () {
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        var time = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+        var output = d.getFullYear() + '-' +
+            (month < 10 ? '0' : '') + month + '-' +
+            (day < 10 ? '0' : '') + day + " " + time;
+        $(this).text(output);
+    });
+</script>

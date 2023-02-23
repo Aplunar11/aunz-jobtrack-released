@@ -1,0 +1,457 @@
+﻿@model IEnumerable<JobTrack.Models.Coversheet.CoversheetData>
+
+@{ ViewBag.Title = "Coversheet";
+ }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.2/css/bootstrap.min.css" />
+
+<style type="text/css">
+    .modal-body {
+        overflow-x: scroll;
+    }
+</style>
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="ViewCoversheetModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#009688;color:white">
+                <h5 class="modal-title" id="confirmModalLabel">View Coversheet Data</h5>
+                <button type="button" class="close modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            @using (Html.BeginForm("EditCoversheet", "Home", FormMethod.Post, new { Id = "myForm" }))
+            {
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6 col-sm-4">
+                            @Html.Label("Total Count : ")
+                            @Html.Label(Model.Count().ToString(), new { id = "lblCount" })
+                        </div>
+                        <div class="col-6 col-sm-4">
+                            <button id="btnAddNew" class="btn  btn-success btn-circle float-right"><i class="fa fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <table class="table table-sm table-bordered table-hover" id="tblData">
+                        <thead class="table-header-footer">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CoversheetID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CoversheetTier)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CoversheetName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BPSProductID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ServiceNumber)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ManuscriptFile)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LatupAttribution)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DateReceivedFromAuthor)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DateEnteredIntoTracker)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.UpdateType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GuideCard)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TaskNumber)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.RevisedOnlineDueDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.DepositedBy)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LEInstructions)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PickUpBy)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PickUpDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QABy)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QADate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QACompletionDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QueryLog)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QueryForApprovalStartDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QueryForApprovalEndDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QueryForApprovalAge)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Process)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PETargetCompletion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LatupTargetCompletion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.EndingDueDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PEActualCompletion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CodingDueDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CodingActualCompletion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ActualPages)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.OnlineDueDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.OnlineActualCompletion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.LNRedCheckingActualCompletion)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.AffectedPages)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NoOfMSSFile)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ActualTAT)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.BenchmarkMET)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FilePath)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PEStatus)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TaskType)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TaskReadyDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PDFQA_PE)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.QMSID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CodingStatus)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CoversheetRemarks)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CoversheetID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CoversheetTier)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CoversheetName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BPSProductID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ServiceNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ManuscriptFile)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LatupAttribution)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateReceivedFromAuthor)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DateEnteredIntoTracker)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.UpdateType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GuideCard)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TaskNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RevisedOnlineDueDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.DepositedBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LEInstructions)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PickUpBy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PickUpDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QABy)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QADate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QACompletionDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QueryLog)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QueryForApprovalStartDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QueryForApprovalEndDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QueryForApprovalAge)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Process)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PETargetCompletion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LatupTargetCompletion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndingDueDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PEActualCompletion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CodingDueDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CodingActualCompletion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActualPages)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OnlineDueDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.OnlineActualCompletion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.LNRedCheckingActualCompletion)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AffectedPages)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.NoOfMSSFile)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ActualTAT)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BenchmarkMET)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FilePath)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PEStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TaskType)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TaskReadyDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.PDFQA_PE)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.QMSID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CodingStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CoversheetRemarks)
+                                    </td>
+                                    <td>
+                                        <a href='@Url.Action("EditManuscript","Home", new { ManuscriptID = item.CoversheetID })' class="linkEdit btn  btn-warning btn-circle">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+
+                                        <a href='@Url.Action("ViewCoversheet","Home", new { BPSproductID = item.BPSProductID, ServiceNumber = item.ServiceNumber })' class="linkView btn  btn-danger btn-circle">
+                                            <i class="fa fa-list"></i>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="modal-footer">
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Enable datatable on table
+            var dataTableUser = $('#tblData').DataTable();
+
+            $("#spanPageHeader").html("User Master");
+            $("#divMsgClient").hide();
+
+            //this value will be send to controller for user operation
+            var SelectedId;
+            var SelectedRow;
+            //************** Start Grid Delete Link to show delete confirmation popup*****************
+            $('#tblData').on('click', '.linkDel', function (e) {
+           // $(".linkDel").click(function (e) {
+                $('#confirmModal').modal('show');
+                SelectedId = $(this).data("del-id");
+                SelectedRow = $(this).parents("tr:first");
+            });
+            //***********End************************
+            //************************Start Delete Button From Delete Confirmation Modal*********************
+            $("#btnDelete").click(function () {
+                $('#confirmModal').modal('hide');
+                var obj = { "Id": SelectedId };
+                var myJSON = JSON.stringify(obj);
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DeleteUser")',
+                    data: myJSON,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.Response == "Y") {
+                            SelectedRow.fadeOut('fast', function () {
+                                //SelectedRow.remove();
+                                dataTableUser.row(SelectedRow).remove().draw();
+                            });
+                            $("#divMsgClient").addClass("alert-success");
+                            $("#spanMsgClient").text("User deleted successfully");
+                            $("#divMsgClient").show();
+                            //Calculate total
+                            var lblCount = parseInt($("#lblCount").text());
+                            lblCount = lblCount - 1;
+                            $("#lblCount").text(lblCount);
+
+                        }
+                        else {
+                            $("#divMsgClient").addClass("alert-warning");
+                            $("#spanMsgClient").text(response.ErrorMessage);
+                            $("#divMsgClient").show();
+                        }
+                    },
+                    failure: function (response) {
+                        $("#divMsgClient").addClass("alert-warning");
+                        $("#spanMsgClient").text(response.responseText);
+                        $("#divMsgClient").show();
+                    },
+                    error: function (response) {
+                        $("#divMsgClient").addClass("alert-warning");
+                        $("#spanMsgClient").text(response.responseText);
+                        $("#divMsgClient").show();
+                    }
+                });
+            });
+
+            //************End**************************
+            //*************Show Edit popup call partial view*************
+            //++++++++++++Below code would not work with datatable for second  page because this event attah only on visible row
+            //$(".linkEdit").click(function (e) {
+            //    e.preventDefault();
+            //    var editHref = $(this).attr("href");
+            //    $.ajax({
+            //        url: editHref,
+            //        success: function (data) {
+            //            $('#modalWrapper').html(data);
+            //            $('#editModal').modal('show');
+            //        }
+            //    });
+            //});
+
+            $('#tblData').on('click', '.linkEdit', function (e) {
+                e.preventDefault();
+                var editHref = $(this).attr("href");
+                $.ajax({
+                    url: editHref,
+                    success: function (data) {
+                        $('#modalWrapper').html(data);
+                        $('#editModal').modal('show');
+                    }
+                });
+            });
+
+            //************Show New User Modal**************
+            $("#btnAddNew").click(function () {
+                $.ajax({
+                    url: "/Admin/AddNewProductDatabase",
+                    success: function (data) {
+                        $('#modalWrapper').html(data);
+                        $('#addNewProductDatabaseModal').modal('show');
+                    }
+                });
+            });
+        });
+        //***************End*******************8
+
+    </script>
+}

@@ -1,0 +1,71 @@
+﻿@model JobTrack.Models.Employee.EmployeeRegister
+
+@{
+    ViewBag.Title = "EmployeeCreateUpdate";
+    Layout = null;
+}
+
+
+<div class="card bg-light">
+    <article class="card-body mx-auto" style="width: 600px;">
+        <p class="divider-text">
+            <span class="bg-light">Employee Details</span>
+        </p>
+        @using (Html.BeginForm("InsertEmployee", "Admin", FormMethod.Post, new { @id = "frmEmployeeCreate", @class = "form-horizontal", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            HtmlHelper.UnobtrusiveJavaScriptEnabled = false;
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-user fa-fw"></i> </span>
+                </div>
+                <input id="txtFirstName" name="txtFirstName" type="text" class="form-control" placeholder="First Name" required>
+                <input id="txtLastName" name="txtLastName" type="text" class="form-control" placeholder="Last Name">
+
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-envelope fa-fw"></i> </span>
+                </div>
+                <input id="txtEmailAddress" name="txtEmailAddress" type="email" class="form-control" placeholder="Email Address">
+            </div>
+
+
+            <p class="divider-text">
+                <span class="bg-light">Account Details</span>
+            </p>
+
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-users fa-fw"></i> </span>
+                </div>
+                <select id="ddUserAccess" name="ddUserAccess" class="form-control">
+                </select>
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-id-card fa-fw"></i> </span>
+                </div>
+                <input id="txtUserName" type="text" name="txtUserName" class="form-control" placeholder="User Name">
+            </div>
+            @*<div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock fa-fw"></i> </span>
+                </div>
+                <input id="txtPassword" type="password" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-lock fa-fw"></i> </span>
+                </div>
+                <input id="txtCPassword" type="password" class="form-control" placeholder="Repeat password">
+
+            </div>*@
+            <em id="cp"></em>
+            <div class="form-group">
+                <input id="btnEmployeeSubmit" type="submit" value="Register Employee" class="btn btn-block btn-danger" disabled />
+            </div>
+        }
+    </article>
+</div>
+@*}*@
