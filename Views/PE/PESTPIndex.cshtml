@@ -1,0 +1,241 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+    if (Session["id"] == null)
+    {
+        Response.Redirect("~/User/Login");
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>JobTrack</title>
+    @Styles.Render("~/css/styles.css")
+    @Styles.Render("~/Content/css")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <style>
+        #divTable {
+            white-space: nowrap;
+            overflow-x: auto;
+            transition: max-height 0.2s ease-out;
+        }
+
+        .highlight {
+            background-color: #b6bbb7;
+        }
+    </style>
+</head>
+<body>
+    @Html.Partial("~/Views/Shared/_Dashboard.cshtml")
+    <h3 class="mt-4">Create STP</h3>
+
+    <div class="form-group">
+        <table id="inputTable" style="width: 100%; padding: 5px">
+            <tr>
+                <td style="width: 48%; ">
+                    <span style="float: left; padding-right: 10px;">
+                        <label class="control-label-s col-md-99">Product</label>
+                    </span>
+                    <span style="float: left; padding-right: 10px;">
+                        @Html.DropDownList("product", (SelectList)ViewBag.Product, "Select one...", new { @class = "form-control-input", style = "width: auto;" })
+                    </span>
+                    <span style="float: left;">
+                        <label class="control-label-s col-md-99" style="width: 110px; font-size: 14px">Service No.</label>
+                    </span>
+                    <span style="float: left; padding-right: 10px;">
+                        @Html.DropDownList("serviceno", (SelectList)ViewBag.Service, "Select one...", new { @class = "form-control-input", style = "width: auto;" })
+                    </span>
+                    <span style="float: left; padding-right: 10px;">
+                        <button id="searchjob" type="button" class="btn btn-primary">Search</button>
+                    </span>
+                </td>
+                <td>
+                    <div id="divCreate" class="divCreateClass" style="display: none; float: right;">
+                        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#CreateStp" data-backdrop="static" data-keyboard="false" id="createStpjob">Create STP</button>
+                        @*<button id="createStp" type="button" class="btn btn-primary">
+                                Create STP
+                            </button>*@
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+    <div class="form-group">
+        <div class="parent-div">
+            <div id="DivPlaceHolder" class="placeHolderDiv"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="CreateStp">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">STP</h4>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <table style="width: 100%; border-spacing: 5px; ">
+                        <tr>
+                            <td></td>
+                            <td>@Html.Hidden("stp_job")</td>
+                            @*<td>@Html.TextBox("task_job", null, new { @class = "form-control-input" })</td>*@
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Target Press Date</label></td>
+                            <td style="float: right;">
+                                @Html.TextBox("TargetPressDate", null, new { @class = "form-control-input" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Legislation Materials</label></td>
+                            <td style="float: right;">@Html.TextBox("Material", null, new { @class = "form-control-input" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Path of input Files</label></td>
+                            <td style="float: right;">@Html.TextBox("Path", null, new { @class = "form-control-input" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Conso Highlight</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("Conso", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Filing Instruction</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("Filing", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Dummmy Filing 1</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("Dummy1", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Dummmy Filing 2</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("Dummy2", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">UECJ</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("UECJ", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">PC1/PC2</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("PC", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Ready to Print</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("ReadyToPrint", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Sending final pages to Puddingburn</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("Puddingburn", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Posting Back to Stable Data</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("Posting", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Updating to Ebinder</label></td>
+                            <td style="float: left; padding-left: 74px;">@Html.CheckBox("Ebinder", new { @checked = "checked" })</td>
+                        </tr>
+                        <tr>
+                            <td><label class="control-label" style="font-size: 12px;">Special Instruction</label></td>
+                            <td style="float: right;">@Html.TextBox("Instruction", null, new { @class = "form-control-input" })</td>
+                            @*<td><input type="text" id="onlinedue" class="form-control-input" /></td>*@
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <button id="stpSave" type="button" class="btn btn-primary" data-toggle="modal">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
+
+<!-- JS includes -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("body").on('click', '#searchjob', function () {
+                 document.getElementById("divCreate").style.display = "block";
+                var product = $("#product").val();
+                var service = $("#serviceno").val();
+                var partialview = $("#JobType").val();
+
+                if (product != '') { product = $("#product").val(); } else { product = 0; }
+                if (service != '') { service = $("#serviceno").val(); } else { service = 0; }
+
+
+                 var url = '@Url.Action("PESearchJob", "PE")' + "?selectedItem=5&product=" + product + "&service=" + service + "&uid=0";
+                $("#DivPlaceHolder").load(url, function (data) {
+                    $('#DivPlaceHolder').html(data);
+                })
+
+            });
+
+        $("body").on('click', '#stpSave', function () {
+            var PESTPCreateobj = {
+                product: $('#product').val(),
+                target_date: $('#TargetPressDate').val(),
+                legislation_material: $('#Material').val(),
+                path_input_files: $('#Path').val(),
+                conso_highlight: document.querySelector('#Conso').checked,
+                filing_instruction: document.querySelector('#Filing').checked,
+                dummy_filing1: document.querySelector('#Dummy1').checked,
+                dummy_filing2: document.querySelector('#Dummy2').checked,
+                uecj: document.querySelector('#UECJ').checked,
+                pc1pc2: document.querySelector('#PC').checked,
+                ready_to_print: document.querySelector('#ReadyToPrint').checked,
+                sending_to_puddingburn: document.querySelector('#Puddingburn').checked,
+                posting_back_stable_data: document.querySelector('#Posting').checked,
+                updating_ebinder: document.querySelector('#Ebinder').checked,
+                special_instruction: $('#Instruction').val(),
+            };
+            $.ajax({
+                url: "/PE/PEAddStp",
+                data: JSON.stringify(PESTPCreateobj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    alert(data)
+
+                    target_date: $('#TargetPressDate').val("")
+                    legislation_material: $('#Material').val("")
+                    path_input_files: $('#Path').val("")
+                    special_instruction: $('#Instruction').val("")
+
+                },
+                error: function (message) {
+                    alert(message.responseText)
+                }
+            });
+
+
+
+        });
+
+    });
+</script>

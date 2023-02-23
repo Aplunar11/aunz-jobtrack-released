@@ -1,0 +1,58 @@
+﻿@model JobTrack_AUNZ.Models.Query.QueryCreateModel
+
+@using (Html.BeginForm("CreateQuery", "Query", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="form-horizontal">
+                <h4>Query</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <a class="btnView" href="@Url.Action("QueryIndex", "Query", new { id =  ViewBag.Job})" style="display:block">[Back to List]</a>
+
+                <form>
+                    <div class="form-group row" style="padding-bottom: 10px;">
+                        <label class="col-sm-2 col-form-label">Task</label>
+                        <div class="col-sm-10">
+                            @*<input type="text" class="form-control" id="inputTask" value="">*@
+                            @Html.TextBox("task", null , new { @class = "form-control" , Value = ViewBag.Job })
+                            @*@Html.TextBox("task", ViewBag.Job, new { @class = "form-control-input" })*@
+                        </div>
+                    </div>
+                    <div class="form-group row" style="padding-bottom: 10px;">
+                        <label class="col-sm-2 col-form-label">Topic</label>
+                        <div class="col-sm-10">
+                            @Html.DropDownList("Topic", ViewBag.TopicTitle as SelectList, "Select One...", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group row" style="padding-bottom: 10px;">
+                        <label class="col-sm-2 col-form-label">Query</label>
+                        <div class="col-sm-10">
+                            @Html.TextArea("query", new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row" style="padding-bottom: 10px;">
+                        <label class="col-sm-2 col-form-label"> </label>
+                        <div class="col-sm-10" stlye="float: right;">
+                            @Html.TextBox("file", "", new { type = "file" })
+                            @*<input type="file" class="form-control" id="exampleFormControlFile1">*@
+                        </div>
+
+                    </div>
+                </form>
+
+                <div class="form-group" style="float: right;">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                        @ViewBag.Message
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+

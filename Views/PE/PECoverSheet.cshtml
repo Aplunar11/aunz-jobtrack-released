@@ -1,0 +1,362 @@
+﻿@model IEnumerable<JobTrack_AUNZ.Models.PE.PECoverSheetModel>
+@{
+    if (Session["id"] == null)
+    {
+        Response.Redirect("~/User/Login");
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #divTable {
+            white-space: nowrap;
+            overflow-x: auto;
+            transition: max-height 0.2s ease-out;
+        }
+
+        .highlight {
+            background-color: #f5f5f5;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/css/styles.css")
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="card mb-4">
+            <div class="card-body">
+                <div style="overflow: auto; display: flex; overflow-x:auto;">
+                    <table id="datatable" class="table-bordered table-hover" style="border-collapse: collapse;  border: 1px solid black;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Workflow)
+                                </th>
+                                <th>Action</th>
+                                <th>Query</th>
+                                <th style="display: none;"></th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CoversheetNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Tier)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Product)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ServiceNo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.GuideCards)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ManuscriptLocation)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SpecialInstruction)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CurrentTask)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.TargetDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.PressDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CodingDueDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CodingStart)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CodingDone)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.SubsequentPass)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.OnlineDueDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.OnlineStart)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.OnlineDone)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.OnlineTimeless)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Reason)
+                                </th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Workflow)
+                                </td>
+                                <td>
+                                    <a class="btnEdit" href="javascript:;">Edit</a>
+                                    <a class="btnUpdate" href="javascript:;" style="display:none">Update</a>
+                                    <a class="btnCancel" href="javascript:;" style="display:none">Cancel</a>
+                                </td>
+                                <td>
+                                    <a class="btnUpdate" href="javascript:;" style="display:block">View/Create</a>
+                                    @*<a class="btnCancel" href="javascript:;" style="display:block">Create</a>*@
+                                </td>
+                                <td class="Id" style="display: none;">
+                                    <span>@item.Id</span>
+                                </td>
+                                <td>
+                                    <span>@item.CoversheetNo</span>
+                                </td>
+                                <td>
+                                    <span>@item.Tier</span>
+                                </td>
+                                <td>
+                                    <span>@item.Product</span>
+                                </td>
+                                <td>
+                                    <span>@item.ServiceNo</span>
+                                </td>
+                                <td class="GuideCards">
+                                    <span>@item.GuideCards</span>
+                                    <input type="text" value="@item.GuideCards" style="display:none" class="form-control-input" />
+                                </td>
+                                <td class="ManuscriptLocation">
+                                    <span>@item.ManuscriptLocation</span>
+                                    <input type="text" value="@item.ManuscriptLocation" style="display:none" class="form-control-input" />
+                                </td>
+                                <td class="SpecialInstruction">
+                                    <span>@item.SpecialInstruction</span>
+                                    <input type="text" value="@item.SpecialInstruction" style="display:none" class="form-control-input" />
+                                </td>
+                                <td>
+                                    <span>@item.CurrentTask</span>
+                                </td>
+                                <td>
+                                    <span>@item.Status</span>
+                                </td>
+                                <td class="TargetDate">
+                                    <span>@item.TargetDate</span>
+                                    <input type="text" value="@item.TargetDate" style="display:none" class="form-control-input" />
+                                </td>
+                                <td>
+                                    <span>@item.PressDate</span>
+                                </td>
+                                <td>
+                                    <span>@item.CodingDueDate</span>
+                                </td>
+                                <td>
+                                    <span>@item.CodingStart</span>
+                                </td>
+                                <td>
+                                    <span>@item.CodingDone</span>
+                                </td>
+                                <td>
+                                    <span>@item.SubsequentPass</span>
+                                </td>
+                                <td>
+                                    <span>@item.OnlineDueDate</span>
+                                </td>
+                                <td>
+                                    <span>@item.OnlineStart</span>
+                                </td>
+                                <td>
+                                    <span>@item.OnlineDone</span>
+                                </td>
+                                <td>
+                                    <span>@item.OnlineTimeless</span>
+                                </td>
+                                <td>
+                                    <span>@item.Reason</span>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</body>
+</html>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        function AppendRowAfterInsertRecord(row, id, CoversheetNo, Tier, Product, ServiceNo, GuideCards, ManuscriptLocation, SpecialInstruction, CurrentTask, Status, TargetDate, PressDate, CodingDueDate, CodingStart, CodingDone, SubsequentPass, OnlineDueDate, OnlineStart, OnlineDone, OnlineTimeless, Reason) {
+
+            $(".id", row).find("span").html(id);
+
+            $(".CoversheetNo", row).find("span").html(CoversheetNo);
+
+            $(".Tier", row).find("span").html(Tier);
+
+            $(".Product", row).find("span").html(Product);
+
+            $(".ServiceNo", row).find("span").html(ServiceNo);
+
+            $(".GuideCards", row).find("span").html(GuideCards);
+            $(".GuideCards", row).find("input").val(GuideCards);
+
+            $(".ManuscriptLocation", row).find("span").html(ManuscriptLocation);
+            $(".ManuscriptLocation", row).find("input").val(ManuscriptLocation);
+
+            $(".SpecialInstruction", row).find("span").html(SpecialInstruction);
+            $(".SpecialInstruction", row).find("input").val(SpecialInstruction);
+
+            $(".CurrentTask", row).find("span").html(CurrentTask);
+
+            $(".PressDate", row).find("PressDate").html(CurrentTask);
+
+            $(".Status", row).find("span").html(Status);
+
+            $(".TargetDate", row).find("span").html(TargetDate);
+            $(".TargetDate", row).find("input").val(TargetDate);
+
+            $(".PressDate", row).find("span").html(PressDate);
+
+            $(".CodingDueDate", row).find("span").html(CodingDueDate);
+
+            $(".CodingStart", row).find("span").html(CodingStart);
+
+            $(".CodingDone", row).find("span").html(CodingDone);
+
+            $(".SubsequentPass", row).find("span").html(SubsequentPass);
+
+            $(".OnlineDueDate", row).find("span").html(OnlineDueDate);
+
+            $(".OnlineStart", row).find("span").html(OnlineStart);
+
+            $(".OnlineDone", row).find("span").html(OnlineDone);
+
+            $(".OnlineTimeless", row).find("span").html(OnlineTimeless);
+
+            $(".Reason", row).find("span").html(Reason);
+
+            /*  debugger;*/
+            row.find(".btnEdit").show();
+            row.find(".btnDelete").show();
+            $("#datatable").append(row);
+        };
+
+        //Edit event handler.
+        $("body").on("click", "#datatable .btnEdit", function () {
+            debugger;
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+            });
+            row.find(".btnUpdate").show();
+            row.find(".btnCancel").show();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        $("body").on("click", "#datatable .btnUpdate", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".btnEdit").show();
+            row.find(".btnCancel").hide();
+            $(this).hide();
+
+            /*   debugger;*/
+            var PECoversheetObj = {
+                Id: row.find(".Id").find("span").html(),
+                CoversheetNo: row.find(".CoversheetNo").find("span").html(),
+                Tier: row.find(".Tier").find("span").html(),
+                Product: row.find(".Product").find("span").html(),
+                ServiceNo: row.find(".ServiceNo").find("span").html(),
+                GuideCards: row.find(".GuideCards").find("span").html(),
+                ManuscriptLocation: row.find(".ManuscriptLocation").find("span").html(),
+                SpecialInstruction: row.find(".SpecialInstruction").find("span").html(),
+                CurrentTask: row.find(".CurrentTask").find("span").html(),
+                Status: row.find(".Status").find("span").html(),
+                TargetDate: row.find(".TargetDate").find("span").html(),
+                PressDate: row.find(".PressDate").find("span").html(),
+                CodingDueDate: row.find(".CodingDueDate").find("span").html(),
+                CodingStart: row.find(".CodingStart").find("span").html(),
+                CodingDone: row.find(".CodingDone").find("span").html(),
+                SubsequentPass: row.find(".SubsequentPass").find("span").html(),
+                OnlineDueDate: row.find(".OnlineDueDate").find("span").html(),
+                OnlineStart: row.find(".OnlineStart").find("span").html(),
+                OnlineDon: row.find(".OnlineDon").find("span").html(),
+                OnlineTimeless: row.find(".OnlineTimeless").find("span").html(),
+                Reason: row.find(".Reason").find("span").html(),
+            };
+
+            if (!PECoversheetObj.Id || PECoversheetObj.Id <= 0) {
+                alert("Invalid Id!");
+                return false;
+            }
+            $.ajax({
+                url: "/PE/PEUpdateJob",
+                data: JSON.stringify(PECoversheetObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    ClearAllInput();
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        });
+
+
+        //Cancel event handler.
+        $("body").on("click", "#datatable .btnCancel", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    input.val(span.html());
+                    span.show();
+                    input.hide();
+                }
+            });
+            row.find(".btnEdit").show();
+            row.find(".btnDelete").show();
+            row.find(".btnUpdate").hide();
+            $(this).hide();
+        });
+
+
+
+    });
+</script>

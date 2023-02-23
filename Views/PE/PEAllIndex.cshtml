@@ -1,0 +1,104 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_layout.cshtml";
+    if (Session["id"] == null)
+    {
+        Response.Redirect("~/User/Login");
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>JobTrack</title>
+    @Styles.Render("~/css/styles.css")
+    @Styles.Render("~/Content/css")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    @Html.Partial("~/Views/Shared/_Dashboard.cshtml")
+    <h3 class="mt-4">All Job</h3>
+    <hr />
+    <table id="inputTable" style="width: 100%; padding: 5px">
+        <tr>
+            <td style="width: 48%; ">
+                <span style="float: Left; width: 10%; ">
+                    <label class="control-label-s col-md-99">Level</label>
+                </span>
+                <span style="float: Left; ">
+                    <select id="JobType" name="eventId" class="form-control-input" style="width: auto;">
+                        <option value="2">Manuscript</option>
+                        <option value="3">Coversheet</option>
+                        <option value="4">STP</option>
+                    </select>
+                </span>
+            </td>
+            <td>
+                <span style="float: right; padding-right: 10px;">
+                    <button id="searchjob" type="button" class="btn btn-primary">Search</button>
+                </span>
+                <span style="float: right; padding-right: 10px;">
+                    @Html.DropDownList("serviceno", (SelectList)ViewBag.Service, "Select one...", new { @class = "form-control-input", style = "width: auto;" })
+                </span>
+                <span style="float: right;">
+                    <label class="control-label-s col-md-99" style="width: 110px; font-size: 14px">Service No.</label>
+                </span>
+                <span style="float: right; padding-right: 10px;">
+                    @Html.DropDownList("product", (SelectList)ViewBag.Product, "Select one...", new { @class = "form-control-input", style = "width: auto;" })
+                    @*<input type="text" id="product" class="form-control-input" />*@
+                </span>
+                <span style="float: right; padding-right: 10px;">
+                    <label class="control-label-s col-md-99">Product</label>
+                </span>
+
+            </td>
+        </tr>
+    </table>
+
+    <div class="parent-div" style="padding-top: 15px;">
+        <div id="DivPlaceHolder" class="placeHolderDiv">
+            @Html.Partial("PEAllManuscript")
+        </div>
+    </div>
+
+</body>
+</html>
+
+<!-- JS includes -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+<script src="//ajax.aspnetcdn.com/ajax/mvc/4.0/jquery.validate.unobtrusive.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+        $("#JobType").on("change", function () {
+            var url = '@Url.Action("GetPartialView", "LE")' + "?selectedItem=" + $(this).val();
+            $("#DivPlaceHolder").load(url, function (data) {
+                $('#DivPlaceHolder').html(data);
+            })
+
+        });
+
+        $("body").on('click', '#searchjob', function () {
+            var product = $("#product").val();
+            var service = $("#serviceno").val();
+            var partialview = $("#JobType").val();
+
+            if (product != '') { product = $("#product").val(); } else { product = 0; }
+            if (service != '') { service = $("#serviceno").val(); } else { service = 0; }
+            //new RouteValueDictionary(new { id = id })
+            var url = '@Url.Action("PESearchJob", "LE")' + "?selectedItem=" + partialview + "&product=" + product + "&service=" + service + "&uid=0";
+            $("#DivPlaceHolder").load(url, function (data) {
+                $('#DivPlaceHolder').html(data);
+            })
+
+        });
+    });
+</script>

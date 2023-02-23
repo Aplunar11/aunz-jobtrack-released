@@ -1,0 +1,476 @@
+﻿@model IEnumerable<JobTrack_AUNZ.Models.LE.LEManuscriptModel>
+
+@{
+    if (Session["id"] == null)
+    {
+        Response.Redirect("~/User/Login");
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #divTable {
+            white-space: nowrap;
+            overflow-x: auto;
+            transition: max-height 0.2s ease-out;
+        }
+
+        .highlight {
+            background-color: #f5f5f5;
+        }
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/css/styles.css")
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="card mb-4">
+            <div class="card-body">
+                <table class="table-bordered table-hover" style="border-collapse: collapse; table-layout: fixed;  border: 1px solid black;">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="width: 3%;"></th>
+                            <th style="width: 8%;">Job No.</th>
+                            <th style="width: 5%;">Tier</th>
+                            <th style="width: 6%;">Product</th>
+                            <th>Service No.</th>
+                            <th>Target Press Date</th>
+                            <th>Actual Press Date</th>
+                            <th>Copyedit</th>
+                            <th>Coding</th>
+                            <th>Online</th>
+                            <th>STP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><span><img src="~/Images/plus.png" /></span></td>
+                                <td><span>@item.m_JobNumber</span></td>
+                                <td><span>@item.m_Tier</span></td>
+                                <td><span>@item.m_Product</span></td>
+                                <td><span>@item.m_ServiceNo</span></td>
+                                <td><span>@item.m_TargetDate</span></td>
+                                <td><span>@item.m_PressDate</span></td>
+                                <td><span>@item.m_Copyedit</span></td>
+                                <td><span>@item.m_Coding</span></td>
+                                <td><span>@item.m_Online</span></td>
+                                <td><span>@item.m_STP</span></td>
+                            </tr>
+                            <tr style="display:none;">
+                                <td colspan="11">
+                                    <div class="accordian-body collapse" id="divTable" style="display:block; ">
+                                        <table class="table-bordered ChildGrid" id="datatable" cellpadding="0" cellspacing="0" style="border-collapse: collapse; border: 1px solid black;">
+                                            <thead class="thead-light">
+                                                <tr>
+                                                    <th>Action</th>
+                                                    <th>Query</th>
+                                                    <th style="display:none"></th>
+                                                    <th>Job Number</th>
+                                                    <th>Tier</th>
+                                                    <th>Product</th>
+                                                    <th>Service No.</th>
+                                                    <th>Manuscript/Leg Title</th>
+                                                    <th>Status</th>
+                                                    <th>Target Press Date</th>
+                                                    <th>Actual Press Date</th>
+                                                    <th>LATUP Attribution</th>
+                                                    <th>Date Received from Author</th>
+                                                    <th>Date Created</th>
+                                                    <th>Update Type</th>
+                                                    <th>Job Specific Instruction</th>
+                                                    <th>Task Type</th>
+                                                    <th>Revised Online Due Date</th>
+                                                    <th>Copyedit Due Date</th>
+                                                    <th>Copyedit Done</th>
+                                                    <th>Coding Due Date</th>
+                                                    <th>Coding Done</th>
+                                                    <th>Online Due Date</th>
+                                                    <th>Online Done</th>
+                                                    <th>Est Pages</th>
+                                                    <th>Actual TAT</th>
+                                                    <th>Online Timelines</th>
+                                                </tr>
+                                            </thead>
+                                            @foreach (var sub_item in item.LEJob)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <a class="btnEdit btn btn-primary" href="javascript:;">Edit</a>
+                                                        <a class="btnUpdate btn btn-success" href="javascript:;" style="display:none">Update</a>
+                                                        <a class="btnCancel btn btn-secondary" href="javascript:;" style="display:none">Cancel</a>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btnView btn btn-primary" href="@Url.Action("QueryIndex", "Query", new { id = @sub_item.Id})" style="display:block">View/Create</a>
+                                                        @*<a class="btnCreate" href="javascript:;" style="display:block">Create</a>*@
+                                                    </td>
+                                                    <td class="Id" style="display:none">
+                                                        <span>@sub_item.Id</span>
+                                                    </td>
+                                                    <td class="JobNo">
+                                                        <span>@sub_item.JobNumber</span>
+                                                        @*<input type="text" value="@sub_item.JobNumber" style="display:none" />*@
+                                                    </td>
+                                                    <td class="Tier">
+                                                        <span>@sub_item.Tier</span>
+                                                        @Html.DropDownList("n_Tier", new List<SelectListItem>
+                                                                {
+                                                                    new SelectListItem{ Text="Tier 1", Value = "1" },
+                                                                    new SelectListItem{ Text="Tier 2", Value = "2" },
+                                                                    new SelectListItem{ Text="Tier 3", Value = "3" },
+                                                                }, @sub_item.Tier, new { @class = "form-control-input", style = "display:none" })
+
+                                                        @*<input type="text" value="@sub_item.Tier" style="display:none" class="form-control-input" />*@
+                                                    </td>
+                                                    <td class="Product">
+                                                        <span style="display:none">>@sub_item.Product</span>
+                                                        @Html.DropDownList("Product", ViewBag.Product as SelectList, @sub_item.Product, new { @class = "form-control-input", style = "display:none" })
+                                                        @*<input type="text" value="@sub_item.Product" style="display:none" class="form-control-input" />*@
+                                                    </td>
+                                                    <td class="ServiceNo">
+                                                        <span>@sub_item.ServiceNo</span>
+                                                        <input type="text" value="@sub_item.ServiceNo" style="display:none" class="form-control-input" />
+                                                    </td>
+                                                    <td class="Manuscript">
+                                                        <span>@sub_item.Manuscript</span>
+                                                        <input type="text" value="@sub_item.Manuscript" style="display:none" class="form-control-input" />
+                                                    </td>
+                                                    <td class="Status">
+                                                        <span>@sub_item.Status</span>
+                                                        @*<input type="text" value="@sub_item.Status" style="display:none" />*@
+                                                    </td>
+                                                    <td class="TargetDate">
+                                                        <span>@sub_item.TargetDate</span>
+                                                        <input type="text" value="@sub_item.TargetDate" style="display:none" class="form-control-input" />
+                                                    </td>
+                                                    <td class="PressDate">
+                                                        <span>@sub_item.PressDate</span>
+                                                        @*<input type="text" value="@sub_item.PressDate" style="display:none" />*@
+                                                    </td>
+                                                    <td class="LatupAttribution">
+                                                        <span>@sub_item.LatupAttribution</span>
+                                                        <input type="text" value="@sub_item.LatupAttribution" style="display:none" class="form-control-input" />
+                                                    </td>
+                                                    <td class="DateFromAuthor">
+                                                        <span>@sub_item.DateFromAuthor</span>
+                                                        @*<input type="text" value="@sub_item.DateFromAuthor" style="display:none" />*@
+                                                    </td>
+                                                    <td class="DateCreated">
+                                                        <span>@item.DateCreated</span>
+                                                        @*<input type="text" value="@item.DateCreated" style="display:none" />*@
+                                                    </td>
+                                                    <td class="UpdateType">
+                                                        <span>@sub_item.UpdateType</span>
+                                                        @Html.DropDownList("updatetype", ViewBag.UpdateType as SelectList, @sub_item.UpdateType, new { @class = "form-control-input", style = "display:none" })
+                                                        @*<input type="text" value="@sub_item.LatupAttribution" style="display:none" />*@
+                                                    </td>
+                                                    <td class="Instruction">
+                                                        <span>@sub_item.Instruction</span>
+                                                        <input type="text" value="@sub_item.Instruction" style="display:none" class="form-control-input" />
+                                                    </td>
+                                                    <td class="TaskType">
+                                                        <span>@sub_item.TaskType</span>
+                                                        @*<input type="text" value="@sub_item.TaskType" style="display:none" />*@
+                                                    </td>
+                                                    <td class="RevisedDate">
+                                                        <span>@sub_item.RevisedDate</span>
+                                                        @*<input type="text" value="@sub_item.RevisedDate" style="display:none" />*@
+                                                    </td>
+                                                    <td class="CopyeditDue">
+                                                        <span>@sub_item.CopyeditDue</span>
+                                                        @*<input type="text" value="@sub_item.CopyeditDue" style="display:none" />*@
+                                                    </td>
+                                                    <td class="CopyeditDone">
+                                                        <span>@sub_item.CopyeditDone</span>
+                                                        @*<input type="text" value="@sub_item.CopyeditDone" style="display:none" />*@
+                                                    </td>
+                                                    <td class="CodingDue">
+                                                        <span>@sub_item.CodingDue</span>
+                                                        @*<input type="text" value="@sub_item.CodingDue" style="display:none" />*@
+                                                    </td>
+                                                    <td class="CodingDone">
+                                                        <span>@sub_item.CodingDone</span>
+                                                        @*<input type="text" value="@sub_item.CodingDone" style="display:none" />*@
+                                                    </td>
+                                                    <td class="OnlineDue">
+                                                        <span>@sub_item.OnlineDue</span>
+                                                        @*<input type="text" value="@sub_item.OnlineDue" style="display:none" />*@
+                                                    </td>
+                                                    <td class="OnlineDone">
+                                                        <span>@sub_item.OnlineDone</span>
+                                                        @*<input type="text" value="@sub_item.OnlineDone" style="display:none" />*@
+                                                    </td>
+                                                    <td class="EstPages">
+                                                        <span>@sub_item.EstPages</span>
+                                                        @*<input type="text" value="@sub_item.EstPages" style="display:none" />*@
+                                                    </td>
+                                                    <td class="ActualTtat">
+                                                        <span>@sub_item.ActualTtat</span>
+                                                        @*<input type="text" value="@sub_item.ActualTtat" style="display:none" />*@
+                                                    </td>
+                                                    <td class="OnlineTimelines">
+                                                        <span>@sub_item.OnlineTimelines</span>
+                                                        @*<input type="text" value="@sub_item.OnlineTimelines" style="display:none" />*@
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    }
+
+</body>
+</html>
+
+
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="/ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $("body").on("click", "img[src*='plus.png']", function () {
+                $(this).attr("src", "/images/minus.png");
+                $(this).closest('tr').toggleClass("highlight");
+                $(this).closest('tr').next().show();
+            });
+
+            $("body").on("click", "img[src*='minus.png']", function () {
+                $(this).attr("src", "/images/plus.png");
+                $(this).closest('tr').removeClass("highlight");
+                $(this).closest("tr").next().hide();
+            });
+
+        });
+
+        function AppendRowAfterInsertRecord(row, id, JobNo, Tier, Product, ServiceNo, Manuscript, Status, TargetDate, PressDate, LatupAttribution, DateFromAuthor, DateCreated, UpdateType, Instruction, TaskType, RevisedDate, CopyeditDue, CopyeditDone, CodingDue, CodingDone, OnlineDue, OnlineDone, EstPages, ActualTtat, OnlineTimelines) {
+
+            $(".Id", row).find("span").html(id);
+
+            $(".JobNo", row).find("span").html(JobNo);
+            /* $(".JobNo", row).find("input").val(JobNo);*/
+
+            $(".Tier", row).find("span").html(Tier);
+            /* $(".Tier", row).find("input").val(name);*/
+
+            $(".Product", row).find("span").html(Product);
+            /* $(".Product", row).find("input").val(name);*/
+
+            $(".ServiceNo", row).find("span").html(ServiceNo);
+            $(".ServiceNo", row).find("input").val(name);
+
+            $(".Manuscript", row).find("span").html(Manuscript);
+            $(".Manuscript", row).find("input").val(name);
+
+            $(".Status", row).find("span").html(Status);
+            $(".Status", row).find("input").val(Status);
+
+            $(".TargetDate", row).find("span").html(TargetDate);
+            $(".TargetDate", row).find("input").val(name);
+
+            $(".PressDate", row).find("span").html(PressDate);
+            $(".PressDate", row).find("input").val(PressDate);
+
+            $(".LatupAttribution", row).find("span").html(LatupAttribution);
+            $(".LatupAttribution", row).find("input").val(name);
+
+            $(".DateFromAuthor", row).find("span").html(DateFromAuthor);
+            $(".DateFromAuthor", row).find("input").val(DateFromAuthor);
+
+            $(".DateCreated", row).find("span").html(DateCreated);
+            $(".DateCreated", row).find("input").val(DateCreated);
+
+            $(".UpdateType", row).find("span").html(UpdateType);
+            /* $(".UpdateType", row).find("input").val(name);*/
+
+            $(".Instruction", row).find("span").html(Instruction);
+            $(".Instruction", row).find("input").val(name);
+
+            $(".TaskType", row).find("span").html(TaskType);
+            $(".TaskType", row).find("input").val(TaskType);
+
+            $(".RevisedDate", row).find("span").html(RevisedDate);
+            $(".RevisedDate", row).find("input").val(RevisedDate);
+
+            $(".CopyeditDue", row).find("span").html(CopyeditDue);
+            $(".CopyeditDue", row).find("input").val(CopyeditDue);
+
+            $(".CopyeditDone", row).find("span").html(CopyeditDone);
+            $(".CopyeditDone", row).find("input").val(CopyeditDone);
+
+            $(".CodingDue", row).find("span").html(CodingDue);
+            $(".CodingDue", row).find("input").val(CodingDue);
+
+            $(".CodingDone", row).find("span").html(CodingDone);
+            $(".CodingDone", row).find("input").val(CodingDone);
+
+            $(".OnlineDue", row).find("span").html(OnlineDue);
+            $(".OnlineDue", row).find("input").val(OnlineDue);
+
+            $(".OnlineDone", row).find("span").html(OnlineDone);
+            $(".OnlineDone", row).find("input").val(OnlineDone);
+
+            $(".EstPages", row).find("span").html(EstPages);
+            $(".EstPages", row).find("input").val(EstPages);
+
+            $(".ActualTtat", row).find("span").html(ActualTtat);
+            $(".ActualTtat", row).find("input").val(ActualTtat);
+
+            $(".OnlineTimelines", row).find("span").html(OnlineTimelines);
+            $(".OnlineTimelines", row).find("input").val(OnlineTimelines);
+
+            /*  debugger;*/
+            row.find(".btnEdit").show();
+            row.find(".btnDelete").show();
+            $("#datatable").append(row);
+        };
+
+        //Edit event handler.
+        $("body").on("click", "#datatable .btnEdit", function () {
+            /*  debugger;*/
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+
+                if ($(this).find("input").length > 0) {
+                    $(this).find("input").show();
+                    $(this).find("span").hide();
+                }
+
+                if ($(this).find("select").length > 0) {
+                    $(this).find("select").show();
+                    $(this).find("span").hide();
+
+                }
+            });
+            row.find(".btnUpdate").show();
+            row.find(".btnCancel").show();
+            $(this).hide();
+        });
+
+        //Update event handler.
+        $("body").on("click", "#datatable .btnUpdate", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    span.html(input.val());
+                    span.show();
+                    input.hide();
+                }
+
+                if ($(this).find("select").length > 0) {
+                    $(this).find("select").hide();
+                    $(this).find("span").show();
+                    $(this).find("span").html($(this).find("select").children("option").filter(":selected").text())
+                }
+
+            });
+            row.find(".btnEdit").show();
+            row.find(".btnCancel").hide();
+            $(this).hide();
+
+            debugger;
+            var LEManuscriptObj = {
+                Id: row.find(".Id").find("span").html(),
+                JobNumber: row.find(".JobNo").find("span").html(),
+                Tier: row.find(".Tier").find("span").html(),
+                Product: row.find(".Product").find("span").html(),
+                ServiceNo: row.find(".ServiceNo").find("span").html(),
+                Manuscript: row.find(".Manuscript").find("span").html(),
+                Status: row.find(".Status").find("span").html(),
+                TargetDate: row.find(".TargetDate").find("span").html(),
+                PressDate: row.find(".PressDate").find("span").html(),
+                LatupAttribution: row.find(".LatupAttribution").find("span").html(),
+                DateFromAuthor: row.find(".DateFromAuthor").find("span").html(),
+                DateCreated: row.find(".DateCreated").find("span").html(),
+                UpdateType: row.find(".UpdateType").find("span").html(),
+                Instruction: row.find(".Instruction").find("span").html(),
+                TaskType: row.find(".TaskType").find("span").html(),
+                RevisedDate: row.find(".RevisedDate").find("span").html(),
+                CopyeditDue: row.find(".CopyeditDue").find("span").html(),
+                CopyeditDone: row.find(".CopyeditDone").find("span").html(),
+                CodingDue: row.find(".CodingDue").find("span").html(),
+                CodingDone: row.find(".CodingDone").find("span").html(),
+                OnlineDue: row.find(".OnlineDue").find("span").html(),
+                OnlineDon: row.find(".OnlineDone").find("span").html(),
+                EstPages: row.find(".EstPages").find("span").html(),
+                ActualTtat: row.find(".ActualTtat").find("span").html(),
+                OnlineTimelines: row.find(".OnlineTimelines").find("span").html(),
+            };
+
+            debugger;
+
+            if (!LEManuscriptObj.Id || LEManuscriptObj.Id <= 0) {
+                alert("Invalid Id!");
+                return false;
+            }
+            $.ajax({
+                url: "/LE/LEUpdateJob",
+                data: JSON.stringify(LEManuscriptObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+                    debugger;
+                    alert(result);
+                },
+                error: function (errormessage) {
+                    alert(errormessage.responseText);
+                }
+            });
+        });
+
+        //Cancel event handler.
+        $("body").on("click", "#datatable .btnCancel", function () {
+            var row = $(this).closest("tr");
+            $("td", row).each(function () {
+                if ($(this).find("input").length > 0) {
+                    var span = $(this).find("span");
+                    var input = $(this).find("input");
+                    input.val(span.html());
+                    span.show();
+                    input.hide();
+                }
+
+                if ($(this).find("select").length > 0) {
+                    $(this).find("select").hide();
+                    $(this).find("span").show();
+                    $(this).find("span").html($(this).find("select").children("option").filter(":selected").text())
+                }
+            });
+            row.find(".btnEdit").show();
+            row.find(".btnUpdate").hide();
+            $(this).hide();
+        });
+
+        //view-Create event handler.
+        @*$("body").on("click", "#datatable .btnView", function () {
+            var row = $(this).closest("tr");
+            var url = '@Url.Action("GetPartialQuery", "LE")' + "?selectedItem=" + row.find(".Id").find("span").html();
+             $("#DivPlaceHolder").load(url, function (data) {
+                  // $('#DivPlaceHolder').html(data);
+             });
+        });*@
+    });
+</script>

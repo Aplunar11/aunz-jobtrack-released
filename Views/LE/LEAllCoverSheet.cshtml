@@ -1,0 +1,199 @@
+﻿@model IEnumerable<JobTrack_AUNZ.Models.LE.LECoversheetModel>
+
+@{
+    if (Session["id"] == null)
+    {
+        Response.Redirect("~/User/Login");
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #divTable {
+            white-space: nowrap;
+            overflow-x: auto;
+            transition: max-height 0.2s ease-out;
+        }
+
+        .highlight {
+            background-color: #f5f5f5;
+        }
+
+    </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    @Styles.Render("~/css/styles.css")
+    @Styles.Render("~/Content/css")
+
+</head>
+<body>
+    <div class="card mb-4">
+        <div class="card-body">
+            <div style="overflow: auto; display: flex; overflow-x:auto;">
+                <table class="table-bordered table-hover" style="border-collapse: collapse;  border: 1px solid black;">
+                    <thead class="thead-light">
+                        <tr>
+                            @*<th>
+                            @Html.DisplayNameFor(model => model.Workflow)
+                        </th>
+                        <th>Action</th>
+                        <th>Query</th>
+                        <th></th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.CoversheetNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tier)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Product)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ServiceNo)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.GuideCards)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ManuscriptLocation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SpecialInstruction)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CurrentTask)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TargetDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.PressDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CodingDueDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CodingStart)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CodingDone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.SubsequentPass)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OnlineDueDate)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OnlineStart)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OnlineDone)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OnlineTimeless)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Reason)
+                            </th>
+                        </tr>
+
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            @*<td>
+                            @Html.DisplayFor(modelItem => item.Workflow)
+                        </td>
+                        <td>
+                            <a class="btnEdit" href="javascript:;">Edit</a>
+                            <a class="btnUpdate" href="javascript:;" style="display:none">Update</a>
+                            <a class="btnCancel" href="javascript:;" style="display:none">Cancel</a>
+                        </td>
+                        <td>
+                            <a class="btnUpdate" href="javascript:;" style="display:block">View</a>
+                            <a class="btnCancel" href="javascript:;" style="display:block">Create</a>
+                        </td>
+                        <td class="Id">
+                            <span style="display:none">@item.Id</span>
+                        </td>*@
+                            <td>
+                                <span>@item.CoversheetNo</span>
+                            </td>
+                            <td>
+                                <span>@item.Tier</span>
+                            </td>
+                            <td>
+                                <span>@item.Product</span>
+                            </td>
+                            <td>
+                                <span>@item.ServiceNo</span>
+                            </td>
+                            <td class="GuideCards">
+                                <span>@item.GuideCards</span>
+                                <input type="text" value="@item.GuideCards" style="display:none" class="form-control-input" />
+                            </td>
+                            <td class="ManuscriptLocation">
+                                <span>@item.ManuscriptLocation</span>
+                                <input type="text" value="@item.ManuscriptLocation" style="display:none" class="form-control-input" />
+                            </td>
+                            <td class="SpecialInstruction">
+                                <span>@item.SpecialInstruction</span>
+                                <input type="text" value="@item.SpecialInstruction" style="display:none" class="form-control-input" />
+                            </td>
+                            <td>
+                                <span>@item.CurrentTask</span>
+                            </td>
+                            <td>
+                                <span>@item.Status</span>
+                            </td>
+                            <td class="TargetDate">
+                                <span>@item.TargetDate</span>
+                                <input type="text" value="@item.TargetDate" style="display:none" class="form-control-input" />
+                            </td>
+                            <td>
+                                <span>@item.PressDate</span>
+                            </td>
+                            <td>
+                                <span>@item.CodingDueDate</span>
+                            </td>
+                            <td>
+                                <span>@item.CodingStart</span>
+                            </td>
+                            <td>
+                                <span>@item.CodingDone</span>
+                            </td>
+                            <td>
+                                <span>@item.SubsequentPass</span>
+                            </td>
+                            <td>
+                                <span>@item.OnlineDueDate</span>
+                            </td>
+                            <td>
+                                <span>@item.OnlineStart</span>
+                            </td>
+                            <td>
+                                <span>@item.OnlineDone</span>
+                            </td>
+                            <td>
+                                <span>@item.OnlineTimeless</span>
+                            </td>
+                            <td>
+                                <span>@item.Reason</span>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+           
+</body>
+</html>
